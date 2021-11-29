@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: com.github.polyrocketmatt.peak.PeakKt
+Class-Path: annotations-13.0.jar kotlin-stdlib-1.6.0.jar Game-1.0.1.jar 
+ kotlin-stdlib-common-1.6.0.jar kotlin-stdlib-jdk7-1.6.0.jar kotlin-stdl
+ ib-jdk8-1.6.0.jar
+
