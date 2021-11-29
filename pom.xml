@@ -19,12 +19,12 @@
 
     <repositories>
         <repository>
-            <id>mavenCentral</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
             <id>prm-plugins</id>
             <url>https://github.com/PolyRocketMatt/Maven-Repo/raw/main</url>
+        </repository>
+        <repository>
+            <id>mavenCentral</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
 
@@ -96,8 +96,8 @@
     <dependencies>
         <dependency>
             <groupId>com.github.polyrocketmatt</groupId>
-            <artifactId>GAME</artifactId>
-            <version>1.0.1</version>
+            <artifactId>Game</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
