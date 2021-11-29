@@ -16,7 +16,7 @@ for this type of procedural generation deserve their own library.
 
 PEAK primarily focuses on the generation of heightmaps. Even though there are already plenty of libraries for this
 out there, PEAK stands out because of the variety of algorithms it offers. It doesn't force you to use ~30 year old
-techniques but also offers you to use more contemporary algorithms such as different types of erosion, river-generation,
+techniques but offers you to use more contemporary algorithms such as different types of erosion, river-generation,
 etc.
 
 ## Papers
@@ -27,3 +27,6 @@ landscapes. Below is a non-exhaustive lists of papers used whose algorithms are 
 - [Orometry-based Terrain Synthesis](https://hal.archives-ouvertes.fr/hal-02326472/file/2019-orometry.pdf)
 - [Terrain Generation using Diffusion Equation](https://perso.liris.cnrs.fr/eric.galin/Articles/2010-terrain.pdf)
 - [Terrain Generation using Tectonic Uplift/Fluvial Erosion](https://hal.inria.fr/hal-01262376/document)
+- [Polynomial Method for Procedural Terrain Generation](https://arxiv.org/pdf/1610.03525.pdf)
+
+I would like to thank all authors without whom this project would have never been possible.
