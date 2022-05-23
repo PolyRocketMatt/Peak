@@ -1,6 +1,6 @@
 <div align="center">
     <img
-        src="img/peak_logo.png"
+        src="img/peak_logo_dark.png"
         width="800"
     />
 </div>
