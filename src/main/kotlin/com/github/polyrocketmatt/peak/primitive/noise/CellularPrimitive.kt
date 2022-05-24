@@ -5,7 +5,6 @@ import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.FastNoiseProvider
 import com.github.polyrocketmatt.peak.provider.builder.FastProviderDataBuilder
 import com.github.polyrocketmatt.peak.types.FastNoise
-import java.awt.image.BufferedImage
 
 /**
  * Defines a primitive from Cellular noise. A buffer is constructed
@@ -14,14 +13,21 @@ import java.awt.image.BufferedImage
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height)) {
+class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height), true) {
+
+    /**
+     * Constructor for a primitive with equal width and height buffer.
+     *
+     * @param size: the width and height of the buffer
+     */
+    constructor(size: Int) : this(size, size)
 
     /**
      * The seed of the primitive.
      */
     var seed: Int = 1
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -30,7 +36,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
      */
     var distanceType: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -39,7 +45,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
      */
     var returnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -48,12 +54,11 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
      */
     var lookup: FastNoise? = null
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
     private var noise: FastNoiseProvider = FastNoiseProvider(FastProviderDataBuilder().build())
-    private var update: Boolean = false
 
     init { recompute() }
 
@@ -65,36 +70,19 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
         this.noise = FastNoiseProvider(
             FastProviderDataBuilder()
                 .buildSeed(this.seed)
+                .buildType(FastNoise.NoiseType.CELLULAR)
                 .buildDistanceFunction(this.distanceType)
                 .buildReturnType(this.returnType)
                 .buildLookup(this.lookup)
                 .build()
         )
-        val width = this.buffer.width()
-        val height = this.buffer.height()
+        val width = this.buffer().width()
+        val height = this.buffer().height()
 
         for (x in 0 until width) for (z in 0 until height)
-            this.buffer[x][z] = this.noise.noise(x, z)
+            this.buffer()[x][z] = this.noise.noise(x, z)
 
-        Operators.NORMALIZE.operate(this.buffer)
+        Operators.NORMALIZE.operate(this.buffer())
     }
-
-    /**
-     * Get the noise buffer of the primitive.
-     *
-     * @return the noise buffer of the primitive
-     */
-    override fun buffer(): NoiseBuffer {
-        if (update)
-            recompute()
-        return this.buffer
-    }
-
-    /**
-     * Get the image of the primitive.
-     *
-     * @return the image of the primitive
-     */
-    override fun image(): BufferedImage = buffer.image()
 
 }

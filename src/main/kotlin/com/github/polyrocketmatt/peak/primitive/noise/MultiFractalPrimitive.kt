@@ -14,14 +14,21 @@ import java.awt.image.BufferedImage
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height)) {
+class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height), true) {
+
+    /**
+     * Constructor for a primitive with equal width and height buffer.
+     *
+     * @param size: the width and height of the buffer
+     */
+    constructor(size: Int) : this(size, size)
 
     /**
      * The seed of the primitive.
      */
     var seed: Int = 1
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -30,7 +37,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     var octaves: Int = 8
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -39,7 +46,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     var scale: Float = 1.0f
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -48,7 +55,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     var gain: Float = 0.5f
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -57,7 +64,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     var lacunarity: Float = 2.0f
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
@@ -66,12 +73,11 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     var fractal: FastNoise.FractalType = FastNoise.FractalType.FBM
         set(value) {
-            update = true
+            this.update = true
             field = value
         }
 
     private var noise: FastNoiseProvider = FastNoiseProvider(FastProviderDataBuilder().build())
-    private var update: Boolean = false
 
     init { recompute() }
 
@@ -92,31 +98,13 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
                 .buildFractal(this.fractal)
                 .build()
         )
-        val width = this.buffer.width()
-        val height = this.buffer.height()
+        val width = this.buffer().width()
+        val height = this.buffer().height()
 
         for (x in 0 until width) for (z in 0 until height)
-            this.buffer[x][z] = this.noise.noise(x, z)
+            this.buffer()[x][z] = this.noise.noise(x, z)
 
-        Operators.NORMALIZE.operate(this.buffer)
+        Operators.NORMALIZE.operate(this.buffer())
     }
-
-    /**
-     * Get the noise buffer of the primitive.
-     *
-     * @return the noise buffer of the primitive
-     */
-    override fun buffer(): NoiseBuffer {
-        if (update)
-            recompute()
-        return this.buffer
-    }
-
-    /**
-     * Get the image of the primitive.
-     *
-     * @return the image of the primitive
-     */
-    override fun image(): BufferedImage = buffer.image()
 
 }

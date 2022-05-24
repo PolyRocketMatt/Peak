@@ -81,7 +81,7 @@ fun NoiseBuffer.sqrt() = SQUARE_ROOT.operate(this)
 
 infix fun NoiseBuffer.add(other: NoiseBuffer) = ADD.operate(this, other)
 
-infix fun NoiseBuffer.blend(other: NoiseBuffer) = BLEND.operate(this, other)
+fun NoiseBuffer.blend(other: NoiseBuffer, blend: Float) = BLEND.operate(this, other, blend)
 
 infix fun NoiseBuffer.pow(other: NoiseBuffer) = COMBO_POW.operate(this, other)
 

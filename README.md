@@ -8,7 +8,7 @@
 # PEAK Library
 
 PEAK stands for **Procedural Environment Algorithms for Kotlin**. It is a collection of various algorithms, noise types, 
-modifiers, masks, filters, data extraction tools and more for creating and manipulating heightmaps.
+modifiers, masks, filters, data extraction tools and more for creating and manipulating heightmaps 🗺️.
 
 ## Features
 
@@ -29,6 +29,8 @@ Here is the table of content which describes all features of PEAK:
 - [**Masks**](#masks)
 - [**Data Extractors**](#data-extractors)
 - [**3D Engine**](#3d-engine)
+
+---
 
 ### Noise Providers
 
@@ -104,6 +106,20 @@ The builder works analogue to the previously described builder. All builder func
 the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
 
 ### Primitives
+
+If you want to create a lot of heightmaps without creating `ProviderDataBuilders` for each one of them, you can
+use the `Primitive` API. A primitive is data-generation object that has the following options:
+
+- ```kotlin
+  recompute()
+
+- ```kotlin
+  recompute()
+
+- ```kotlin
+  recompute()
+
+A `NoisePrimitive` is a primitive 
 
 ### Simulation
 
