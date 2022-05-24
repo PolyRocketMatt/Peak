@@ -11,7 +11,7 @@ class ScaleOperator : UnaryBufferOperator {
             throw BufferOperationException("Incorrect number of arguments provided! Expected scale argument!")
         val scale = data[0]
 
-        buffer.op { fl -> fl * scale }
+        buffer.map { fl -> fl * scale }
 
         return buffer
     }

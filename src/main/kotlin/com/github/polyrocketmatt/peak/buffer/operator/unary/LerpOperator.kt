@@ -13,7 +13,7 @@ class LerpOperator : UnaryBufferOperator {
         val min = data[0]
         val max = data[1]
 
-        buffer.op { fl -> fl.lerp(min, max) }
+        buffer.map { fl -> fl.lerp(min, max) }
 
         return buffer
     }

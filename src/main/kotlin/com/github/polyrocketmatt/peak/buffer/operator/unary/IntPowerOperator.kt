@@ -13,7 +13,7 @@ class IntPowerOperator : UnaryBufferOperator {
             throw BufferOperationException("Incorrect number of arguments provided! Expected exponent argument!")
         val exp = data[0].i()
 
-        buffer.op { fl -> fl.intPow(exp) }
+        buffer.map { fl -> fl.intPow(exp) }
 
         return buffer
     }

@@ -7,7 +7,7 @@ import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 class SquareRootOperator : UnaryBufferOperator {
 
     override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
-        buffer.op { fl -> fl.sqrt() }
+        buffer.map { fl -> fl.sqrt() }
 
         return buffer
     }

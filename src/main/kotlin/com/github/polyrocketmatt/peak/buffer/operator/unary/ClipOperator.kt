@@ -13,7 +13,7 @@ class ClipOperator : UnaryBufferOperator {
         val min = data[0]
         val max = data[1]
 
-        buffer.op { fl -> fl.clip(min, max) }
+        buffer.map { fl -> fl.clip(min, max) }
 
         return buffer
     }

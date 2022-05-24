@@ -7,7 +7,7 @@ import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 class SmootherStepOperator : UnaryBufferOperator {
 
     override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
-        buffer.op { fl -> fl.smootherStep() }
+        buffer.map { fl -> fl.smootherStep() }
 
         return buffer
     }

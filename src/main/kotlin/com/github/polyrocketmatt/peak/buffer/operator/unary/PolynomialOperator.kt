@@ -7,7 +7,7 @@ import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 class PolynomialOperator : UnaryBufferOperator {
 
     override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
-        buffer.op { fl -> computePolynomial(fl, data) }
+        buffer.map { fl -> computePolynomial(fl, data) }
 
         return buffer
     }

@@ -10,7 +10,7 @@ class NormalisationOperator : UnaryBufferOperator {
         val min = buffer.min()
         val max = buffer.max()
 
-        buffer.op { fl -> fl.normalize(min, max) }
+        buffer.map { fl -> fl.normalize(min, max) }
 
         return buffer
     }

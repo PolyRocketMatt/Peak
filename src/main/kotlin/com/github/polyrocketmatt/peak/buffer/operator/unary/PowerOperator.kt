@@ -12,7 +12,7 @@ class PowerOperator : UnaryBufferOperator {
             throw BufferOperationException("Incorrect number of arguments provided! Expected exponent argument!")
         val exp = data[0]
 
-        buffer.op { fl -> fl.pow(exp) }
+        buffer.map { fl -> fl.pow(exp) }
 
         return buffer
     }
