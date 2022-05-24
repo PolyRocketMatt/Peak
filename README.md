@@ -21,7 +21,7 @@ realistic looking terrains.
 
 Here is the table of content which describes all features of PEAK:
 
-- [**Noise Providers**](#noise-providers) - 
+- [**Noise Providers**](#noise-providers)
 - [**Primitives**](#primitives)
 - [**Simulation**](#simulation)
 - [**Operators**](#operators)
@@ -74,11 +74,34 @@ val fastNoiseProvider = FastNoiseProvider(providerData)
 println("Noise at x=0, y=0: ${fastNoiseProvider.noise(0, 0)}")
 ```
 
+With the builder, you can modify parameters such as:
+
+- seed
+- octaves
+- gain
+- lacunarity
+- type of noise
+
 All builder functions are explained within the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
+
 Analogous, the `ComplexNoiseProvider` provides more complex forms of noise. Currently, it provides the following
 types of noise:
 
 - **Polynomial** Noise (Originally developed by Yann Thorimbert & Bastien Chopard)
+
+The `ComplexNoiseProvider` relies on certain parameters. Therefor, you can construct a `ComplexNoiseProviderData`-object,
+which stores these parameters. This data class can be build using a builder as follows:
+
+```kotlin
+val providerData = ComplexNoiseProviderDataBuilder()
+    .build()
+val complexNoiseProvider = ComplexNoiseProvider(providerData)
+
+println("Noise at x=0, y=0: ${complexNoiseProvider.noise(0, 0)}")
+```
+
+The builder works analogue to the previously described builder. All builder functions are explained within 
+the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
 
 ### Primitives
 

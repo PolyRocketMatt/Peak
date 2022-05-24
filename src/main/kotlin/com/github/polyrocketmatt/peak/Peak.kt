@@ -1,9 +1,10 @@
 package com.github.polyrocketmatt.peak
 
-import com.github.polyrocketmatt.peak.noise.buffer.operator.*
-import com.github.polyrocketmatt.peak.noise.primitive.MultiFractalPrimitive
-import com.github.polyrocketmatt.peak.noise.primitive.PerlinPrimitive
-import com.github.polyrocketmatt.peak.noise.types.FastNoise
+import com.github.polyrocketmatt.peak.buffer.operator.max
+import com.github.polyrocketmatt.peak.buffer.operator.scale
+import com.github.polyrocketmatt.peak.primitive.MultiFractalPrimitive
+import com.github.polyrocketmatt.peak.primitive.PerlinPrimitive
+import com.github.polyrocketmatt.peak.types.FastNoise
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.random.Random
@@ -22,7 +23,7 @@ fun main(args: Array<String>) {
     simplex.fractal = FastNoise.FractalType.BILLOW
     simplex.seed = Random.nextInt(0, 100000)
 
-    val buffer = (perlin.buffer() max simplex.buffer().scale(0.55f)).scale(0.8f)
+    val buffer = (perlin.buffer() max  simplex.buffer().scale(0.55f)).scale(0.8f)
 
     ImageIO.write(buffer.image(), "png", File("img/test.png"))
 

@@ -1,7 +1,7 @@
 package com.github.polyrocketmatt.peak.image
 
 import com.github.polyrocketmatt.game.math.i
-import com.github.polyrocketmatt.peak.noise.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
