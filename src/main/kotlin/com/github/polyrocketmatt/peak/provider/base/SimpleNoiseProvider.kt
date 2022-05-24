@@ -1,3 +1,3 @@
-package com.github.polyrocketmatt.peak.provider.primitive
+package com.github.polyrocketmatt.peak.provider.base
 
 abstract class SimpleNoiseProvider : NoiseProviderI, NoiseProviderF, NoiseProviderD

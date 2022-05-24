@@ -2,8 +2,8 @@ package com.github.polyrocketmatt.peak
 
 import com.github.polyrocketmatt.peak.buffer.operator.max
 import com.github.polyrocketmatt.peak.buffer.operator.scale
-import com.github.polyrocketmatt.peak.primitive.MultiFractalPrimitive
-import com.github.polyrocketmatt.peak.primitive.PerlinPrimitive
+import com.github.polyrocketmatt.peak.primitive.noise.MultiFractalPrimitive
+import com.github.polyrocketmatt.peak.primitive.noise.PerlinPrimitive
 import com.github.polyrocketmatt.peak.types.FastNoise
 import java.io.File
 import javax.imageio.ImageIO

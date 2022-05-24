@@ -3,7 +3,7 @@ package com.github.polyrocketmatt.peak.provider
 import com.github.polyrocketmatt.game.math.d
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.peak.provider.data.FastProviderData
-import com.github.polyrocketmatt.peak.provider.primitive.SimpleNoiseProvider
+import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.FastNoise
 
 /**
