@@ -2,12 +2,14 @@ package com.github.polyrocketmatt.peak.noise.provider
 
 import com.github.polyrocketmatt.game.math.d
 import com.github.polyrocketmatt.game.math.f
-import com.github.polyrocketmatt.peak.noise.FastNoise
+import com.github.polyrocketmatt.peak.noise.provider.data.FastProviderData
+import com.github.polyrocketmatt.peak.noise.provider.primitive.SimpleNoiseProvider
+import com.github.polyrocketmatt.peak.noise.types.FastNoise
 
 /**
- * Represents a general noise provider.
+ * Represents a fast noise provider.
  */
-class NoiseProvider(data: ProviderData) : NoiseProviderF, NoiseProviderD, NoiseProviderI {
+class FastNoiseProvider(data: FastProviderData) : SimpleNoiseProvider() {
 
     private val noise: FastNoise
 

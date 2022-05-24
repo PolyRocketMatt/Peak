@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.noise.provider
+package com.github.polyrocketmatt.peak.noise.provider.primitive
 
 @FunctionalInterface
 interface NoiseProviderI {

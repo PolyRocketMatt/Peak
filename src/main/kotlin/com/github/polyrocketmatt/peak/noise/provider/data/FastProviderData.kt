@@ -1,11 +1,12 @@
-package com.github.polyrocketmatt.peak.noise.provider
+package com.github.polyrocketmatt.peak.noise.provider.data
 
-import com.github.polyrocketmatt.peak.noise.FastNoise
+import com.github.polyrocketmatt.peak.noise.provider.FastNoiseProvider
+import com.github.polyrocketmatt.peak.noise.types.FastNoise
 
 /**
- * Data object which holds data for a noise provider to use.
+ * Data object which holds data for a fast noise provider to use.
  */
-data class ProviderData(
+data class FastProviderData(
     val seed: Int = 0,
     val octaves: Int = 1,
     val scale: Float = 1.0f,
@@ -16,13 +17,13 @@ data class ProviderData(
     val fractal: FastNoise.FractalType = FastNoise.FractalType.FBM,
     val distanceFunction: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN,
     val cellularReturnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
-) {
+) : ProviderData() {
 
     /**
-     * Get a provider for the given data.
+     * Get a fast provider for the given data.
      *
-     * @return a noise provider based on the given data
+     * @return a fast noise provider based on the given data
      */
-    fun provider(): NoiseProvider = NoiseProvider(this)
+    override fun provider(): FastNoiseProvider = FastNoiseProvider(this)
 
 }

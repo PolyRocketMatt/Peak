@@ -7,109 +7,94 @@
 
 # PEAK Library
 
-PEAK stands for **Procedural Environment Algorithms for Kotlin**. It is a collection of various types of procedural
-noise, algorithms and utilities to create quasi-realistic looking heightmaps. It runs based of the GAME library 
-which was written at the same time. While GAME offers more geometric and mathematical utilities, the algorithms
-for this type of procedural generation deserve their own library.
+PEAK stands for **Procedural Environment Algorithms for Kotlin**. It is a collection of various algorithms, noise types, 
+modifiers, masks, filters, data extraction tools and more for creating and manipulating heightmaps.
 
 ## Features
 
 PEAK primarily focuses on the generation of heightmaps. Even though there are already plenty of libraries for this
-out there, PEAK stands out because of the variety of algorithms it offers. It doesn't force you to use ~30 year old
-techniques but offers you to use more contemporary algorithms such as different types of erosion, river-generation,
-etc.
-
-## Papers
-
-PEAK is based on a collection of papers. These describe new and exciting techniques on how to create procedural 
-landscapes. Below is a non-exhaustive lists of papers used whose algorithms are (partially) implemented:
-
-- [Orometry-based Terrain Synthesis](https://hal.archives-ouvertes.fr/hal-02326472/file/2019-orometry.pdf)
-- [Terrain Generation using Diffusion Equation](https://perso.liris.cnrs.fr/eric.galin/Articles/2010-terrain.pdf)
-- [Terrain Generation using Tectonic Uplift/Fluvial Erosion](https://hal.inria.fr/hal-01262376/document)
-- [Polynomial Method for Procedural Terrain Generation](https://arxiv.org/pdf/1610.03525.pdf)
-- [Procedural Noise using Sparse Gabor Convolution](https://graphics.cs.kuleuven.be/publications/LLDD09PNSGC/)
-
-I would like to thank all authors without whom this project would have never been possible.
+out there, PEAK stands out because of the variety of algorithms it offers. While it offers you to, it doesn't force you 
+to use old techniques. Instead, it allows to combine these together with new features, filters and operators to create
+realistic looking terrains.
 
 ## Table Of Content
 
-Here is the table of content which describes all features of PEAK. Note that some processes can take a substantial
-amount of time when performed on larger areas/sizes (most notably: erosion).
+Here is the table of content which describes all features of PEAK:
 
-**Noise Library**
+- [**Noise Providers**](#noise-providers) - 
+- [**Primitives**](#primitives)
+- [**Simulation**](#simulation)
+- [**Operators**](#operators)
+- [**Filters**](#filters)
+- [**Masks**](#masks)
+- [**Data Extractors**](#data-extractors)
+- [**3D Engine**](#3d-engine)
 
-- [Noise Types](#noise-types)
-- [Noise Builder](#noise-builder)
-- [Noise Algorithms](#noise-related-algorithms)
+### Noise Providers
 
-## Noise Library
+Noise providers form at the basis of PEAK. They form the backbone of any combination of noise, operator, filter or
+mask. All noise providers extend `SimpleNoiseProvider`. A custom noise provider that outputs a uniform value can be
+implemented as follows:
 
-### Noise Types
+```kotlin
+class CustomNoiseProvider(private val value: Float) : SimpleNoiseProvider() {
+    
+    override fun noise(x: Int, z: Int): Float {
+        return value
+    }
 
-Currently, PEAK offers 3 types of noises:
+    override fun noise(x: Float, z: Float): Float {
+        return value
+    }
 
-- Perlin Noise
-- Simplex Noise
-- Polynomial Noise
+    override fun noise(x: Double, z: Double): Double {
+        return value.toDouble()
+    }
+    
+}
+```
 
-These noises are enough to describe various types and all other types of noise
-can be derived from these. 
+There are two pre-built providers: `FastNoiseProvider`, which implements the famous [FastNoise](https://github.com/Auburn/FastNoiseLite) 
+library written by Jordan Peck. It provides the following types of noise:
 
-**Perlin Noise**
+- (Fractal) **Value** Noise
+- (Fractal) **Perlin** Noise
+- (Fractal) **Simplex** Noise
+- **Cellular** Noise
+- **White** Noise
 
-PEAK offers a custom implementation of Perlin Noise which is available as ```PerlinNoise```, which is a Kotlin 
-implementation of Ken Perlin's [Improved Perlin Noise](https://mrl.cs.nyu.edu/~perlin/paper445.pdf). It is advised 
-to only use Perlin Noise in these cases:
+The `FastNoiseProvider` relies on certain parameters. Therefor, you can construct a `FastNoiseProviderData`-object,
+which stores these parameters. This data class can be build using a builder as follows:
 
-- Small patches of noise are to be generated
-- The derivative of the noise has to be known
+```kotlin
+val providerData = FastNoiseProviderDataBuilder()
+    .build()
+val fastNoiseProvider = FastNoiseProvider(providerData)
 
-An example of Perlin Noise with a single octave:
+println("Noise at x=0, y=0: ${fastNoiseProvider.noise(0, 0)}")
+```
 
-<div align="center">
-    <img
-        src="img/perlin.png"
-        width="512"
-    />
-</div>
+All builder functions are explained within the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
+Analogous, the `ComplexNoiseProvider` provides more complex forms of noise. Currently, it provides the following
+types of noise:
 
-An example of Perlin Noise with 8 octaves (*gain=0.5, lacunarity=2.0*)
+- **Polynomial** Noise (Originally developed by Yann Thorimbert & Bastien Chopard)
 
-<div align="center">
-    <img
-        src="img/perlin_octaved.png"
-        width="512"
-    />
-</div>
+### Primitives
 
-**Simplex Noise**
+### Simulation
 
-Simplex Noise is the better version of Perlin Noise which is available as ```OpenSimplexNoise```. The implementation is based on 
-[this article](https://weber.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf) by Stefan Gustavson. It can be
-used to generate larger areas of noise or patches of noise that have to be infinite.
+### Operators
 
-An example of Simplex Noise with 8 octaves (*gain=0.5, lacunarity=2.0*)
+### Filters
 
-<div align="center">
-    <img
-        src="img/simplex_octaved.png"
-        width="512"
-    />
-</div>
+### Masks
 
-**Polynomial Noise**
+### Data Extractors
 
-Finally, PEAK also offers Polynomial Noise, originally developed by Yann Thorimbert in his 
-[paper](https://arxiv.org/pdf/1610.03525.pdf). To our knowledge, this is the first 3-th party
-implementation of the paper that has been published. Polynomial noise is a fascinating take
-on noise. It produces the same quality of Simplex Noise but is faster to compute. This type
-of noise is not infinite and is thus only useful for fast patches of noise (these patches 
-can be quite large). It is available as ```PolynomialNoise```. 
+### 3D Engine
 
-*Note:* Polynomial Noise pre-generates it's values and can only do so in a square-shape.
-
-An example of Polynomial Noise with 8 octaves (*lacunarity=2.0*)
+~ Soon
 
 <div align="center">
     <img
@@ -118,9 +103,6 @@ An example of Polynomial Noise with 8 octaves (*lacunarity=2.0*)
     />
 </div>
 
-### Noise Builder
+---
 
-The noise-builder is used to generate buffers for different types of noise. These buffers hold the 
-data that the noises need to compute their values.
-
-### Noise-related Algorithms
+<div align="center">Made with ❤️ in Leuven</div>

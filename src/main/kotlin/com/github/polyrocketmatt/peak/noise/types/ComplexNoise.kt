@@ -1,0 +1,109 @@
+package com.github.polyrocketmatt.peak.noise.types
+
+import com.github.polyrocketmatt.game.math.i
+import com.github.polyrocketmatt.game.math.smoothStep
+import com.github.polyrocketmatt.peak.exception.NoiseException
+import com.github.polyrocketmatt.peak.noise.buffer.NoiseBuffer
+import kotlin.random.Random
+
+class ComplexNoise(
+    private val seed: Int,
+    private val sX: Int,
+    private val sZ: Int
+) : NoiseEvaluator {
+
+    enum class Method { LINEAR, HERMITE, QUINTIC }
+    enum class NoiseType { POLYNOMIAL }
+
+    private var buffer: NoiseBuffer = NoiseBuffer(sX, sZ)
+    private val rng: Random = Random(seed)
+    var method: Method = Method.QUINTIC
+    var type: NoiseType = NoiseType.POLYNOMIAL
+    var octaves: Int = 8
+    var gain: Float = 0.5f
+
+    init { recalculate() }
+
+    fun recalculate() {
+        this.buffer = when (type) {
+            NoiseType.POLYNOMIAL        -> polynomial(NoiseBuffer(sX, sZ))
+        }
+    }
+
+    override fun noise(nX: Float, nY: Float): Float = buffer[nX.i()][nY.i()]
+
+    override fun noise(nX: Float, nY: Float, nZ: Float): Float = buffer[nX.i()][nY.i()]
+
+    private fun polynomial(buffer: NoiseBuffer): NoiseBuffer {
+        if (sX != sZ)
+            throw NoiseException("Width must equal height for polynomial height")
+
+        val boundary = NoiseBuffer(sX, sZ, rng)
+
+        var deltaX = 0.0f
+        var deltaY = 0.0f
+        var a = 0.0f
+        var h00 = 0.0f
+        var h01: Float
+        var h10: Float
+        var h11: Float
+        var changeCell = true
+        var amplitude = 1.0f
+        var res = this.sX
+
+        for (i in 0 until octaves) {
+            val delta = 1.0f / res
+            var idx = 0
+            var idx1 = 0
+            var xRel = 0f
+
+            for (x in 0 until this.sX) {
+                var idy = 0
+                var idy1 = 0
+                var yRel = 0f
+                val smoothX = xRel.smoothStep()
+
+                if (x % res == 0) {
+                    idx = idx1
+                    idx1 += res - 1
+                    changeCell = true
+                }
+                for (y in 0 until this.sX) {
+                    val smoothY = yRel.smoothStep()
+
+                    if (y % res == 0) {
+                        idy = idy1
+                        idy1 += res - 1
+                        changeCell = true
+                    }
+
+                    if (changeCell) {
+                        h00 = boundary[idx][idy]
+                        h01 = boundary[idx][idy1]
+                        h10 = boundary[idx1][idy]
+                        h11 = boundary[idx1][idy1]
+                        deltaX = h10 - h00
+                        deltaY = h01 - h00
+                        a = deltaX - h11 + h01
+                        changeCell = false
+                    }
+                    //
+                    val dh = h00 + smoothX * deltaX + smoothY * deltaY +
+                            a * (xRel * yRel - smoothX * yRel - smoothY * xRel)
+                    buffer[x][y] += amplitude * dh
+                    yRel += delta
+                    if (yRel >= 1f) yRel = 0f
+                }
+
+                xRel += delta
+                if (xRel >= 1f) xRel = 0f
+            }
+
+            res /= 2
+            amplitude /= (1.0f / gain)
+        }
+
+        return buffer
+    }
+
+}

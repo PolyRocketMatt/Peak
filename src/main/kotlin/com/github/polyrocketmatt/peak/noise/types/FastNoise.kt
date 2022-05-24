@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.noise
+package com.github.polyrocketmatt.peak.noise.types
 
 import com.github.polyrocketmatt.game.Vec2f
 import com.github.polyrocketmatt.game.Vec3f
@@ -11,15 +11,15 @@ private fun Float.bitCast(): Int {
 
 private fun FastNoise.Float2.vec(): Vec2f = Vec2f(this.x, this.y)
 
-class FastNoise(mSeed: Int) {
+class FastNoise(var seed: Int) : NoiseEvaluator {
 
     //  Data Classes
     data class Float2(val x: Float, val y: Float)
     data class Float3(val x: Float, val y: Float, val z: Float)
 
     //  Enums
-    enum class NoiseType { VALUE, VALUE_FRACTAL, PERLIN, PERLIN_FRACTAL, SIMPLEX, SIMPLEX_FRACTAL, CELLULAR, WHITE_NOISE }
     enum class Method { LINEAR, HERMITE, QUINTIC }
+    enum class NoiseType { VALUE, VALUE_FRACTAL, PERLIN, PERLIN_FRACTAL, SIMPLEX, SIMPLEX_FRACTAL, CELLULAR, WHITE_NOISE }
     enum class FractalType { FBM, BILLOW, RIGID_MULTI }
     enum class CellularDistanceFunction { EUCLIDEAN, MANHATTAN, NATURAL }
     enum class CellularReturnType { CELL_VALUE, NOISE_LOOKUP, DISTANCE, DISTANCE_2, DISTANCE_2_ADD, DISTANCE_2_SUB, DISTANCE_2_MUL, DISTANCE_2_DIV }
@@ -519,7 +519,6 @@ class FastNoise(mSeed: Int) {
 
     var method: Method = Method.QUINTIC
     var noiseType: NoiseType = NoiseType.SIMPLEX
-    var seed = mSeed
     var scale = 1.0f
     var frequency = 0.01f
     var octaves = 3
@@ -545,7 +544,7 @@ class FastNoise(mSeed: Int) {
         fractalBounding = 1.0f / ampFractal
     }
 
-    fun noise(nX: Float, nY: Float): Float {
+    override fun noise(nX: Float, nY: Float): Float {
         val x = nX * frequency
         val y = nY * frequency
 
@@ -586,7 +585,7 @@ class FastNoise(mSeed: Int) {
         }
     }
 
-    fun noise(nX: Float, nY: Float, nZ: Float): Float {
+    override fun noise(nX: Float, nY: Float, nZ: Float): Float {
         val x = nX * frequency
         val y = nY * frequency
         val z = nZ * frequency
@@ -1012,10 +1011,10 @@ class FastNoise(mSeed: Int) {
         val uYX = Vec2f(uY, uX)
         val du = Vec2f(duX, duY)
 
-        val ga = CELL_2D[hash2d(seed, iX, iY)].vec()
-        val gb = CELL_2D[hash2d(seed, iX + 1, iY)].vec()
-        val gc = CELL_2D[hash2d(seed, iX, iY + 1)].vec()
-        val gd = CELL_2D[hash2d(seed, iX + 1, iY + 1)].vec()
+        val ga = CELL_2D[hash2d(seed, iX, iY) and 255].vec()
+        val gb = CELL_2D[hash2d(seed, iX + 1, iY) and 255].vec()
+        val gc = CELL_2D[hash2d(seed, iX, iY + 1) and 255].vec()
+        val gd = CELL_2D[hash2d(seed, iX + 1, iY + 1) and 255].vec()
 
         val va = ga.dot(Vec2f(fX, fY))
         val vb = gb.dot(Vec2f(fX - 1.0f, fY))
