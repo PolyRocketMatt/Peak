@@ -357,8 +357,8 @@ code.paragraph {
     display: inline-block;
     content: '';
     /* masks are required if you want to change color of the icon dynamically instead of using those provided with the SVG */
-    -webkit-mask: url("../images/copy-icon.svg") no-repeat 50% 50%;
-    mask: url("../images/copy-icon.svg") no-repeat 50% 50%;
+    -webkit-mask: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/copy-icon.svg") no-repeat 50% 50%;
+    mask: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/copy-icon.svg") no-repeat 50% 50%;
     -webkit-mask-size: cover;
     mask-size: cover;
     background-color: var(--copy-icon-color);
@@ -387,7 +387,7 @@ code.paragraph {
 }
 
 .copy-popup-wrapper > .copy-popup-icon::before {
-    content: url("../images/copy-successful-icon.svg");
+    content: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/copy-successful-icon.svg");
     padding: 8px;
 }
 
@@ -474,8 +474,8 @@ code.paragraph {
 .sideMenuPart > .overview .navButtonContent::before {
     content: '';
 
-    -webkit-mask: url("../images/arrow_down.svg") no-repeat 50% 50%;
-    mask: url("../images/arrow_down.svg") no-repeat 50% 50%;
+    -webkit-mask: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/arrow_down.svg") no-repeat 50% 50%;
+    mask: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/arrow_down.svg") no-repeat 50% 50%;
     -webkit-mask-size: cover;
     mask-size: cover;
     background-color: var(--default-font-color);
@@ -758,7 +758,7 @@ td.content {
 }
 
 .main-subrow .anchor-icon::before {
-    content: url("../images/anchor-copy-button.svg");
+    content: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/anchor-copy-button.svg");
 }
 
 .main-subrow .anchor-icon:hover {
@@ -1011,7 +1011,7 @@ td.content {
 }
 
 .footer span.go-to-top-icon > a::before {
-    content: url("../images/go-to-top-icon.svg");
+    content: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/go-to-top-icon.svg");
 }
 
 .footer > span:first-child {
@@ -1042,7 +1042,7 @@ td.content {
 }
 
 .footer .padded-icon::before {
-    content: url("../images/footer-go-to-link.svg");
+    content: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/footer-go-to-link.svg");
 }
 
 .pull-right {
@@ -1075,7 +1075,7 @@ div.runnablesample {
 }
 
 #theme-toggle {
-    content: url("../images/theme-toggle.svg");
+    content: url("Desktop/PolyRocketMatt/Peak/imagesolyRocketMatt/Peak/images/theme-toggle.svg");
 }
 
 #theme-toggle-button {
