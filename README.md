@@ -17,7 +17,7 @@ out there, PEAK stands out because of the variety of algorithms it offers. While
 to use old techniques. Instead, it allows to combine these together with new features, filters and operators to create
 realistic looking terrains.
 
-## Table Of Content
+## Quickstart
 
 Here is the table of content which describes all features of PEAK:
 
@@ -29,6 +29,8 @@ Here is the table of content which describes all features of PEAK:
 - [**Masks**](#masks)
 - [**Data Extractors**](#data-extractors)
 - [**3D Engine**](#3d-engine)
+
+For all 
 
 ---
 
@@ -110,14 +112,8 @@ the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
 If you want to create a lot of heightmaps without creating `ProviderDataBuilders` for each one of them, you can
 use the `Primitive` API. A primitive is data-generation object that has the following options:
 
-- ```kotlin
-  recompute()
-
-- ```kotlin
-  recompute()
-
-- ```kotlin
-  recompute()
+- `recompute()` - Recomputes the primitive with the updated settings.
+- `buffer()` - Get the `NoiseBuffer`
 
 A `NoisePrimitive` is a primitive 
 
