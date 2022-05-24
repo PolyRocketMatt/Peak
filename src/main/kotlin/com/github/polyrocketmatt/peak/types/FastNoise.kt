@@ -34,7 +34,7 @@ class FastNoise(
     enum class Method { LINEAR, HERMITE, QUINTIC }
     enum class NoiseType { VALUE, VALUE_FRACTAL, PERLIN, PERLIN_FRACTAL, SIMPLEX, SIMPLEX_FRACTAL, CELLULAR, WHITE_NOISE }
     enum class FractalType { FBM, BILLOW, RIGID_MULTI }
-    enum class CellularDistanceFunction { EUCLIDEAN, MANHATTAN, NATURAL }
+    enum class CellularDistanceFunction { EUCLIDEAN, MANHATTAN, NATURAL }       //  Let CellularDistanceFunction use Distance API from GAME
     enum class CellularReturnType { CELL_VALUE, NOISE_LOOKUP, DISTANCE, DISTANCE_2, DISTANCE_2_ADD, DISTANCE_2_SUB, DISTANCE_2_MUL, DISTANCE_2_DIV }
 
     companion object {

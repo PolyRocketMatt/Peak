@@ -3,7 +3,7 @@ package com.github.polyrocketmatt.peak.buffer.operator
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 
 @FunctionalInterface
-interface UnaryBufferOperator {
+interface UnaryBufferOperator : BufferOperator {
 
     /**
      * Perform an operation on the buffer with the given data.

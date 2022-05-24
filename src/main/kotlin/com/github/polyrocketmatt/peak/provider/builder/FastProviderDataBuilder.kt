@@ -158,7 +158,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the return type of the noise
      * @return this builder with the set lookup noise
      */
-    fun buildLookup(value: FastNoise): FastProviderDataBuilder {
+    fun buildLookup(value: FastNoise?): FastProviderDataBuilder {
         this.lookup = value
         return this
     }
