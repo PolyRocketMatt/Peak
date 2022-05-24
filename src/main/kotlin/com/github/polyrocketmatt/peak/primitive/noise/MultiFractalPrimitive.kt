@@ -7,48 +7,77 @@ import com.github.polyrocketmatt.peak.provider.builder.FastProviderDataBuilder
 import com.github.polyrocketmatt.peak.types.FastNoise
 import java.awt.image.BufferedImage
 
-class MultiFractalPrimitive(sX: Int, sZ: Int) : NoisePrimitive(
-    NoiseBuffer(
-        sX,
-        sZ
-    )
-) {
+/**
+ * Defines a primitive from Multi-layer Simplex noise. A buffer is constructed
+ * from the given width and height values.
+ *
+ * @param width: the width of the buffer
+ * @param height: the height of the buffer
+ */
+class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height)) {
 
+    /**
+     * The seed of the primitive.
+     */
     var seed: Int = 1
         set(value) {
             update = true
             field = value
         }
+
+    /**
+     * The amount of octaves for the primitive.
+     */
     var octaves: Int = 8
         set(value) {
             update = true
             field = value
         }
+
+    /**
+     * The scale of the primitive.
+     */
     var scale: Float = 1.0f
         set(value) {
             update = true
             field = value
         }
+
+    /**
+     * The gain of the primitive.
+     */
     var gain: Float = 0.5f
         set(value) {
             update = true
             field = value
         }
+
+    /**
+     * The lacunarity of the primitive
+     */
     var lacunarity: Float = 2.0f
         set(value) {
             update = true
             field = value
         }
+
+    /**
+     * The fractal type of the primitive.
+     */
     var fractal: FastNoise.FractalType = FastNoise.FractalType.FBM
         set(value) {
             update = true
             field = value
         }
+
     private var noise: FastNoiseProvider = FastNoiseProvider(FastProviderDataBuilder().build())
     private var update: Boolean = false
 
     init { recompute() }
 
+    /**
+     * Recompute Multi-layer Simplex noise in the buffer.
+     */
     override fun recompute() {
         this.update = false
         this.noise = FastNoiseProvider(
@@ -72,12 +101,22 @@ class MultiFractalPrimitive(sX: Int, sZ: Int) : NoisePrimitive(
         Operators.NORMALIZE.operate(this.buffer)
     }
 
+    /**
+     * Get the noise buffer of the primitive.
+     *
+     * @return the noise buffer of the primitive
+     */
     override fun buffer(): NoiseBuffer {
         if (update)
             recompute()
         return this.buffer
     }
 
-    override fun image(): BufferedImage = this.buffer.image()
+    /**
+     * Get the image of the primitive.
+     *
+     * @return the image of the primitive
+     */
+    override fun image(): BufferedImage = buffer.image()
 
 }
