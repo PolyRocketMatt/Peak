@@ -4,8 +4,19 @@ import com.github.polyrocketmatt.game.math.intPow
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
+/**
+ * Operator that computes a polynomial on a buffer with the provided polynomial coefficients.
+ */
 class PolynomialOperator : UnaryBufferOperator {
 
+    /**
+     * Computes a polynomial on a buffer with the provided polynomial coefficients.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * coefficients - the coefficients of the polynomial in the form: ax^n + ... bx^2 + cx^1 + d
+     * @return a new NoiseBuffer that contains the evaluated polynomial of the elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
         buffer.map { fl -> computePolynomial(fl, data) }
 

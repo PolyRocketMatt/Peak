@@ -12,8 +12,8 @@ class BlendOperator : BinaryBufferOperator {
     /**
      *  Blend the first and second buffer together.
      *
-     *  @param first: the first buffer
-     *  @param second: the second buffer
+     *  @param first: the first buffer to perform the operation on
+     *  @param second: the second buffer to perform the operation on
      *  @param data: ratio - the ratio at which the first buffer will have an impact.
      *  the second buffer will have an impact of 1 - ratio.
      *  @throws BufferOperationException if the ratio is not provided

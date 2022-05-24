@@ -5,8 +5,21 @@ import com.github.polyrocketmatt.peak.exception.BufferOperationException
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
+/**
+ * Operator that clips a buffer to a provided min and max.
+ */
 class ClipOperator : UnaryBufferOperator {
 
+    /**
+     * Clips a buffer to a provided min and max.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * min - the minimum value to clip to.
+     * max - the maximum value to clip to.
+     * @throws BufferOperationException if there are no min / max values provided
+     * @return a new NoiseBuffer that contains the clipped elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
         if (data.size != 2)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min and max arguments!")

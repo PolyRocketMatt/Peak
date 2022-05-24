@@ -11,8 +11,8 @@ class MultiplyOperator : BinaryBufferOperator {
     /**
      *  Multiplies the elements of the first buffer and the second buffer.
      *
-     *  @param first: the first buffer
-     *  @param second: the second buffer
+     *  @param first: the first buffer to perform the operation on
+     *  @param second: the second buffer to perform the operation on
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the multiplication of the two buffers
      */

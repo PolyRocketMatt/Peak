@@ -12,8 +12,8 @@ class CombinedPowerOperator : BinaryBufferOperator {
     /**
      *  Raises the elements of the first buffer to the power of the second buffer.
      *
-     *  @param first: the first buffer
-     *  @param second: the second buffer
+     *  @param first: the first buffer to perform the operation on
+     *  @param second: the second buffer to perform the operation on
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the elements of the first buffer raised to the power of the second buffer
      */

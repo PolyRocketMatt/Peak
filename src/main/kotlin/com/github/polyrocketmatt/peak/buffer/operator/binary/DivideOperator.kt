@@ -11,8 +11,8 @@ class DivideOperator : BinaryBufferOperator {
     /**
      *  Divides the elements of the first buffer with the elements of the second buffer.
      *
-     *  @param first: the first buffer
-     *  @param second: the second buffer
+     *  @param first: the first buffer to perform the operation on
+     *  @param second: the second buffer to perform the operation on
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the addition of the two buffers
      */
