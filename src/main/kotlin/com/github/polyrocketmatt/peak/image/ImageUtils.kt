@@ -6,10 +6,20 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 
+/**
+ * Contains various utilities to construct and manipulate
+ * images from noise buffers.
+ */
 class ImageUtils {
 
     companion object {
 
+        /**
+         * Creates a grayscale image from a buffer.
+         *
+         * @param buffer: the noise buffer to create a grayscale image of
+         * @return the grayscale image corresponding to the buffer
+         */
         fun bufferToImage(buffer: NoiseBuffer): BufferedImage {
             val width = buffer.width()
             val height = buffer.height()
@@ -19,6 +29,12 @@ class ImageUtils {
             return image
         }
 
+        /**
+         * Create a noise buffer from a grayscale image.
+         *
+         * @param image: the grayscale image to create a noise buffer of
+         * @return the noise buffer corresponding to the buffer
+         */
         fun imageToBuffer(image: BufferedImage): NoiseBuffer {
             val width = image.width
             val height = image.height

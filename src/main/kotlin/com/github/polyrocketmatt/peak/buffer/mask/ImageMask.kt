@@ -7,7 +7,7 @@ class ImageMask(
     private val mask: BufferedImage
 ) : Mask {
 
-    override fun mask(buffer: NoiseBuffer) {
+    override fun mask(buffer: NoiseBuffer): NoiseBuffer {
         TODO("Not yet implemented")
     }
 

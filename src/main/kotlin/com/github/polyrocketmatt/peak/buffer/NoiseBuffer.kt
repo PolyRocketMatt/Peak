@@ -15,7 +15,7 @@ import kotlin.random.Random
 class NoiseBuffer(private val buffer: Array<FloatArray>) {
 
     /**
-     * Constructor for an empty buffer of the given sizes.
+     * Constructor for an empty buffer of the given width and height.
      * The internal buffer will be initialized to 0.
      *
      * @param width: the width of the buffer
@@ -24,7 +24,7 @@ class NoiseBuffer(private val buffer: Array<FloatArray>) {
     constructor(width: Int, height: Int) : this(Array(width) { FloatArray(height) { 0.0f } })
 
     /**
-     * Constructor for an empty buffer of the given sizes.
+     * Constructor for an empty buffer of the given width and height.
      * The internal buffer will be initialized to a random value
      * using the provided Random.
      *
