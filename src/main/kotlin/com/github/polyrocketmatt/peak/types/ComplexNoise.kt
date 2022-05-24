@@ -8,38 +8,55 @@ import kotlin.random.Random
 
 class ComplexNoise(
     private val seed: Int,
-    private val sX: Int,
-    private val sZ: Int
+    private val width: Int,
+    private val height: Int,
+    private val method: Method,
+    private val type: NoiseType,
+    private val octaves: Int,
+    private val gain: Float,
 ) : NoiseEvaluator {
 
     enum class Method { LINEAR, HERMITE, QUINTIC }
     enum class NoiseType { POLYNOMIAL }
 
-    private var buffer: NoiseBuffer =
-        NoiseBuffer(sX, sZ)
+    private var buffer: NoiseBuffer = NoiseBuffer(width, height)
     private val rng: Random = Random(seed)
-    var method: Method = Method.QUINTIC
-    var type: NoiseType = NoiseType.POLYNOMIAL
-    var octaves: Int = 8
-    var gain: Float = 0.5f
 
     init { recalculate() }
 
+    /**
+     * Recalculate the complex noise.
+     */
     fun recalculate() {
         this.buffer = when (type) {
-            NoiseType.POLYNOMIAL        -> polynomial(NoiseBuffer(sX, sZ))
+            NoiseType.POLYNOMIAL        -> polynomial(NoiseBuffer(width, height))
         }
     }
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float): Float = buffer[nX.i()][nY.i()]
 
+    /**
+     * Sample noise at the given x-, y- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @param nZ: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float = buffer[nX.i()][nY.i()]
 
     private fun polynomial(buffer: NoiseBuffer): NoiseBuffer {
-        if (sX != sZ)
+        if (width != height)
             throw NoiseException("Width must equal height for polynomial height")
 
-        val boundary = NoiseBuffer(sX, sZ, rng)
+        val boundary = NoiseBuffer(width, height, rng)
 
         var deltaX = 0.0f
         var deltaY = 0.0f
@@ -50,7 +67,7 @@ class ComplexNoise(
         var h11: Float
         var changeCell = true
         var amplitude = 1.0f
-        var res = this.sX
+        var res = this.width
 
         for (i in 0 until octaves) {
             val delta = 1.0f / res
@@ -58,7 +75,7 @@ class ComplexNoise(
             var idx1 = 0
             var xRel = 0f
 
-            for (x in 0 until this.sX) {
+            for (x in 0 until this.width) {
                 var idy = 0
                 var idy1 = 0
                 var yRel = 0f
@@ -69,7 +86,7 @@ class ComplexNoise(
                     idx1 += res - 1
                     changeCell = true
                 }
-                for (y in 0 until this.sX) {
+                for (y in 0 until this.width) {
                     val smoothY = yRel.smoothStep()
 
                     if (y % res == 0) {

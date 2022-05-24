@@ -10,8 +10,8 @@ import java.lang.IllegalArgumentException
 class ComplexProviderDataBuilder : ProviderDataBuilder {
 
     private var seed: Int = 0
-    private var sX: Int = 0
-    private var sZ: Int = 0
+    private var width: Int = 0
+    private var height: Int = 0
     private var octaves: Int = 1
     private var gain: Float = 0.5f
     private var type: ComplexNoise.NoiseType = ComplexNoise.NoiseType.POLYNOMIAL
@@ -42,7 +42,7 @@ class ComplexProviderDataBuilder : ProviderDataBuilder {
     fun buildX(value: Int): ComplexProviderDataBuilder {
         if (value < 0)
             throw IllegalArgumentException("Octaves cannot be less than 0")
-        this.sX = value
+        this.width = value
         return this
     }
 
@@ -56,7 +56,7 @@ class ComplexProviderDataBuilder : ProviderDataBuilder {
     fun buildZ(value: Int): ComplexProviderDataBuilder {
         if (value < 0)
             throw IllegalArgumentException("Octaves cannot be less than 0")
-        this.sZ = value
+        this.height = value
         return this
     }
 
@@ -113,8 +113,8 @@ class ComplexProviderDataBuilder : ProviderDataBuilder {
      */
     override fun build(): ComplexProviderData = ComplexProviderData(
         seed,
-        sX,
-        sZ,
+        width,
+        height,
         octaves,
         gain,
         type,

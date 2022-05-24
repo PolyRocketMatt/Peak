@@ -12,6 +12,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
     private var seed: Int = 0
     private var octaves: Int = 1
     private var scale: Float = 1.0f
+    private var frequency: Float = 0.01f
     private var gain: Float = 0.5f
     private var lacunarity: Float = 2.0f
     private var type: FastNoise.NoiseType = FastNoise.NoiseType.PERLIN
@@ -19,6 +20,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
     private var fractal: FastNoise.FractalType = FastNoise.FractalType.FBM
     private var distanceFunction: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN
     private var cellularReturnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
+    private var lookup: FastNoise? = null
 
     /**
      * Build the seed of noise octaves.
@@ -58,6 +60,17 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      */
     fun buildScale(value: Float): FastProviderDataBuilder {
         this.scale = value
+        return this
+    }
+
+    /**
+     * Build a frequency for the noise.
+     *
+     * @param value: the scale of the noise
+     * @return this builder with the set frequency
+     */
+    fun buildFrequency(value: Float): FastProviderDataBuilder {
+        this.frequency = value
         return this
     }
 
@@ -140,19 +153,32 @@ class FastProviderDataBuilder : ProviderDataBuilder {
     }
 
     /**
+     * Build the lookup noise for cellular noise.
+     *
+     * @param value: the return type of the noise
+     * @return this builder with the set lookup noise
+     */
+    fun buildLookup(value: FastNoise): FastProviderDataBuilder {
+        this.lookup = value
+        return this
+    }
+
+    /**
      * Build the FastProviderData.
      */
     override fun build(): FastProviderData = FastProviderData(
         seed,
         octaves,
         scale,
+        frequency,
         gain,
         lacunarity,
         type,
         interpolation,
         fractal,
         distanceFunction,
-        cellularReturnType
+        cellularReturnType,
+        lookup
     )
 
 }

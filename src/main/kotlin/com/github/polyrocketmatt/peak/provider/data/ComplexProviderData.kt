@@ -8,8 +8,8 @@ import com.github.polyrocketmatt.peak.types.ComplexNoise
  */
 data class ComplexProviderData(
     val seed: Int = 0,
-    val sX: Int = 0,
-    val sZ: Int = 0,
+    val width: Int = 0,
+    val height: Int = 0,
     val octaves: Int = 1,
     val gain: Float = 0.5f,
     val type: ComplexNoise.NoiseType = ComplexNoise.NoiseType.POLYNOMIAL,

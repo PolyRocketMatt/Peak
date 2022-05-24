@@ -14,22 +14,47 @@ class FastNoiseProvider(data: FastProviderData) : SimpleNoiseProvider() {
     private val noise: FastNoise
 
     init {
-        noise = FastNoise(data.seed)
-        noise.octaves = data.octaves
-        noise.scale = data.scale
-        noise.gain = data.gain
-        noise.lacunarity = data.lacunarity
-        noise.noiseType = data.type
-        noise.method = data.interpolation
-        noise.fractalType = data.fractal
-        noise.cellularDistanceFunction = data.distanceFunction
-        noise.cellularReturnType = data.cellularReturnType
+        noise = FastNoise(
+            data.seed,
+            data.interpolation,
+            data.type,
+            data.scale,
+            data.frequency,
+            data.octaves,
+            data.lacunarity,
+            data.gain,
+            data.fractal,
+            data.distanceFunction,
+            data.cellularReturnType,
+            data.lookup
+        )
     }
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Float, z: Float): Float = noise.noise(x, z)
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Double, z: Double): Double = noise(x.f(), z.f()).d()
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Int, z: Int): Float = noise(x.f(), z.f())
 
 }

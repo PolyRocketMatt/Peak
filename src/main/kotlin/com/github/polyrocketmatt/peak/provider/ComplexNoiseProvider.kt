@@ -14,16 +14,41 @@ class ComplexNoiseProvider(data: ComplexProviderData) : SimpleNoiseProvider() {
     private val noise: ComplexNoise
 
     init {
-        noise = ComplexNoise(data.seed, data.sX, data.sZ)
-        noise.octaves = data.octaves
-        noise.gain = data.gain
-        noise.type = data.type
-        noise.method = data.interpolation
+        noise = ComplexNoise(
+            data.seed,
+            data.width,
+            data.height,
+            data.interpolation,
+            data.type,
+            data.octaves,
+            data.gain
+        )
     }
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Float, z: Float): Float = noise.noise(x, z)
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Double, z: Double): Double = noise(x.f(), z.f()).d()
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param x: the x-coordinate to sample noise from
+     * @param z: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(x: Int, z: Int): Float = noise(x.f(), z.f())
 }

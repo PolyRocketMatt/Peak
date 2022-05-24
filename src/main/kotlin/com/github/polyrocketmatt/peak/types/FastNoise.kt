@@ -11,7 +11,20 @@ private fun Float.bitCast(): Int {
 
 private fun FastNoise.Float2.vec(): Vec2f = Vec2f(this.x, this.y)
 
-class FastNoise(var seed: Int) : NoiseEvaluator {
+class FastNoise(
+    private val seed: Int,
+    private val method: Method,
+    private val noiseType: NoiseType = NoiseType.SIMPLEX,
+    private val scale: Float,
+    private val frequency: Float,
+    private val octaves: Int,
+    private val lacunarity: Float,
+    private val gain: Float,
+    private val fractalType: FractalType = FractalType.FBM,
+    private val cellularDistanceFunction: CellularDistanceFunction = CellularDistanceFunction.EUCLIDEAN,
+    private val cellularReturnType: CellularReturnType = CellularReturnType.CELL_VALUE,
+    private val cellularNoiseLookup: FastNoise? = null
+) : NoiseEvaluator {
 
     //  Data Classes
     data class Float2(val x: Float, val y: Float)
@@ -517,18 +530,7 @@ class FastNoise(var seed: Int) : NoiseEvaluator {
         }
     }
 
-    var method: Method = Method.QUINTIC
-    var noiseType: NoiseType = NoiseType.SIMPLEX
-    var scale = 1.0f
-    var frequency = 0.01f
-    var octaves = 3
-    var lacunarity = 2.0f
-    var gain = 0.5f
-    var fractalBounding = 0.0f
-    var fractalType: FractalType = FractalType.FBM
-    var cellularDistanceFunction: CellularDistanceFunction = CellularDistanceFunction.EUCLIDEAN
-    var cellularReturnType: CellularReturnType = CellularReturnType.CELL_VALUE
-    var cellularNoiseLookup: FastNoise? = null
+    private var fractalBounding: Float = 0.0f
 
     init { calculateFractalBounding() }
 
@@ -544,6 +546,13 @@ class FastNoise(var seed: Int) : NoiseEvaluator {
         fractalBounding = 1.0f / ampFractal
     }
 
+    /**
+     * Sample noise at the given x- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float): Float {
         val x = nX * frequency
         val y = nY * frequency
@@ -585,6 +594,14 @@ class FastNoise(var seed: Int) : NoiseEvaluator {
         }
     }
 
+    /**
+     * Sample noise at the given x-, y- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @param nZ: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
         val x = nX * frequency
         val y = nY * frequency
