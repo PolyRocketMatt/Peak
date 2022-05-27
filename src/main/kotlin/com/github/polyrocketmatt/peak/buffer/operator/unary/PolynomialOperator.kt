@@ -1,7 +1,8 @@
 package com.github.polyrocketmatt.peak.buffer.operator.unary
 
 import com.github.polyrocketmatt.game.math.intPow
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
 /**
@@ -17,11 +18,17 @@ class PolynomialOperator : UnaryBufferOperator {
      * coefficients - the coefficients of the polynomial in the form: ax^n + ... bx^2 + cx^1 + d
      * @return a new NoiseBuffer that contains the evaluated polynomial of the elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
-        buffer.map { fl -> computePolynomial(fl, data) }
+    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 = buffer.map { fl -> computePolynomial(fl, data) }
 
-        return buffer
-    }
+    /**
+     * Computes a polynomial on a buffer with the provided polynomial coefficients.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * coefficients - the coefficients of the polynomial in the form: ax^n + ... bx^2 + cx^1 + d
+     * @return a new NoiseBuffer that contains the evaluated polynomial of the elements of the buffer
+     */
+    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 = buffer.map { fl -> computePolynomial(fl, data) }
 
     private fun computePolynomial(x: Float, coefficients: FloatArray): Float {
         var exponent = coefficients.size - 1

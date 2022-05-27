@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 /**
  * Class that holds data for a noise provider.
  */
-abstract class ProviderData {
+abstract class NoiseData {
 
     /**
      * Get a new instance of a noise provider for this data.

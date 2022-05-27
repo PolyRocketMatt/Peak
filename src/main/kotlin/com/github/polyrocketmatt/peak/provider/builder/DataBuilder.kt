@@ -1,15 +1,15 @@
 package com.github.polyrocketmatt.peak.provider.builder
 
-import com.github.polyrocketmatt.peak.provider.data.ProviderData
+import com.github.polyrocketmatt.peak.provider.data.NoiseData
 
 /**
  * Builder for provider data.
  */
-interface ProviderDataBuilder {
+interface DataBuilder {
 
     /**
      * Build the ProviderData.
      */
-    fun build(): ProviderData
+    fun build(): NoiseData
 
 }

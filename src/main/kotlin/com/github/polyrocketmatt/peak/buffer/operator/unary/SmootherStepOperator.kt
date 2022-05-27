@@ -1,7 +1,8 @@
 package com.github.polyrocketmatt.peak.buffer.operator.unary
 
 import com.github.polyrocketmatt.game.math.smootherStep
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
 /**
@@ -16,10 +17,15 @@ class SmootherStepOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the smooth-stepped elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
-        buffer.map { fl -> fl.smootherStep() }
+    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 = buffer.map { fl -> fl.smootherStep() }
 
-        return buffer
-    }
+    /**
+     * Performs the smooth-step function on a buffer.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data: no additional data required for this operation
+     * @return a new NoiseBuffer that contains the smooth-stepped elements of the buffer
+     */
+    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 = buffer.map { fl -> fl.smootherStep() }
 
 }

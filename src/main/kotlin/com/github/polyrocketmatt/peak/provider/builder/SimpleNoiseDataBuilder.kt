@@ -1,13 +1,14 @@
 package com.github.polyrocketmatt.peak.provider.builder
 
-import com.github.polyrocketmatt.peak.provider.data.FastProviderData
-import com.github.polyrocketmatt.peak.types.FastNoise
+import com.github.polyrocketmatt.peak.provider.data.SimpleNoiseData
+import com.github.polyrocketmatt.peak.types.NoiseUtils
+import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import java.lang.IllegalArgumentException
 
 /**
  * Builder for a FastProviderData object.
  */
-class FastProviderDataBuilder : ProviderDataBuilder {
+class SimpleNoiseDataBuilder : DataBuilder {
 
     private var seed: Int = 0
     private var octaves: Int = 1
@@ -15,12 +16,16 @@ class FastProviderDataBuilder : ProviderDataBuilder {
     private var frequency: Float = 0.01f
     private var gain: Float = 0.5f
     private var lacunarity: Float = 2.0f
-    private var type: FastNoise.NoiseType = FastNoise.NoiseType.PERLIN
-    private var interpolation: FastNoise.Method = FastNoise.Method.HERMITE
-    private var fractal: FastNoise.FractalType = FastNoise.FractalType.FBM
+    private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN
+    private var interpolation: NoiseUtils.InterpolationMethod = NoiseUtils.InterpolationMethod.HERMITE
+    private var fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM
+
+    /*
     private var distanceFunction: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN
     private var cellularReturnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
     private var lookup: FastNoise? = null
+
+     */
 
     /**
      * Build the seed of noise octaves.
@@ -29,7 +34,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @return this builder with the set seed
      * @throws IllegalArgumentException if the value is less than 0
      */
-    fun buildSeed(value: Int): FastProviderDataBuilder {
+    fun buildSeed(value: Int): SimpleNoiseDataBuilder {
         if (value < 0)
             throw IllegalArgumentException("Seed cannot be less than 0")
 
@@ -44,7 +49,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @return this builder with the set noise octaves
      * @throws IllegalArgumentException if the value is less than 1
      */
-    fun buildOctaves(value: Int): FastProviderDataBuilder {
+    fun buildOctaves(value: Int): SimpleNoiseDataBuilder {
         if (value < 1)
             throw IllegalArgumentException("Octaves cannot be less than 1")
 
@@ -58,7 +63,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the scale of the noise
      * @return this builder with the set scale
      */
-    fun buildScale(value: Float): FastProviderDataBuilder {
+    fun buildScale(value: Float): SimpleNoiseDataBuilder {
         this.scale = value
         return this
     }
@@ -69,7 +74,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the scale of the noise
      * @return this builder with the set frequency
      */
-    fun buildFrequency(value: Float): FastProviderDataBuilder {
+    fun buildFrequency(value: Float): SimpleNoiseDataBuilder {
         this.frequency = value
         return this
     }
@@ -80,7 +85,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the gain of the noise
      * @return this builder with the set gain
      */
-    fun buildGain(value: Float): FastProviderDataBuilder {
+    fun buildGain(value: Float): SimpleNoiseDataBuilder {
         this.gain = value
         return this
     }
@@ -92,7 +97,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the lacunarity of the noise
      * @return this builder with the set lacunarity
      */
-    fun buildLacunarity(value: Float): FastProviderDataBuilder {
+    fun buildLacunarity(value: Float): SimpleNoiseDataBuilder {
         this.lacunarity = value
         return this
     }
@@ -103,7 +108,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the type of the noise
      * @return this builder with the set type
      */
-    fun buildType(value: FastNoise.NoiseType): FastProviderDataBuilder {
+    fun buildType(value: SimpleNoise.SimpleNoiseType): SimpleNoiseDataBuilder {
         this.type = value
         return this
     }
@@ -114,7 +119,7 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the interpolation method of the noise
      * @return this builder with the set method
      */
-    fun buildInterpolation(value: FastNoise.Method): FastProviderDataBuilder {
+    fun buildInterpolation(value: NoiseUtils.InterpolationMethod): SimpleNoiseDataBuilder {
         this.interpolation = value
         return this
     }
@@ -125,60 +130,24 @@ class FastProviderDataBuilder : ProviderDataBuilder {
      * @param value: the fractal type of the noise
      * @return this builder with the set fractal type
      */
-    fun buildFractal(value: FastNoise.FractalType): FastProviderDataBuilder {
+    fun buildFractal(value: SimpleNoise.FractalType): SimpleNoiseDataBuilder {
         this.fractal = value
         return this
     }
 
     /**
-     * Build the distance function for cellular noise.
-     *
-     * @param value: the distance function of the noise
-     * @return this builder with the set distance function
+     * Build the noise data as SimpleNoiseData.
      */
-    fun buildDistanceFunction(value: FastNoise.CellularDistanceFunction): FastProviderDataBuilder {
-        this.distanceFunction = value
-        return this
-    }
-
-    /**
-     * Build the return type for cellular noise.
-     *
-     * @param value: the return type of the noise
-     * @return this builder with the set return type
-     */
-    fun buildReturnType(value: FastNoise.CellularReturnType): FastProviderDataBuilder {
-        this.cellularReturnType = value
-        return this
-    }
-
-    /**
-     * Build the lookup noise for cellular noise.
-     *
-     * @param value: the return type of the noise
-     * @return this builder with the set lookup noise
-     */
-    fun buildLookup(value: FastNoise?): FastProviderDataBuilder {
-        this.lookup = value
-        return this
-    }
-
-    /**
-     * Build the FastProviderData.
-     */
-    override fun build(): FastProviderData = FastProviderData(
-        seed,
-        octaves,
-        scale,
-        frequency,
-        gain,
-        lacunarity,
-        type,
-        interpolation,
-        fractal,
-        distanceFunction,
-        cellularReturnType,
-        lookup
+    override fun build(): SimpleNoiseData = SimpleNoiseData(
+        this.seed,
+        this.octaves,
+        this.scale,
+        this.frequency,
+        this.gain,
+        this.lacunarity,
+        this.type,
+        this.interpolation,
+        this.fractal
     )
 
 }

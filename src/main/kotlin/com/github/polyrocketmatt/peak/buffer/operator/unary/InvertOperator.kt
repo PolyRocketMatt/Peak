@@ -1,7 +1,9 @@
 package com.github.polyrocketmatt.peak.buffer.operator.unary
 
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
+
 
 /**
  * Operator that inverts a buffer using its maximum element.
@@ -15,11 +17,21 @@ class InvertOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operator
      * @return a new NoiseBuffer that contains the inverted elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer, vararg data: Float): NoiseBuffer {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
         val max = buffer.max()
-        buffer.map { fl -> max - fl }
+        return buffer.map { fl -> max - fl }
+    }
 
-        return buffer
+    /**
+     * Inverts a buffer using its maximum element.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data: no additional data required for this operator
+     * @return a new NoiseBuffer that contains the inverted elements of the buffer
+     */
+    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+        val max = buffer.max()
+        return buffer.map { fl -> max - fl }
     }
 
 }

@@ -1,11 +1,10 @@
 package com.github.polyrocketmatt.peak.primitive.noise
 
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
-import com.github.polyrocketmatt.peak.provider.FastNoiseProvider
-import com.github.polyrocketmatt.peak.provider.builder.FastProviderDataBuilder
-import com.github.polyrocketmatt.peak.types.FastNoise
-import java.awt.image.BufferedImage
+import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseDataBuilder
+import com.github.polyrocketmatt.peak.types.NoiseUtils
+import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 
 /**
  * Defines a primitive from Multi-layer Simplex noise. A buffer is constructed
@@ -14,7 +13,7 @@ import java.awt.image.BufferedImage
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height), true) {
+class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer2(width, height), true) {
 
     /**
      * Constructor for a primitive with equal width and height buffer.
@@ -71,13 +70,13 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
     /**
      * The fractal type of the primitive.
      */
-    var fractal: FastNoise.FractalType = FastNoise.FractalType.FBM
+    var fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM
         set(value) {
             this.update = true
             field = value
         }
 
-    private var noise: FastNoiseProvider = FastNoiseProvider(FastProviderDataBuilder().build())
+    private var noise: com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider = com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider(SimpleNoiseDataBuilder().build())
 
     init { recompute() }
 
@@ -86,25 +85,22 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
      */
     override fun recompute() {
         this.update = false
-        this.noise = FastNoiseProvider(
-            FastProviderDataBuilder()
-                .buildType(FastNoise.NoiseType.SIMPLEX_FRACTAL)
-                .buildInterpolation(FastNoise.Method.HERMITE)
-                .buildSeed(this.seed)
-                .buildOctaves(this.octaves)
-                .buildScale(this.scale)
-                .buildGain(this.gain)
-                .buildLacunarity(this.lacunarity)
-                .buildFractal(this.fractal)
+        this.noise = com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider(
+            SimpleNoiseDataBuilder()
+                .buildType(SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL)
+                .buildInterpolation(NoiseUtils.InterpolationMethod.HERMITE)
+                .buildSeed(seed)
+                .buildOctaves(octaves)
+                .buildScale(scale)
+                .buildGain(gain)
+                .buildLacunarity(lacunarity)
+                .buildFractal(fractal)
                 .build()
         )
-        val width = this.buffer().width()
-        val height = this.buffer().height()
 
-        for (x in 0 until width) for (z in 0 until height)
-            this.buffer()[x][z] = this.noise.noise(x, z)
-
-        Operators.NORMALIZE.operate(this.buffer())
+        Operators.NORMALIZE.operate(this.buffer().fill(this.noise))
     }
+
+    fun provider(): com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider = this.noise
 
 }

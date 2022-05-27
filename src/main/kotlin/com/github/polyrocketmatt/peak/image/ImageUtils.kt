@@ -2,6 +2,7 @@ package com.github.polyrocketmatt.peak.image
 
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
@@ -20,7 +21,7 @@ class ImageUtils {
          * @param buffer: the noise buffer to create a grayscale image of
          * @return the grayscale image corresponding to the buffer
          */
-        fun bufferToImage(buffer: NoiseBuffer): BufferedImage {
+        fun bufferToImage(buffer: NoiseBuffer2): BufferedImage {
             val width = buffer.width()
             val height = buffer.height()
             val image = BufferedImage(width, height, TYPE_INT_RGB)
@@ -35,10 +36,10 @@ class ImageUtils {
          * @param image: the grayscale image to create a noise buffer of
          * @return the noise buffer corresponding to the buffer
          */
-        fun imageToBuffer(image: BufferedImage): NoiseBuffer {
+        fun imageToBuffer(image: BufferedImage): NoiseBuffer2 {
             val width = image.width
             val height = image.height
-            val buffer = NoiseBuffer(width, height)
+            val buffer = NoiseBuffer2(width, height)
 
             for (x in 0 until width) for (z in 0 until height)
                 buffer[x][z] = fromGrayscaleColor(image.getRGB(x, z))

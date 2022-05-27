@@ -1,36 +1,35 @@
-package com.github.polyrocketmatt.peak.types
+package com.github.polyrocketmatt.peak.types.bounded
 
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.game.math.smoothStep
+import com.github.polyrocketmatt.game.math.smootherStep
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
+import com.github.polyrocketmatt.peak.types.NoiseUtils
 import kotlin.random.Random
 
-class ComplexNoise(
-    private val seed: Int,
-    private val width: Int,
-    private val height: Int,
-    private val method: Method,
-    private val type: NoiseType,
+class PolynomialNoise(
+    seed: Int,
+    width: Int,
+    height: Int,
     private val octaves: Int,
     private val gain: Float,
-) : NoiseEvaluator {
+    private val method: NoiseUtils.InterpolationMethod,
+) : BoundedNoise(width, height) {
 
-    enum class Method { LINEAR, HERMITE, QUINTIC }
-    enum class NoiseType { POLYNOMIAL }
-
-    private var buffer: NoiseBuffer = NoiseBuffer(width, height)
+    private var buffer: NoiseBuffer2 = NoiseBuffer2(width, height)
     private val rng: Random = Random(seed)
 
     init { recalculate() }
+
+    fun buffer(): NoiseBuffer2 = this.buffer
 
     /**
      * Recalculate the complex noise.
      */
     fun recalculate() {
-        this.buffer = when (type) {
-            NoiseType.POLYNOMIAL        -> polynomial(NoiseBuffer(width, height))
-        }
+        this.buffer = polynomial(NoiseBuffer2(width, height))
     }
 
     /**
@@ -52,11 +51,17 @@ class ComplexNoise(
      */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float = buffer[nX.i()][nY.i()]
 
-    private fun polynomial(buffer: NoiseBuffer): NoiseBuffer {
+    private fun interpolate(x: Float) = when(method) {
+        NoiseUtils.InterpolationMethod.LINEAR -> x
+        NoiseUtils.InterpolationMethod.HERMITE -> x.smoothStep()
+        NoiseUtils.InterpolationMethod.QUINTIC -> x.smootherStep()
+    }
+
+    private fun polynomial(buffer: NoiseBuffer2): NoiseBuffer2 {
         if (width != height)
             throw NoiseException("Width must equal height for polynomial height")
 
-        val boundary = NoiseBuffer(width, height, rng)
+        val boundary = NoiseBuffer2(width, height, rng)
 
         var deltaX = 0.0f
         var deltaY = 0.0f
@@ -79,7 +84,7 @@ class ComplexNoise(
                 var idy = 0
                 var idy1 = 0
                 var yRel = 0f
-                val smoothX = xRel.smoothStep()
+                val smoothX = interpolate(xRel)
 
                 if (x % res == 0) {
                     idx = idx1
@@ -87,7 +92,7 @@ class ComplexNoise(
                     changeCell = true
                 }
                 for (y in 0 until this.width) {
-                    val smoothY = yRel.smoothStep()
+                    val smoothY = interpolate(yRel)
 
                     if (y % res == 0) {
                         idy = idy1

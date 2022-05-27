@@ -1,19 +1,20 @@
 package com.github.polyrocketmatt.peak.primitive.noise
 
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
-import com.github.polyrocketmatt.peak.provider.FastNoiseProvider
-import com.github.polyrocketmatt.peak.provider.builder.FastProviderDataBuilder
-import com.github.polyrocketmatt.peak.types.FastNoise
+import com.github.polyrocketmatt.peak.provider.CellularNoiseProvider
+import com.github.polyrocketmatt.peak.provider.builder.CellularNoiseDataBuilder
+import com.github.polyrocketmatt.peak.types.NoiseEvaluator
+import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 
 /**
- * Defines a primitive from Cellular noise. A buffer is constructed
+ * Defines a primitive for cellular noise. A buffer is constructed
  * from the given width and height values.
  *
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(width, height), true) {
+class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer2(width, height), true) {
 
     /**
      * Constructor for a primitive with equal width and height buffer.
@@ -32,9 +33,18 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
         }
 
     /**
+     * The cellular type of the primitive
+     */
+    var cellularType: CellularNoise.CellularType = CellularNoise.CellularType.VORONOI
+        set(value) {
+            this.update = true
+            field = value
+        }
+
+    /**
      * The distance type of the primitive.
      */
-    var distanceType: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN
+    var distanceType: CellularNoise.DistanceType = CellularNoise.DistanceType.EUCLIDEAN
         set(value) {
             this.update = true
             field = value
@@ -43,7 +53,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
     /**
      * The return type of the primitive
      */
-    var returnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
+    var returnType: CellularNoise.ReturnType = CellularNoise.ReturnType.DISTANCE
         set(value) {
             this.update = true
             field = value
@@ -52,13 +62,13 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
     /**
      * The lookup of the primitive.
      */
-    var lookup: FastNoise? = null
+    var lookup: NoiseEvaluator? = null
         set(value) {
             this.update = true
             field = value
         }
 
-    private var noise: FastNoiseProvider = FastNoiseProvider(FastProviderDataBuilder().build())
+    private var noise: CellularNoiseProvider = CellularNoiseProvider(CellularNoiseDataBuilder().build())
 
     init { recompute() }
 
@@ -67,22 +77,17 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer(wi
      */
     override fun recompute() {
         this.update = false
-        this.noise = FastNoiseProvider(
-            FastProviderDataBuilder()
+        this.noise = CellularNoiseProvider(
+            CellularNoiseDataBuilder()
                 .buildSeed(this.seed)
-                .buildType(FastNoise.NoiseType.CELLULAR)
-                .buildDistanceFunction(this.distanceType)
+                .buildCellularType(this.cellularType)
+                .buildDistanceType(this.distanceType)
                 .buildReturnType(this.returnType)
                 .buildLookup(this.lookup)
                 .build()
         )
-        val width = this.buffer().width()
-        val height = this.buffer().height()
 
-        for (x in 0 until width) for (z in 0 until height)
-            this.buffer()[x][z] = this.noise.noise(x, z)
-
-        Operators.NORMALIZE.operate(this.buffer())
+        Operators.NORMALIZE.operate(this.buffer().fill(this.noise))
     }
 
 }
