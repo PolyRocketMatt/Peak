@@ -3,6 +3,7 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
@@ -15,7 +16,7 @@ import kotlin.random.Random
  *
  * @param buffer: the 2D array of floats, which represent the buffer
  */
-class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
+class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer {
 
     enum class Rotation2 { DEG_90, DEG_180 }
 
@@ -129,7 +130,7 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * @param transform: the transform to perform on each element in the buffer
      * @return this noise buffer
      */
-    override fun map(transform: (Float) -> Float): NoiseBuffer2 {
+    override fun map(transform: (Float) -> Float): SyncNoiseBuffer2 {
         val copy = copy()
         copy.buffer.forEachIndexed { x, floats -> floats.forEachIndexed { z, value -> copy[x][z] = transform(value) } }
         return copy
@@ -141,12 +142,12 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * @param transform: the transform to perform on each element in the buffer
      * @return a new noise buffer with the mapped data
      */
-    fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): NoiseBuffer2 {
+    fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): SyncNoiseBuffer2 {
         val newBuffer = Array(width()) { FloatArray(height()) { 0.0f } }
         for ((x, item) in buffer.withIndex())
             for ((y, float) in item.withIndex())
                 newBuffer[x][y] = transform(x, y, float)
-        return NoiseBuffer2(newBuffer)
+        return SyncNoiseBuffer2(newBuffer)
     }
 
     /**
@@ -154,14 +155,14 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      *
      * @return this buffer
      */
-    override fun content(): NoiseBuffer2 = this
+    override fun content(): SyncNoiseBuffer2 = this
 
     /**
      * Get a copy of the internal 2D array representation of the buffer.
      *
      * @return a copy of the 2D array representation of the buffer
      */
-    override fun copy(): NoiseBuffer2 = NoiseBuffer2(buffer.map { it.clone() }.toTypedArray())
+    override fun copy(): SyncNoiseBuffer2 = SyncNoiseBuffer2(buffer.map { it.clone() }.toTypedArray())
 
     /**
      * Fill the buffer given a noise provider.
@@ -169,7 +170,7 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): NoiseBuffer2 {
+    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = provider.noise(x, z)
         return this
@@ -181,7 +182,7 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): NoiseBuffer2 {
+    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = evaluator.noise(x.f(), z.f())
         return this
@@ -193,7 +194,7 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * @param rotation: the rotation on how to rotate the buffer
      * @return the rotated buffer according to the given rotation
      */
-    fun rotate(rotation: Rotation2): NoiseBuffer2 {
+    fun rotate(rotation: Rotation2): SyncNoiseBuffer2 {
         val rotated = when (rotation) {
             Rotation2.DEG_90 -> {
                 //  Columns -> Rows
@@ -214,7 +215,20 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
             }
         }
 
-        return NoiseBuffer2(rotated)
+        return SyncNoiseBuffer2(rotated)
+    }
+
+    /**
+     * Transform the buffer to an asynchronous buffer.
+     *
+     * @param chunkSize: the chunk size to split the buffer in
+     * @return this buffer in an asynchronous format
+     * @throws NoiseException if the width or height is not divisible by the provided chunk size
+     */
+    override fun toAsync(chunkSize: Int): AsyncNoiseBuffer {
+        if (width() % chunkSize != 0 || height() % chunkSize != 0)
+            throw NoiseException("Cannot transform buffer with irregular width and/or height")
+        return AsyncNoiseBuffer2(this.buffer, chunkSize)
     }
 
 }

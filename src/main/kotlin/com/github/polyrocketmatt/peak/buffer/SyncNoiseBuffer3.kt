@@ -3,6 +3,7 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import kotlin.random.Random
@@ -13,8 +14,8 @@ import kotlin.random.Random
  *
  * @param buffer: the 3D array of floats, which represent the buffer
  */
-class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
-    NoiseBuffer {
+class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
+    SyncNoiseBuffer {
 
     /**
      * Constructor for an empty buffer of the given width and height.
@@ -130,8 +131,9 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      * @param transform: the transform to perform on each element in the buffer
      * @return this noise buffer
      */
-    override fun map(transform: (Float) -> Float): NoiseBuffer3 {
-        buffer.forEachIndexed { x, floats2 ->
+    override fun map(transform: (Float) -> Float): SyncNoiseBuffer3 {
+        val copy = copy()
+        copy.buffer.forEachIndexed { x, floats2 ->
             floats2.forEachIndexed { y, floats -> floats.forEachIndexed { z, value -> buffer[x][y][z] = transform(value) } } }
         return this
     }
@@ -142,13 +144,13 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      * @param transform: the transform to perform on each element in the buffer
      * @return a new noise buffer with the mapped data
      */
-    fun mapIndexed(transform: (x: Int, y: Int, z: Int, Float) -> Float): NoiseBuffer3 {
+    fun mapIndexed(transform: (x: Int, y: Int, z: Int, Float) -> Float): SyncNoiseBuffer3 {
         val newBuffer = Array(width()) { Array(height()) {FloatArray(depth()) { 0.0f } } }
         for ((x, plane) in buffer.withIndex())
             for ((y, item) in plane.withIndex())
                 for ((z, float) in item.withIndex())
                     newBuffer[x][y][z] = transform(x, y, z, float)
-        return NoiseBuffer3(newBuffer)
+        return SyncNoiseBuffer3(newBuffer)
     }
 
     /**
@@ -156,14 +158,14 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      *
      * @return this buffer
      */
-    override fun content(): NoiseBuffer3 = this
+    override fun content(): SyncNoiseBuffer3 = this
 
     /**
      * Get a copy of the internal 2D array representation of the buffer.
      *
      * @return a copy of the 2D array representation of the buffer
      */
-    override fun copy(): NoiseBuffer3 = NoiseBuffer3(buffer.map { it -> it.map { it.clone() }.toTypedArray() }.toTypedArray())
+    override fun copy(): SyncNoiseBuffer3 = SyncNoiseBuffer3(buffer.map { it -> it.map { it.clone() }.toTypedArray() }.toTypedArray())
 
     /**
      * Fill the buffer given a noise provider.
@@ -171,7 +173,7 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): NoiseBuffer3 {
+    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = provider.noise(x, y, z)
         return this
@@ -183,10 +185,22 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): NoiseBuffer3 {
+    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = evaluator.noise(x.f(), y.f(), z.f())
         return this
+    }
+
+    /**
+     * Transform the buffer to an asynchronous buffer.
+     *
+     * @param chunkSize: the chunk size to split the buffer in
+     * @return this buffer in an asynchronous format
+     */
+    override fun toAsync(chunkSize: Int): AsyncNoiseBuffer {
+        if (width() % chunkSize != 0 || height() % chunkSize != 0 || depth() % chunkSize != 0)
+            throw NoiseException("Cannot transform buffer with irregular width and/or height")
+        return AsyncNoiseBuffer3(this.buffer, chunkSize)
     }
 
 }

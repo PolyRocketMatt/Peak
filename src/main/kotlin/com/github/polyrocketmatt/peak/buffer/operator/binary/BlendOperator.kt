@@ -1,8 +1,8 @@
 package com.github.polyrocketmatt.peak.buffer.operator.binary
 
 import com.github.polyrocketmatt.peak.exception.BufferOperationException
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.BinaryBufferOperator
 
 /**
@@ -21,7 +21,7 @@ class BlendOperator : BinaryBufferOperator {
      *  @throws BufferOperationException if the ratio is not contained within [0:1]
      *  @return a new NoiseBuffer that contains the blend of the two buffers
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(first: SyncNoiseBuffer2, second: SyncNoiseBuffer2, vararg data: Float): SyncNoiseBuffer2 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected ratio arguments!")
         val ratio = data[0]
@@ -43,7 +43,7 @@ class BlendOperator : BinaryBufferOperator {
      *  @throws BufferOperationException if the ratio is not contained within [0:1]
      *  @return a new NoiseBuffer that contains the blend of the two buffers
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(first: SyncNoiseBuffer3, second: SyncNoiseBuffer3, vararg data: Float): SyncNoiseBuffer3 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected ratio arguments!")
         val ratio = data[0]

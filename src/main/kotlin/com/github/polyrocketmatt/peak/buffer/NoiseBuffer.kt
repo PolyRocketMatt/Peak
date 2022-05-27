@@ -3,10 +3,6 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
-/**
- * Defines buffer that holds a noise map on which operations
- * can be performed.
- */
 interface NoiseBuffer {
 
     /**

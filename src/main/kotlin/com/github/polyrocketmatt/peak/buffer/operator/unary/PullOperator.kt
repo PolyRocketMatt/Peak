@@ -1,7 +1,7 @@
 package com.github.polyrocketmatt.peak.buffer.operator.unary
 
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 import com.github.polyrocketmatt.peak.exception.BufferOperationException
 import com.github.polyrocketmatt.peak.math.smoothStepLerp
@@ -23,7 +23,7 @@ class PullOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max / increase values provided
      * @return a new NoiseBuffer that contains the pulled elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: SyncNoiseBuffer2, vararg data: Float): SyncNoiseBuffer2 {
         if (data.size != 3)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min, max and increase arguments!")
         val min = data[0]
@@ -49,7 +49,7 @@ class PullOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max / increase values provided
      * @return a new NoiseBuffer that contains the pulled elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: SyncNoiseBuffer3, vararg data: Float): SyncNoiseBuffer3 {
         if (data.size != 3)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min, max and increase arguments!")
         val min = data[0]
