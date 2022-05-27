@@ -3,6 +3,9 @@ package com.github.polyrocketmatt.peak.types.simple
 import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 
+/**
+ * Fractal noise implementation.
+ */
 class FractalNoise(
     seed: Int,
     interpolation: NoiseUtils.InterpolationMethod,
@@ -24,8 +27,8 @@ class FractalNoise(
     }
 
     override fun noise(nX: Float, nY: Float): Float {
-        val x = nX * frequency
-        val y = nY * frequency
+        val x = nX * 0.01f
+        val y = nY * 0.01f
 
         when(fractalType) {
             FractalType.FBM       -> {
@@ -82,9 +85,9 @@ class FractalNoise(
     }
 
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
-        val x = nX * frequency
-        val y = nY * frequency
-        val z = nZ * frequency
+        val x = nX * 0.01f
+        val y = nY * 0.01f
+        val z = nZ * 0.01f
 
         when(fractalType) {
             FractalType.FBM         -> {
@@ -158,11 +161,11 @@ class FractalNoise(
         fractalBounding = 1.0f / ampFractal
     }
 
-        override fun type(): SimpleNoiseType = when(type) {
-            SimpleNoiseType.PERLIN          -> SimpleNoiseType.PERLIN_FRACTAL
-            SimpleNoiseType.VALUE           -> SimpleNoiseType.VALUE_FRACTAL
-            SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_FRACTAL
-            else                            -> SimpleNoiseType.VALUE_FRACTAL
-        }
+    override fun type(): SimpleNoiseType = when(type) {
+        SimpleNoiseType.PERLIN          -> SimpleNoiseType.PERLIN_FRACTAL
+        SimpleNoiseType.VALUE           -> SimpleNoiseType.VALUE_FRACTAL
+        SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_FRACTAL
+        else                            -> SimpleNoiseType.VALUE_FRACTAL
+    }
 
 }

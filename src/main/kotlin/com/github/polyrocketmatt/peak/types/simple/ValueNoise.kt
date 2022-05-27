@@ -8,6 +8,9 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.valCoord2d
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.valCoord3d
 
+/**
+ * Value noise implementation.
+ */
 class ValueNoise(
     private val seed: Int,
     private val interpolation: NoiseUtils.InterpolationMethod,

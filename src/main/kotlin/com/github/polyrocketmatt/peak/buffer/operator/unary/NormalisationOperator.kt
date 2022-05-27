@@ -21,7 +21,12 @@ class NormalisationOperator : UnaryBufferOperator {
         val min = buffer.min()
         val max = buffer.max()
 
-        return buffer.map { fl -> fl.normalize(min, max) }
+        val buf = buffer.map { fl -> fl.normalize(min, max) }
+
+        val bmin = buf.min()
+        val bmax = buf.max()
+
+        return buf
     }
 
     /**

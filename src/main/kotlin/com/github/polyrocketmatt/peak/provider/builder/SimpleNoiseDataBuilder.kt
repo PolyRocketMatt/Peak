@@ -6,7 +6,7 @@ import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import java.lang.IllegalArgumentException
 
 /**
- * Builder for a FastProviderData object.
+ * Builder for a SimpleNoiseProvider object.
  */
 class SimpleNoiseDataBuilder : DataBuilder {
 
@@ -19,13 +19,6 @@ class SimpleNoiseDataBuilder : DataBuilder {
     private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN
     private var interpolation: NoiseUtils.InterpolationMethod = NoiseUtils.InterpolationMethod.HERMITE
     private var fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM
-
-    /*
-    private var distanceFunction: FastNoise.CellularDistanceFunction = FastNoise.CellularDistanceFunction.EUCLIDEAN
-    private var cellularReturnType: FastNoise.CellularReturnType = FastNoise.CellularReturnType.DISTANCE
-    private var lookup: FastNoise? = null
-
-     */
 
     /**
      * Build the seed of noise octaves.

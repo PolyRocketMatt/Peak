@@ -3,12 +3,17 @@ package com.github.polyrocketmatt.peak.types.bounded
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.game.math.smoothStep
 import com.github.polyrocketmatt.game.math.smootherStep
+import com.github.polyrocketmatt.peak.annotation.Ref
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import kotlin.random.Random
 
+/**
+ * Polynomial noise implementation.
+ */
+@Ref("https://arxiv.org/pdf/1610.03525.pdf")
 class PolynomialNoise(
     seed: Int,
     width: Int,

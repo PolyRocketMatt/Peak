@@ -8,6 +8,9 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord2d
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord3d
 
+/**
+ * Perlin noise implementation.
+ */
 class PerlinNoise(
     private val seed: Int,
     private val interpolation: NoiseUtils.InterpolationMethod,

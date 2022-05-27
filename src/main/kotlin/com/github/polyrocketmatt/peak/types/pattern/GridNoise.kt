@@ -4,6 +4,9 @@ import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.i
 import kotlin.math.floor
 
+/**
+ * Grid noise implementation.
+ */
 class GridNoise(
     val scale: Float
 ) : PatternNoise() {
@@ -16,7 +19,7 @@ class GridNoise(
 
     override fun noise(nX: Float, nY: Float, nZ: Float): Float = ((floor(2.0f * nX).i() + floor(2.0f * nY).i() + floor(2.0f * nZ).i()) % 2).f()
 
-    override fun type(): PatternType = PatternType.GRID
+    override fun type(): PatternNoiseType = PatternNoiseType.GRID
 
     override fun orientation(): PatternOrientation = PatternOrientation.NOT_AVAILABLE
 

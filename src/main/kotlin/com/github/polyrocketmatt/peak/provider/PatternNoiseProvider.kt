@@ -6,16 +6,19 @@ import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.provider.data.PatternNoiseData
 import com.github.polyrocketmatt.peak.types.pattern.*
 
+/**
+ * Represents a pattern noise provider.
+ */
 class PatternNoiseProvider(data: PatternNoiseData) : SimpleNoiseProvider() {
 
     private val noise: PatternNoise
 
     init {
         this.noise = when(data.type) {
-            PatternNoise.PatternType.CHECKERBOARD       -> CheckerboardNoise(data.scale)
-            PatternNoise.PatternType.GRID               -> GridNoise(data.scale)
-            PatternNoise.PatternType.RADIAL_STRIPE      -> RadialNoise(data.size, data.scale)
-            PatternNoise.PatternType.STRAIGHT_STRIPE    -> StraightStripeNoise(data.scale, data.orientation)
+            PatternNoise.PatternNoiseType.CHECKERBOARD       -> CheckerboardNoise(data.scale)
+            PatternNoise.PatternNoiseType.GRID               -> GridNoise(data.scale)
+            PatternNoise.PatternNoiseType.RADIAL_STRIPE      -> RadialNoise(data.size, data.scale)
+            PatternNoise.PatternNoiseType.STRAIGHT_STRIPE    -> StraightStripeNoise(data.scale, data.orientation)
         }
     }
 

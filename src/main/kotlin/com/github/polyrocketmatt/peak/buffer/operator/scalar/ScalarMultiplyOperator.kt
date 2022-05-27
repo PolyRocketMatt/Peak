@@ -4,6 +4,9 @@ import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.ScalarBufferOperator
 
+/**
+ * Operator that multiplies a scalar with a buffer.
+ */
 class ScalarMultiplyOperator : ScalarBufferOperator {
 
     /**

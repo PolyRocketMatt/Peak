@@ -1,8 +1,10 @@
 package com.github.polyrocketmatt.peak.buffer
 
+import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
+import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import kotlin.random.Random
 
 /**
@@ -126,6 +128,7 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
      * Transform each element in the buffer to another element.
      *
      * @param transform: the transform to perform on each element in the buffer
+     * @return this noise buffer
      */
     override fun map(transform: (Float) -> Float): NoiseBuffer3 {
         buffer.forEachIndexed { x, floats2 ->
@@ -133,6 +136,12 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
         return this
     }
 
+    /**
+     * Transform each element in the buffer to another element.
+     *
+     * @param transform: the transform to perform on each element in the buffer
+     * @return a new noise buffer with the mapped data
+     */
     fun mapIndexed(transform: (x: Int, y: Int, z: Int, Float) -> Float): NoiseBuffer3 {
         val newBuffer = Array(width()) { Array(height()) {FloatArray(depth()) { 0.0f } } }
         for ((x, plane) in buffer.withIndex())
@@ -165,6 +174,18 @@ class NoiseBuffer3(private val buffer: Array<Array<FloatArray>>) :
     override fun fill(provider: SimpleNoiseProvider): NoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = provider.noise(x, y, z)
+        return this
+    }
+
+    /**
+     * Fill the buffer given a noise evaluator.
+     *
+     * @param evaluator: the evaluator to use when filling the buffer
+     * @return this noise buffer
+     */
+    override fun fill(evaluator: NoiseEvaluator): NoiseBuffer3 {
+        for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
+            buffer[x][y][z] = evaluator.noise(x.f(), y.f(), z.f())
         return this
     }
 

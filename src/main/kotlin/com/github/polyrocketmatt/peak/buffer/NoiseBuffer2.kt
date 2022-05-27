@@ -1,9 +1,11 @@
 package com.github.polyrocketmatt.peak.buffer
 
+import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
+import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.awt.image.BufferedImage
 import kotlin.random.Random
 
@@ -125,13 +127,20 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
      * Transform each element in the buffer to another element.
      *
      * @param transform: the transform to perform on each element in the buffer
+     * @return this noise buffer
      */
     override fun map(transform: (Float) -> Float): NoiseBuffer2 {
         val copy = copy()
-        copy.buffer.forEachIndexed { x, floats -> floats.forEachIndexed { z, value -> buffer[x][z] = transform(value) } }
+        copy.buffer.forEachIndexed { x, floats -> floats.forEachIndexed { z, value -> copy[x][z] = transform(value) } }
         return copy
     }
 
+    /**
+     * Transform each element in the buffer to another element.
+     *
+     * @param transform: the transform to perform on each element in the buffer
+     * @return a new noise buffer with the mapped data
+     */
     fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): NoiseBuffer2 {
         val newBuffer = Array(width()) { FloatArray(height()) { 0.0f } }
         for ((x, item) in buffer.withIndex())
@@ -163,6 +172,18 @@ class NoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer {
     override fun fill(provider: SimpleNoiseProvider): NoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = provider.noise(x, z)
+        return this
+    }
+
+    /**
+     * Fill the buffer given a noise evaluator.
+     *
+     * @param evaluator: the evaluator to use when filling the buffer
+     * @return this noise buffer
+     */
+    override fun fill(evaluator: NoiseEvaluator): NoiseBuffer2 {
+        for (x in 0 until width()) for (z in 0 until height())
+            buffer[x][z] = evaluator.noise(x.f(), z.f())
         return this
     }
 

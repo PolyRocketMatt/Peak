@@ -5,13 +5,15 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 import java.lang.IllegalArgumentException
 
+/**
+ * Builder for a CellularNoiseProvider object.
+ */
 class CellularNoiseDataBuilder : DataBuilder {
 
     private var seed: Int = 0
-    private var cellularType: CellularNoise.CellularType = CellularNoise.CellularType.VORONOI
+    private var frequency: Float = 1.0f
     private var distanceType: CellularNoise.DistanceType = CellularNoise.DistanceType.EUCLIDEAN
     private var returnType: CellularNoise.ReturnType = CellularNoise.ReturnType.DISTANCE
-    private var lookup: NoiseEvaluator? = null
 
     /**
      * Build the seed of noise octaves.
@@ -29,13 +31,17 @@ class CellularNoiseDataBuilder : DataBuilder {
     }
 
     /**
-     * Build the cellular type for the noise.
+     * Build the frequency of noise octaves.
      *
-     * @param value the cellular type of the noise
-     * @return this builder with the set cellular type
+     * @param value: the frequency of the noise
+     * @return this builder with the set frequency
+     * @throws IllegalArgumentException if the value is less than 0
      */
-    fun buildCellularType(value: CellularNoise.CellularType): CellularNoiseDataBuilder {
-        this.cellularType = value
+    fun buildFrequency(value: Float): CellularNoiseDataBuilder {
+        if (value < 0)
+            throw IllegalArgumentException("Seed cannot be less than 0")
+
+        this.frequency = value
         return this
     }
 
@@ -62,24 +68,12 @@ class CellularNoiseDataBuilder : DataBuilder {
     }
 
     /**
-     * Build the lookup noise for the noise.
-     *
-     * @param value the lookup noise of the noise
-     * @return this builder with the set lookup noise
-     */
-    fun buildLookup(value: NoiseEvaluator?): CellularNoiseDataBuilder {
-        this.lookup = value
-        return this
-    }
-
-    /**
      * Build the noise data as SimpleNoiseData.
      */
     override fun build(): CellularNoiseData = CellularNoiseData(
         this.seed,
-        this.cellularType,
+        this.frequency,
         this.distanceType,
         this.returnType,
-        this.lookup
     )
 }

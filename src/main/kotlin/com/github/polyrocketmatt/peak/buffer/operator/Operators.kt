@@ -20,6 +20,8 @@ import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.MULTIP
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.NORMALIZE
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.POLYNOMIAL
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.POWER
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.PULL
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.PUSH
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SCALE
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SMOOTHER_STEP
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SMOOTH_STEP
@@ -46,6 +48,8 @@ class Operators {
         val NORMALIZE: NormalisationOperator = NormalisationOperator()
         val POLYNOMIAL: PolynomialOperator = PolynomialOperator()
         val POWER: PowerOperator = PowerOperator()
+        val PULL: PullOperator = PullOperator()
+        val PUSH: PushOperator = PushOperator()
         val SCALE: ScaleOperator = ScaleOperator()
         val SMOOTH_STEP: SmoothStepOperator = SmoothStepOperator()
         val SMOOTHER_STEP: SmootherStepOperator = SmootherStepOperator()
@@ -87,6 +91,10 @@ fun NoiseBuffer2.normalize() = NORMALIZE.operate(this)
 fun NoiseBuffer2.polynomial(vararg coefficients: Float) = POLYNOMIAL.operate(this, *coefficients)
 
 fun NoiseBuffer2.power(pow: Float) = POWER.operate(this, pow)
+
+fun NoiseBuffer2.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)
+
+fun NoiseBuffer2.push(min: Float, max: Float, inc: Float) = PUSH.operate(this, min, max, inc)
 
 fun NoiseBuffer2.scale(scale: Float) = SCALE.operate(this, scale)
 
@@ -133,6 +141,10 @@ fun NoiseBuffer3.normalize() = NORMALIZE.operate(this)
 fun NoiseBuffer3.polynomial(vararg coefficients: Float) = POLYNOMIAL.operate(this, *coefficients)
 
 fun NoiseBuffer3.power(pow: Float) = POWER.operate(this, pow)
+
+fun NoiseBuffer3.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)
+
+fun NoiseBuffer3.push(min: Float, max: Float, inc: Float) = PUSH.operate(this, min, max, inc)
 
 fun NoiseBuffer3.scale(scale: Float) = SCALE.operate(this, scale)
 

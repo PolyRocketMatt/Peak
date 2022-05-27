@@ -4,6 +4,9 @@ import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.ScalarBufferOperator
 
+/**
+ * Operator that subtracts a scalar from a buffer.
+ */
 class ScalarSubtractOperator : ScalarBufferOperator {
 
     /**

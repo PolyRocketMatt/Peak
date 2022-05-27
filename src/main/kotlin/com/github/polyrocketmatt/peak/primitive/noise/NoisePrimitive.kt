@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage
 /**
  * Defines a noise-related primitive, based on a noise buffer.
  */
-abstract class NoisePrimitive(private val buffer: NoiseBuffer2, var update: Boolean): Primitive {
+abstract class NoisePrimitive(private var buffer: NoiseBuffer2, var update: Boolean): Primitive {
 
     /**
      * Get the noise buffer of the primitive.
@@ -28,5 +28,7 @@ abstract class NoisePrimitive(private val buffer: NoiseBuffer2, var update: Bool
      * @return the image of the primitive
      */
     override fun image(): BufferedImage = buffer().image()
+
+    protected fun update(update: NoiseBuffer2) { this.buffer = update }
 
 }

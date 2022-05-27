@@ -2,6 +2,9 @@ package com.github.polyrocketmatt.peak.types.pattern
 
 import com.github.polyrocketmatt.game.math.i
 
+/**
+ * Checkerboard noise implementation.
+ */
 class CheckerboardNoise(
     val scale: Float
 ) : PatternNoise() {
@@ -21,7 +24,7 @@ class CheckerboardNoise(
         return if (iX == iY && iY == iZ) 1.0f else 0.0f
     }
 
-    override fun type(): PatternType = PatternType.CHECKERBOARD
+    override fun type(): PatternNoiseType = PatternNoiseType.CHECKERBOARD
 
     override fun orientation(): PatternOrientation = PatternOrientation.NOT_AVAILABLE
 

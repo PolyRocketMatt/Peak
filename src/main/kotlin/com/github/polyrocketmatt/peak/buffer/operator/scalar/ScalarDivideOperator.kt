@@ -4,6 +4,9 @@ import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.ScalarBufferOperator
 
+/**
+ * Operator that divides a buffer with a scalar.
+ */
 class ScalarDivideOperator : ScalarBufferOperator {
 
     /**

@@ -5,12 +5,14 @@ import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 
+/**
+ * Data for a cellular noise provider.
+ */
 class CellularNoiseData(
     val seed: Int,
-    val cellularType: CellularNoise.CellularType,
+    val frequency: Float,
     val distanceType: CellularNoise.DistanceType,
     val returnType: CellularNoise.ReturnType,
-    val lookup: NoiseEvaluator?
 ) : NoiseData() {
 
     /**

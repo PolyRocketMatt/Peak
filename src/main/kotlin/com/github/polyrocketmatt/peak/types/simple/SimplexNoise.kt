@@ -9,6 +9,9 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.G33
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord2d
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord3d
 
+/**
+ * Simplex noise implementation.
+ */
 class SimplexNoise(
     private val seed: Int,
 ) : SimpleNoise() {

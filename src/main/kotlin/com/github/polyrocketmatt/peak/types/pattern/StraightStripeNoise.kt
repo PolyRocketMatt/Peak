@@ -3,6 +3,9 @@ package com.github.polyrocketmatt.peak.types.pattern
 import kotlin.math.min
 import kotlin.math.sin
 
+/**
+ * Straight stripe noise implementation.
+ */
 class StraightStripeNoise(
     val scale: Float,
     val orientation: PatternOrientation,
@@ -19,7 +22,7 @@ class StraightStripeNoise(
         TODO("Not yet implemented")
     }
 
-    override fun type(): PatternType = PatternType.STRAIGHT_STRIPE
+    override fun type(): PatternNoiseType = PatternNoiseType.STRAIGHT_STRIPE
 
     override fun orientation(): PatternOrientation = orientation
 }

@@ -5,7 +5,6 @@ import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.provider.data.CellularNoiseData
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
-import com.github.polyrocketmatt.peak.types.pattern.*
 
 /**
  * Represents a cellular noise provider
@@ -15,7 +14,7 @@ class CellularNoiseProvider(data: CellularNoiseData) : SimpleNoiseProvider() {
     private val noise: CellularNoise
 
     init {
-        this.noise = CellularNoise(data.seed, data.cellularType, data.distanceType, data.returnType, data.lookup)
+        this.noise = CellularNoise(data.seed, data.frequency, data.distanceType, data.returnType)
     }
 
     /**

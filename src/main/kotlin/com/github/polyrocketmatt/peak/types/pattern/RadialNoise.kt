@@ -6,6 +6,9 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
 
+/**
+ * Radial noise implementation.
+ */
 class RadialNoise(
     val size: Int,
     val scale: Float
@@ -19,7 +22,7 @@ class RadialNoise(
         TODO("Not yet implemented")
     }
 
-    override fun type(): PatternType = PatternType.RADIAL_STRIPE
+    override fun type(): PatternNoiseType = PatternNoiseType.RADIAL_STRIPE
 
     override fun orientation(): PatternOrientation = PatternOrientation.NOT_AVAILABLE
 }

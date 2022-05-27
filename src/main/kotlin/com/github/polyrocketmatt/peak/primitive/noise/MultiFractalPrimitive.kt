@@ -98,9 +98,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffe
                 .build()
         )
 
-        Operators.NORMALIZE.operate(this.buffer().fill(this.noise))
+        this.update(Operators.NORMALIZE.operate(this.buffer().fill(this.noise)))
     }
-
-    fun provider(): com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider = this.noise
 
 }

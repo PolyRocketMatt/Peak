@@ -4,8 +4,11 @@ import com.github.polyrocketmatt.peak.provider.PatternNoiseProvider
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.pattern.PatternNoise
 
+/**
+ * Data for a pattern noise provider.
+ */
 data class PatternNoiseData(
-    val type: PatternNoise.PatternType,
+    val type: PatternNoise.PatternNoiseType,
     val size: Int,
     val scale: Float,
     val orientation: PatternNoise.PatternOrientation

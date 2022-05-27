@@ -1,28 +1,37 @@
 package com.github.polyrocketmatt.peak
 
-import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.operator.blend
-import com.github.polyrocketmatt.peak.buffer.operator.multiply
+import com.github.polyrocketmatt.peak.buffer.operator.*
+import com.github.polyrocketmatt.peak.primitive.noise.CellularPrimitive
 import com.github.polyrocketmatt.peak.primitive.noise.MultiFractalPrimitive
-import com.github.polyrocketmatt.peak.provider.PatternNoiseProvider
-import com.github.polyrocketmatt.peak.types.pattern.PatternNoise
+import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
+import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import java.io.File
 import javax.imageio.ImageIO
 
 fun main(args: Array<String>) {
 
-    val size = 512
-
-    val radial = PatternNoiseProvider(size, PatternNoise.PatternType.RADIAL_STRIPE, 16.5f, PatternNoise.PatternOrientation.DIAGONAL)
+    val size = 2048
     val noise = MultiFractalPrimitive(size)
+    val cells = CellularPrimitive(size)
+    val detail = MultiFractalPrimitive(size)
 
-    noise.seed = 1000
-    noise.octaves = 8
+    noise.seed = 10//Random.nextInt(10000)
+    noise.octaves = 10
     noise.scale = 0.1f
+    noise.fractal = SimpleNoise.FractalType.BILLOW
 
-    val bufferRad = NoiseBuffer2(size).fill(radial)
-    val bufferStr = noise.buffer()
-    val buffer = bufferRad.blend(bufferStr, 0.25f)
+    cells.seed = 10//Random.nextInt(10000)
+    cells.frequency = 0.01f
+    cells.returnType = CellularNoise.ReturnType.DISTANCE_2_MUL
+
+    detail.seed = 10 * 31
+    detail.octaves = 12
+    noise.scale = 0.1f
+    noise.fractal = SimpleNoise.FractalType.RIGID
+
+    val buffer = (((noise.buffer().blend(cells.buffer(), 0.3f))
+        .push(0.0f, 0.9f, 10f)
+        .normalize()) multiply  detail.buffer()).normalize()
 
     ImageIO.write(buffer.image(), "png", File("img/test.png"))
 

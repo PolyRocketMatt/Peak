@@ -5,6 +5,9 @@ import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.bounded.BoundedNoise
 
+/**
+ * Data for a bounded noise provider.
+ */
 class BoundedNoiseData(
     val seed: Int,
     val width: Int,

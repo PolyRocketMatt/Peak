@@ -8,6 +8,9 @@ private fun Float.bitCast(): Int {
     return i xor (i shr 16)
 }
 
+/**
+ * White noise implementation.
+ */
 class WhiteNoise
     (private val seed: Int
 ) : SimpleNoise() {

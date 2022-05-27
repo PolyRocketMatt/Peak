@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 
 /**
- * Data object which holds data for a fast noise provider to use.
+ * Data for a simple noise provider.
  */
 data class SimpleNoiseData(
     val seed: Int = 0,

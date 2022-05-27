@@ -4,7 +4,6 @@ import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.CellularNoiseProvider
 import com.github.polyrocketmatt.peak.provider.builder.CellularNoiseDataBuilder
-import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 
 /**
@@ -33,9 +32,9 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer2(w
         }
 
     /**
-     * The cellular type of the primitive
+     * The frequency of the primitive.
      */
-    var cellularType: CellularNoise.CellularType = CellularNoise.CellularType.VORONOI
+    var frequency: Float = 1.0f
         set(value) {
             this.update = true
             field = value
@@ -59,35 +58,25 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer2(w
             field = value
         }
 
-    /**
-     * The lookup of the primitive.
-     */
-    var lookup: NoiseEvaluator? = null
-        set(value) {
-            this.update = true
-            field = value
-        }
-
     private var noise: CellularNoiseProvider = CellularNoiseProvider(CellularNoiseDataBuilder().build())
 
     init { recompute() }
 
     /**
-     * Recompute Multi-layer Perlin noise in the buffer.
+     * Recompute cellular noise in the buffer.
      */
     override fun recompute() {
         this.update = false
         this.noise = CellularNoiseProvider(
             CellularNoiseDataBuilder()
                 .buildSeed(this.seed)
-                .buildCellularType(this.cellularType)
+                .buildFrequency(this.frequency)
                 .buildDistanceType(this.distanceType)
                 .buildReturnType(this.returnType)
-                .buildLookup(this.lookup)
                 .build()
         )
 
-        Operators.NORMALIZE.operate(this.buffer().fill(this.noise))
+        this.update(Operators.NORMALIZE.operate(this.buffer().fill(this.noise)))
     }
 
 }

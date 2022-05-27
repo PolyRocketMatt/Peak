@@ -99,7 +99,7 @@ class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(NoiseBuffer2(wid
                 .build()
         )
 
-        Operators.NORMALIZE.operate(this.buffer().fill(this.noise))
+        this.update(Operators.NORMALIZE.operate(this.buffer().fill(this.noise)))
     }
 
 }
