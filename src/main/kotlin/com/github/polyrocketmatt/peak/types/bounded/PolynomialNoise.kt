@@ -37,11 +37,11 @@ class PolynomialNoise(
     }
 
     /**
-     * Sample noise at the given x- and z-coordinates.
+     * Sample noise at the given x- and y-coordinates.
      *
      * @param nX: the x-coordinate to sample noise from
-     * @param nY: the z-coordinate to sample noise from
-     * @return the sampled noise at the given x- and z-coordinates
+     * @param nY: the y-coordinate to sample noise from
+     * @return the sampled noise at the given x- and y-coordinates
      */
     override fun noise(nX: Float, nY: Float): Float = buffer[nX.i()][nY.i()]
 

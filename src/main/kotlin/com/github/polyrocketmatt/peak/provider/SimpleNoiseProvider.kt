@@ -25,6 +25,12 @@ class SimpleNoiseProvider(data: SimpleNoiseData) : SimpleNoiseProvider() {
                 FractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.VALUE)
             SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL  ->
                 FractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.SIMPLEX)
+            SimpleNoise.SimpleNoiseType.PERLIN_SKIPPED_FRACTAL  ->
+                SmoothDetailFractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.PERLIN, data.skippedOctaves)
+            SimpleNoise.SimpleNoiseType.VALUE_SKIPPED_FRACTAL  ->
+                SmoothDetailFractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.VALUE, data.skippedOctaves)
+            SimpleNoise.SimpleNoiseType.SIMPLEX_SKIPPED_FRACTAL  ->
+                SmoothDetailFractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.SIMPLEX, data.skippedOctaves)
         }
     }
 

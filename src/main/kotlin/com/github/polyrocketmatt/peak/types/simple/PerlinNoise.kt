@@ -16,6 +16,13 @@ class PerlinNoise(
     private val interpolation: NoiseUtils.InterpolationMethod,
 ) : SimpleNoise() {
 
+    /**
+     * Sample noise at the given x- and y-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @return the sampled noise at the given x- and y-coordinates
+     */
     override fun noise(nX: Float, nY: Float): Float {
         val x0 = nX.fastFloor()
         val y0 = nY.fastFloor()
@@ -51,6 +58,14 @@ class PerlinNoise(
         return ys.lerp(xf0, xf1)
     }
 
+    /**
+     * Sample noise at the given x-, y- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @param nZ: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
         val x0 = nX.fastFloor()
         val y0 = nY.fastFloor()

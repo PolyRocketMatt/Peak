@@ -15,12 +15,27 @@ class WhiteNoise(
     private val seed: Int
 ) : SimpleNoise() {
 
+    /**
+     * Sample noise at the given x- and y-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @return the sampled noise at the given x- and y-coordinates
+     */
     override fun noise(nX: Float, nY: Float): Float {
         val iX = nX.bitCast()
         val iY = nY.bitCast()
         return valCoord2d(seed, iX, iY)
     }
 
+    /**
+     * Sample noise at the given x-, y- and z-coordinates.
+     *
+     * @param nX: the x-coordinate to sample noise from
+     * @param nY: the y-coordinate to sample noise from
+     * @param nZ: the z-coordinate to sample noise from
+     * @return the sampled noise at the given x- and z-coordinates
+     */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
         val iX = nX.bitCast()
         val iY = nY.bitCast()

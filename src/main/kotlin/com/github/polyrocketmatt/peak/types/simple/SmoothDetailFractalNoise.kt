@@ -3,10 +3,7 @@ package com.github.polyrocketmatt.peak.types.simple
 import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 
-/**
- * Fractal noise implementation.
- */
-class FractalNoise(
+class SmoothDetailFractalNoise(
     private val seed: Int,
     private val interpolation: NoiseUtils.InterpolationMethod,
     private val octaves: Int,
@@ -14,7 +11,8 @@ class FractalNoise(
     private val gain: Float,
     private val lacunarity: Float,
     private val fractalType: FractalType = FractalType.FBM,
-    private val type: SimpleNoiseType = SimpleNoiseType.PERLIN
+    private val type: SimpleNoiseType = SimpleNoiseType.PERLIN,
+    private val skippedOctaves: IntArray
 ) : SimpleNoise() {
 
     private val noise: SimpleNoise = when(type) {
@@ -44,11 +42,13 @@ class FractalNoise(
                 var sY = y
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
 
-                    amp *= gain
-                    sum += noise.noise(sX * scale, sY * scale) * amp
+                        amp *= gain
+                        sum += noise.noise(sX * scale, sY * scale) * amp
+                    }
                 }
 
                 return sum * fractalBounding
@@ -61,11 +61,13 @@ class FractalNoise(
                 var sY = y
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
 
-                    amp *= gain
-                    sum += (noise.noise(sX * scale, sY * scale).fastAbs() * 2 - 1) * amp
+                        amp *= gain
+                        sum += (noise.noise(sX * scale, sY * scale).fastAbs() * 2 - 1) * amp
+                    }
                 }
 
                 return sum * fractalBounding
@@ -78,11 +80,13 @@ class FractalNoise(
                 var sY = y
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
 
-                    amp *= gain
-                    sum += (1.0f - noise.noise(sX * scale, sY * scale).fastAbs())
+                        amp *= gain
+                        sum += (1.0f - noise.noise(sX * scale, sY * scale).fastAbs())
+                    }
                 }
 
                 return sum * fractalBounding
@@ -112,12 +116,14 @@ class FractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
-                    sZ *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
+                        sZ *= lacunarity
 
-                    amp *= gain
-                    sum += noise.noise(sX * scale, sY * scale, sZ * scale) * amp
+                        amp *= gain
+                        sum += noise.noise(sX * scale, sY * scale, sZ * scale) * amp
+                    }
                 }
 
                 return sum * fractalBounding
@@ -131,12 +137,14 @@ class FractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
-                    sZ *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
+                        sZ *= lacunarity
 
-                    amp *= gain
-                    sum += (noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs() * 2 - 1) * amp
+                        amp *= gain
+                        sum += (noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs() * 2 - 1) * amp
+                    }
                 }
 
                 return sum * fractalBounding
@@ -150,12 +158,14 @@ class FractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
-                    sX *= lacunarity
-                    sY *= lacunarity
-                    sZ *= lacunarity
+                    if (!skippedOctaves.contains(i - 1)) {
+                        sX *= lacunarity
+                        sY *= lacunarity
+                        sZ *= lacunarity
 
-                    amp *= gain
-                    sum += (1.0f - noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs()) * amp
+                        amp *= gain
+                        sum += (1.0f - noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs()) * amp
+                    }
                 }
 
                 return sum * fractalBounding
@@ -168,18 +178,20 @@ class FractalNoise(
         var ampFractal = 1.0f
 
         for (i in 1 until octaves) {
-            ampFractal += amp
-            amp *= gain
+            if (!skippedOctaves.contains(i)) {
+                ampFractal += amp
+                amp *= gain
+            }
         }
 
         fractalBounding = 1.0f / ampFractal
     }
 
     override fun type(): SimpleNoiseType = when(type) {
-        SimpleNoiseType.PERLIN          -> SimpleNoiseType.PERLIN_FRACTAL
-        SimpleNoiseType.VALUE           -> SimpleNoiseType.VALUE_FRACTAL
-        SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_FRACTAL
-        else                            -> SimpleNoiseType.VALUE_FRACTAL
+        SimpleNoiseType.PERLIN          -> SimpleNoiseType.PERLIN_SKIPPED_FRACTAL
+        SimpleNoiseType.VALUE           -> SimpleNoiseType.VALUE_SKIPPED_FRACTAL
+        SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_SKIPPED_FRACTAL
+        else                            -> SimpleNoiseType.VALUE_SKIPPED_FRACTAL
     }
 
     override fun clone(): FractalNoise = FractalNoise(seed, interpolation, octaves, scale, gain, lacunarity, fractalType, type)

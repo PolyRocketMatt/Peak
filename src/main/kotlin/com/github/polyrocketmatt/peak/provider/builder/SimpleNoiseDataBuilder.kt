@@ -18,6 +18,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
     private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN
     private var interpolation: NoiseUtils.InterpolationMethod = NoiseUtils.InterpolationMethod.HERMITE
     private var fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM
+    private var skippedOctaves: IntArray = intArrayOf()
 
     /**
      * Build the seed of noise octaves.
@@ -117,6 +118,30 @@ class SimpleNoiseDataBuilder : DataBuilder {
     }
 
     /**
+     * Build the skipped octaves for the noise.
+     *
+     * @param value: the skipped octaves for the noise
+     * @return this builder with the set skipped octaves
+     */
+    fun buildSkippedOctaves(value: IntArray): SimpleNoiseDataBuilder {
+        this.skippedOctaves = value
+        return this
+    }
+
+    /**
+     * Build the skipped octaves for the noise.
+     *
+     * @param value: the skipped octaves for the noise
+     * @return this builder with the set skipped octaves
+     */
+    @JvmName("buildSkippedOctavesVararg")
+    fun buildSkippedOctaves(vararg value: Int): SimpleNoiseDataBuilder {
+        this.skippedOctaves = value.toTypedArray().toIntArray()
+        return this
+    }
+
+
+    /**
      * Build the noise data as SimpleNoiseData.
      */
     override fun build(): SimpleNoiseData = SimpleNoiseData(
@@ -127,7 +152,8 @@ class SimpleNoiseDataBuilder : DataBuilder {
         this.lacunarity,
         this.type,
         this.interpolation,
-        this.fractal
+        this.fractal,
+        this.skippedOctaves
     )
 
 }
