@@ -19,7 +19,7 @@ class DivideOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the addition of the two buffers
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 =
+    override  fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 =
         first.mapIndexed { x, y, fl -> kotlin.run {
             val divisor = second[x][y]
             if (fl == 0.0f || divisor == 0.0f)
@@ -36,7 +36,7 @@ class DivideOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the addition of the two buffers
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 =
+    override  fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 =
         first.mapIndexed { x, y, z, fl -> kotlin.run {
             val divisor = second[x][y][z]
             if (fl == 0.0f || divisor == 0.0f)

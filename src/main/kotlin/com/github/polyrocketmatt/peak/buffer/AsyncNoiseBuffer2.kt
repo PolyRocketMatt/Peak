@@ -3,11 +3,13 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import kotlinx.coroutines.*
 import java.awt.image.BufferedImage
+import java.util.concurrent.*
 import kotlin.random.Random
 
 /**
@@ -25,6 +27,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
     private val chunksY: Int = buffer[0].size / chunkSize
     private var chunks: List<AsyncNoiseBuffer.NoiseChunk2> = arrayListOf()
     private var update: Boolean = false
+    private var threadCount: Int = 1
+    private var maxThreads: Int = 1
 
     init { update() }
 
@@ -142,52 +146,66 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * Transform each element in the buffer to another element.
      *
      * @param transform: the transform to perform on each element in the buffer
+     * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
     override fun map(transform: (Float) -> Float): AsyncNoiseBuffer2 {
         if (update)
             update()
+
+        val service = ForkJoinPool(this.chunks.size)
         val copy = copy()
-
-        runBlocking {
-            for (chunk in copy.chunks) {
-                val data = chunk.data
-
-                launch {
-                    data.forEachIndexed { x, floats -> floats.forEachIndexed { z, value -> copy[x][z] = transform(value) } }
-                }
+        for (chunk in copy.chunks) {
+            val cX = chunk.x * chunkSize
+            val cY = chunk.y * chunkSize
+            val task = AsyncNoiseBuffer.AsyncTask {
+                for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
+                    copy[x][y] = transform(copy[x][y])
             }
+
+            service.submit(task)
         }
 
-        return copy
+        service.shutdown()
+
+        val finish = service.awaitTermination(2, TimeUnit.MINUTES)
+        if (finish)
+            return copy
+        else
+            throw NoiseException("Buffer took too long to compute!")
     }
 
     /**
      * Transform each element in the buffer to another element.
      *
      * @param transform: the transform to perform on each element in the buffer
+     * @throws NoiseException if the buffer took too long to compute
      * @return a new noise buffer with the mapped data
      */
     override fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): AsyncNoiseBuffer2 {
         if (update)
             update()
+
+        val service = ForkJoinPool(this.chunks.size)
         val newBuffer = Array(width()) { FloatArray(height()) { 0.0f } }
-
-        runBlocking {
-            for (chunk in chunks) {
-                val cX = chunk.x * chunkSize
-                val cY = chunk.y * chunkSize
-                val data = chunk.data
-
-                launch {
-                    for ((indexX, x) in (cX until cX + chunkSize).withIndex())
-                        for ((indexY, y) in (cY until cY + chunkSize).withIndex())
-                            newBuffer[x][y] = transform(x, y, data[indexX][indexY])
-                }
+        for (chunk in this.chunks) {
+            val cX = chunk.x * chunkSize
+            val cY = chunk.y * chunkSize
+            val task = AsyncNoiseBuffer.AsyncTask {
+                for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
+                    newBuffer[x][y] = transform(x, y, buffer[x][y])
             }
+
+            service.submit(task)
         }
 
-        return AsyncNoiseBuffer2(newBuffer, chunkSize)
+        service.shutdown()
+
+        val finish = service.awaitTermination(2, TimeUnit.MINUTES)
+        if (finish)
+            return AsyncNoiseBuffer2(newBuffer, chunkSize)
+        else
+            throw NoiseException("Buffer took too long to compute!")
     }
 
     /**
@@ -208,45 +226,60 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * Fill the buffer given a noise provider.
      *
      * @param provider: the provider to use when filling the buffer
+     * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override suspend fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer2 {
-        coroutineScope {
-            for (chunk in chunks) {
-                val cX = chunk.x * chunkSize
-                val cY = chunk.y * chunkSize
-
-                launch {
-                    for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
-                        buffer[x][y] = provider.noise(x, y)
-                }
+    override fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer2 {
+        val service = ForkJoinPool(this.chunks.size)
+        for (chunk in this.chunks) {
+            val cX = chunk.x * chunkSize
+            val cY = chunk.y * chunkSize
+            val task = AsyncNoiseBuffer.AsyncTask {
+                for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
+                    this.buffer[x][y] = provider.noise(x, y)
             }
+
+            service.submit(task)
         }
 
-        this.update = true
-        return this
+        service.shutdown()
+
+        val finish = service.awaitTermination(2, TimeUnit.MINUTES)
+        if (finish) {
+            this.update = true
+            return this
+        } else
+            throw NoiseException("Buffer took too long to compute!")
     }
 
     /**
      * Fill the buffer given a noise evaluator.
      *
      * @param evaluator: the evaluator to use when filling the buffer
+     * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override suspend fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer2 {
-        for (chunk in chunks) {
+    override fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer2 {
+        val service = ForkJoinPool(this.chunks.size)
+        for (chunk in this.chunks) {
             val cX = chunk.x * chunkSize
             val cY = chunk.y * chunkSize
-
-            CoroutineScope(Dispatchers.Unconfined).launch {
-                val instance = evaluator.clone()
+            val task = AsyncNoiseBuffer.AsyncTask {
                 for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
-                    buffer[x][y] = instance.noise(x.f(), y.f())
+                    this.buffer[x][y] = evaluator.noise(x.f(), y.f())
             }
+
+            service.submit(task)
         }
 
-        this.update = true
-        return this
+        service.shutdown()
+
+        val finish = service.awaitTermination(2, TimeUnit.MINUTES)
+        if (finish) {
+            this.update = true
+            return this
+        } else
+            throw NoiseException("Buffer took too long to compute!")
     }
 
     /**
@@ -280,7 +313,16 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
     }
 
     /**
+     * Set the maximum number of threads this buffer can use.
+     *
+     * @param maxThreads: the maximum number of threads this buffer can use
+     */
+    override fun setMaxThreadCount(maxThreads: Int) { this.maxThreads = maxThreads }
+
+    /**
      * Update the buffer.
+     *
+     * TODO: Update async
      */
     override fun update() {
         val chunks = arrayListOf<AsyncNoiseBuffer.NoiseChunk2>()
@@ -295,6 +337,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
                 chunks.add(AsyncNoiseBuffer.NoiseChunk2(x, y, data))
             }
         this.chunks = chunks
+        this.update = false
+        this.threadCount = kotlin.math.min(threadCount, this.chunks.size)
     }
 
     /**

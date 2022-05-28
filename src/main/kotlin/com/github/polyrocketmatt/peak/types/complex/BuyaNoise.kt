@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.peak.types.complex
 
+import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
 class BuyaNoise(

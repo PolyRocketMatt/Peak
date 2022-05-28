@@ -6,6 +6,14 @@ package com.github.polyrocketmatt.peak.buffer
  */
 interface AsyncNoiseBuffer {
 
+    class AsyncTask(private val function: () -> Any) : Runnable {
+
+        override fun run() {
+            this.function.invoke()
+        }
+
+    }
+
     interface NoiseChunk
 
     /**
@@ -52,6 +60,13 @@ interface AsyncNoiseBuffer {
 
         override fun hashCode(): Int = data.contentDeepHashCode()
     }
+
+    /**
+     * Set the maximum number of threads this buffer can use.
+     *
+     * @param maxThreads: the maximum number of threads this buffer can use
+     */
+    fun setMaxThreadCount(maxThreads: Int)
 
     /**
      * Update the buffer.

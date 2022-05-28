@@ -50,7 +50,7 @@ interface NoiseBuffer {
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    suspend fun fill(provider: SimpleNoiseProvider): NoiseBuffer
+    fun fill(provider: SimpleNoiseProvider): NoiseBuffer
 
     /**
      * Fill the buffer given a noise evaluator.
@@ -58,6 +58,6 @@ interface NoiseBuffer {
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    suspend fun fill(evaluator: NoiseEvaluator): NoiseBuffer
+    fun fill(evaluator: NoiseEvaluator): NoiseBuffer
 
 }

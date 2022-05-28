@@ -172,7 +172,7 @@ class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) : NoiseBuff
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override suspend fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer3 {
+    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = provider.noise(x, y, z)
         return this
@@ -184,7 +184,7 @@ class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) : NoiseBuff
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override suspend fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer3 {
+    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = evaluator.noise(x.f(), y.f(), z.f())
         return this
