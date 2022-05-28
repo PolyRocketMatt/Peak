@@ -1,11 +1,12 @@
 package com.github.polyrocketmatt.peak.primitive.noise
 
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseDataBuilder
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
+import kotlinx.coroutines.runBlocking
 
 /**
  * Defines a primitive from Multi-layer Perlin noise. A buffer is constructed
@@ -14,7 +15,7 @@ import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(SyncNoiseBuffer2(width, height), true) {
+class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuffer2(width, height), true) {
 
     /**
      * Constructor for a primitive with equal width and height buffer.
@@ -99,7 +100,7 @@ class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(SyncNoiseBuffer2
                 .build()
         )
 
-        this.update(Operators.NORMALIZE.operate(this.buffer().fill(this.noise)))
+        runBlocking { update(Operators.NORMALIZE.operate(buffer().fill(noise) as AsyncNoiseBuffer2)) }
     }
 
 }

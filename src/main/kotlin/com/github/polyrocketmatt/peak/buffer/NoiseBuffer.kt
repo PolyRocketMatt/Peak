@@ -2,7 +2,11 @@ package com.github.polyrocketmatt.peak.buffer
 
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
+import java.awt.image.BufferedImage
 
+/**
+ * Represents a noise buffer.
+ */
 interface NoiseBuffer {
 
     /**
@@ -27,13 +31,6 @@ interface NoiseBuffer {
     fun forEach(action: (Float) -> Unit)
 
     /**
-     * Transform each element in the buffer to another element.
-     *
-     * @param transform: the transform to perform on each element in the buffer
-     */
-    fun map(transform: (Float) -> Float): NoiseBuffer
-
-    /**
      * Get this buffer.
      *
      * @return this buffer
@@ -53,7 +50,7 @@ interface NoiseBuffer {
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    fun fill(provider: SimpleNoiseProvider): NoiseBuffer
+    suspend fun fill(provider: SimpleNoiseProvider): NoiseBuffer
 
     /**
      * Fill the buffer given a noise evaluator.
@@ -61,6 +58,6 @@ interface NoiseBuffer {
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    fun fill(evaluator: NoiseEvaluator): NoiseBuffer
+    suspend fun fill(evaluator: NoiseEvaluator): NoiseBuffer
 
 }

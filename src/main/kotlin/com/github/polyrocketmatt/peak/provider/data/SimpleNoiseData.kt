@@ -11,7 +11,6 @@ data class SimpleNoiseData(
     val seed: Int = 0,
     val octaves: Int = 1,
     val scale: Float = 1.0f,
-    val frequency: Float = 0.01f,
     val gain: Float = 0.5f,
     val lacunarity: Float = 2.0f,
     val type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN,

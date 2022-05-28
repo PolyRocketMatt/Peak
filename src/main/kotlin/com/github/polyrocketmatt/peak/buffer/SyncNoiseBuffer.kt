@@ -4,7 +4,7 @@ package com.github.polyrocketmatt.peak.buffer
  * Defines synchronized buffer that holds a noise map on which synchronous operations
  * can be performed.
  */
-interface SyncNoiseBuffer : NoiseBuffer {
+interface SyncNoiseBuffer {
 
     /**
      * Transform the buffer to an asynchronous buffer.

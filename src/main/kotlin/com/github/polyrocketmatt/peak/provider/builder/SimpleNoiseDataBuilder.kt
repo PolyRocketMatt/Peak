@@ -13,7 +13,6 @@ class SimpleNoiseDataBuilder : DataBuilder {
     private var seed: Int = 0
     private var octaves: Int = 1
     private var scale: Float = 1.0f
-    private var frequency: Float = 0.01f
     private var gain: Float = 0.5f
     private var lacunarity: Float = 2.0f
     private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN
@@ -58,17 +57,6 @@ class SimpleNoiseDataBuilder : DataBuilder {
      */
     fun buildScale(value: Float): SimpleNoiseDataBuilder {
         this.scale = value
-        return this
-    }
-
-    /**
-     * Build a frequency for the noise.
-     *
-     * @param value: the scale of the noise
-     * @return this builder with the set frequency
-     */
-    fun buildFrequency(value: Float): SimpleNoiseDataBuilder {
-        this.frequency = value
         return this
     }
 
@@ -135,7 +123,6 @@ class SimpleNoiseDataBuilder : DataBuilder {
         this.seed,
         this.octaves,
         this.scale,
-        this.frequency,
         this.gain,
         this.lacunarity,
         this.type,

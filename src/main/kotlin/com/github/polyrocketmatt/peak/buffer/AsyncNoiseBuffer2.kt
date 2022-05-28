@@ -6,8 +6,7 @@ import com.github.polyrocketmatt.game.math.statistics.min
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.awt.image.BufferedImage
 import kotlin.random.Random
 
@@ -18,12 +17,12 @@ import kotlin.random.Random
  * @param buffer: the 2D array of floats, which represent the buffer
  * @param chunkSize: the size of the chunks in all directions
  */
-class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunkSize: Int) : AsyncNoiseBuffer {
+class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunkSize: Int) : NoiseBuffer2, AsyncNoiseBuffer {
 
     enum class Rotation2 { DEG_90, DEG_180 }
 
-    private val chunksX: Int = buffer.size % chunkSize
-    private val chunksY: Int = buffer[0].size % chunkSize
+    private val chunksX: Int = buffer.size / chunkSize
+    private val chunksY: Int = buffer[0].size / chunkSize
     private var chunks: List<AsyncNoiseBuffer.NoiseChunk2> = arrayListOf()
     private var update: Boolean = false
 
@@ -95,7 +94,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param index: the index at which to get an element from the buffer.
      * @return the float array at the given index.
      */
-    operator fun get(index: Int): FloatArray = buffer[index]
+    override operator fun get(index: Int): FloatArray = buffer[index]
 
     /**
      * Get the width of the buffer.
@@ -130,7 +129,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      *
      * @return the grayscale image constructed from this buffer
      */
-    fun image(): BufferedImage = ImageUtils.bufferToImage(this)
+    override fun image(): BufferedImage = ImageUtils.bufferToImage(this)
 
     /**
      * Perform an action on each element in the buffer.
@@ -169,7 +168,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param transform: the transform to perform on each element in the buffer
      * @return a new noise buffer with the mapped data
      */
-    fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): AsyncNoiseBuffer2 {
+    override fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): AsyncNoiseBuffer2 {
         if (update)
             update()
         val newBuffer = Array(width()) { FloatArray(height()) { 0.0f } }
@@ -211,8 +210,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer2 {
-        runBlocking {
+    override suspend fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer2 {
+        coroutineScope {
             for (chunk in chunks) {
                 val cX = chunk.x * chunkSize
                 val cY = chunk.y * chunkSize
@@ -234,16 +233,15 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer2 {
-        runBlocking {
-            for (chunk in chunks) {
-                val cX = chunk.x * chunkSize
-                val cY = chunk.y * chunkSize
+    override suspend fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer2 {
+        for (chunk in chunks) {
+            val cX = chunk.x * chunkSize
+            val cY = chunk.y * chunkSize
 
-                launch {
-                    for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
-                        buffer[x][y] = evaluator.noise(x.f(), y.f())
-                }
+            CoroutineScope(Dispatchers.Unconfined).launch {
+                val instance = evaluator.clone()
+                for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
+                    buffer[x][y] = instance.noise(x.f(), y.f())
             }
         }
 
@@ -257,7 +255,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param rotation: the rotation on how to rotate the buffer
      * @return the rotated buffer according to the given rotation
      */
-    fun rotate(rotation: Rotation2): SyncNoiseBuffer2 {
+    fun rotate(rotation: Rotation2): AsyncNoiseBuffer2 {
         val rotated = when (rotation) {
             Rotation2.DEG_90 -> {
                 //  Columns -> Rows
@@ -278,7 +276,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
             }
         }
 
-        return SyncNoiseBuffer2(rotated)
+        return AsyncNoiseBuffer2(rotated, chunkSize)
     }
 
     /**

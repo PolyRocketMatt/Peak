@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.peak.primitive
 
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
 import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer
 import java.awt.image.BufferedImage
 
@@ -21,7 +22,7 @@ interface Primitive {
      *
      * @return the noise buffer of the primitive
      */
-    fun buffer(): SyncNoiseBuffer
+    fun buffer(): NoiseBuffer
 
     /**
      * Get the image of the primitive.

@@ -16,7 +16,7 @@ import kotlin.random.Random
  *
  * @param buffer: the 2D array of floats, which represent the buffer
  */
-class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer {
+class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer2, SyncNoiseBuffer {
 
     enum class Rotation2 { DEG_90, DEG_180 }
 
@@ -80,7 +80,7 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer 
      * @param index: the index at which to get an element from the buffer.
      * @return the float array at the given index.
      */
-    operator fun get(index: Int) = buffer[index]
+    override operator fun get(index: Int) = buffer[index]
 
     /**
      * Get the width of the buffer.
@@ -115,7 +115,7 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer 
      *
      * @return the grayscale image constructed from this buffer
      */
-    fun image(): BufferedImage = ImageUtils.bufferToImage(this)
+    override fun image(): BufferedImage = ImageUtils.bufferToImage(this)
 
     /**
      * Perform an action on each element in the buffer.
@@ -142,7 +142,7 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer 
      * @param transform: the transform to perform on each element in the buffer
      * @return a new noise buffer with the mapped data
      */
-    fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): SyncNoiseBuffer2 {
+    override fun mapIndexed(transform: (x: Int, y: Int, Float) -> Float): SyncNoiseBuffer2 {
         val newBuffer = Array(width()) { FloatArray(height()) { 0.0f } }
         for ((x, item) in buffer.withIndex())
             for ((y, float) in item.withIndex())
@@ -170,7 +170,7 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer 
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer2 {
+    override suspend fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = provider.noise(x, z)
         return this
@@ -182,7 +182,7 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : SyncNoiseBuffer 
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer2 {
+    override suspend fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = evaluator.noise(x.f(), z.f())
         return this

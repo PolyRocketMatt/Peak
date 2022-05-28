@@ -1,5 +1,7 @@
 package com.github.polyrocketmatt.peak.types.complex
 
+import com.github.polyrocketmatt.peak.types.NoiseEvaluator
+
 class BuyaNoise(
 
 ) : ComplexNoise() {
@@ -13,5 +15,9 @@ class BuyaNoise(
     }
 
     override fun type(): ComplexNoiseType = ComplexNoiseType.BUYA
+
+    override fun clone(): BuyaNoise {
+        TODO("Not yet implemented")
+    }
 
 }

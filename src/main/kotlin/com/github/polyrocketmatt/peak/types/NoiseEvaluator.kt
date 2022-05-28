@@ -1,6 +1,6 @@
 package com.github.polyrocketmatt.peak.types
 
-interface NoiseEvaluator {
+abstract class NoiseEvaluator : Cloneable {
 
     /**
      * Sample noise at the given x- and z-coordinates.
@@ -9,7 +9,7 @@ interface NoiseEvaluator {
      * @param nY: the z-coordinate to sample noise from
      * @return the sampled noise at the given x- and z-coordinates
      */
-    fun noise(nX: Float, nY: Float): Float
+    abstract fun noise(nX: Float, nY: Float): Float
 
     /**
      * Sample noise at the given x-, y- and z-coordinates.
@@ -19,6 +19,8 @@ interface NoiseEvaluator {
      * @param nZ: the z-coordinate to sample noise from
      * @return the sampled noise at the given x- and z-coordinates
      */
-    fun noise(nX: Float, nY: Float, nZ: Float): Float
+    abstract fun noise(nX: Float, nY: Float, nZ: Float): Float
+
+    public abstract override fun clone(): NoiseEvaluator
 
 }

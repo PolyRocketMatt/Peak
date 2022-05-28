@@ -6,7 +6,7 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 /**
  * Represents pattern noise.
  */
-abstract class PatternNoise : NoiseEvaluator {
+abstract class PatternNoise : NoiseEvaluator() {
 
     /**
      * The types of patterns.

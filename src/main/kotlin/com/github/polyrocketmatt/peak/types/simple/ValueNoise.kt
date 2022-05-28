@@ -90,4 +90,7 @@ class ValueNoise(
     override fun type(): SimpleNoiseType = SimpleNoiseType.VALUE
 
     override fun calculateFractalBounding() {}
+
+    override fun clone(): ValueNoise = ValueNoise(seed, interpolation)
+
 }

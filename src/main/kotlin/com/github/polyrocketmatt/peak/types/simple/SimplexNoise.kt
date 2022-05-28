@@ -189,4 +189,7 @@ class SimplexNoise(
     override fun type(): SimpleNoiseType = SimpleNoiseType.SIMPLEX
 
     override fun calculateFractalBounding() {}
+
+    override fun clone(): SimpleNoise = SimplexNoise(seed)
+
 }

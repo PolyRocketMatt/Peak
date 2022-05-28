@@ -25,4 +25,7 @@ class StraightStripeNoise(
     override fun type(): PatternNoiseType = PatternNoiseType.STRAIGHT_STRIPE
 
     override fun orientation(): PatternOrientation = orientation
+
+    override fun clone(): StraightStripeNoise = StraightStripeNoise(scale, orientation)
+
 }

@@ -4,7 +4,7 @@ package com.github.polyrocketmatt.peak.buffer
  * Defines buffer that holds a noise map on which operations
  * can be performed in an asynchronous manner.
  */
-interface AsyncNoiseBuffer : NoiseBuffer {
+interface AsyncNoiseBuffer {
 
     interface NoiseChunk
 

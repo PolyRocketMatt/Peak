@@ -11,8 +11,8 @@ private fun Float.bitCast(): Int {
 /**
  * White noise implementation.
  */
-class WhiteNoise
-    (private val seed: Int
+class WhiteNoise(
+    private val seed: Int
 ) : SimpleNoise() {
 
     override fun noise(nX: Float, nY: Float): Float {
@@ -31,5 +31,7 @@ class WhiteNoise
     override fun type(): SimpleNoiseType = SimpleNoiseType.WHITE
 
     override fun calculateFractalBounding() {}
+
+    override fun clone(): WhiteNoise = WhiteNoise(seed)
 
 }

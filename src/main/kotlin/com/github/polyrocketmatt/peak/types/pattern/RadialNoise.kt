@@ -25,4 +25,7 @@ class RadialNoise(
     override fun type(): PatternNoiseType = PatternNoiseType.RADIAL_STRIPE
 
     override fun orientation(): PatternOrientation = PatternOrientation.NOT_AVAILABLE
+
+    override fun clone(): RadialNoise = RadialNoise(size, scale)
+
 }

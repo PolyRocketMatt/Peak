@@ -6,7 +6,7 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 /**
  * Represents complex noise.
  */
-abstract class ComplexNoise : NoiseEvaluator {
+abstract class ComplexNoise : NoiseEvaluator() {
 
     /**
      * The types of complex noise.

@@ -16,7 +16,7 @@ class CellularNoise(
     private val frequency: Float,
     private val distanceType: DistanceType,
     private val returnType: ReturnType,
-) : NoiseEvaluator {
+) : NoiseEvaluator() {
 
     enum class DistanceType { EUCLIDEAN, MANHATTAN, NATURAL }
     enum class ReturnType { DISTANCE, DISTANCE_2, DISTANCE_2_ADD, DISTANCE_2_SUB, DISTANCE_2_MUL, DISTANCE_2_DIV }
@@ -166,5 +166,7 @@ class CellularNoise(
             ReturnType.DISTANCE_2_DIV   -> distance2 / distance2 - 1
         }
     }
+
+    override fun clone(): NoiseEvaluator = CellularNoise(seed, frequency, distanceType, returnType)
 
 }

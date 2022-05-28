@@ -5,6 +5,7 @@ import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
@@ -15,13 +16,15 @@ import kotlin.random.Random
  *
  * @param buffer: the 3D array of floats, which represent the buffer
  */
-class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : AsyncNoiseBuffer {
+class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : NoiseBuffer3, AsyncNoiseBuffer {
 
-    private val chunksX: Int = buffer.size % chunkSize
-    private val chunksY: Int = buffer[0].size % chunkSize
-    private val chunksZ: Int = buffer[0][0].size % chunkSize
+    private val chunksX: Int = buffer.size / chunkSize
+    private val chunksY: Int = buffer[0].size / chunkSize
+    private val chunksZ: Int = buffer[0][0].size / chunkSize
     private var chunks: List<AsyncNoiseBuffer.NoiseChunk3> = arrayListOf()
     private var update: Boolean = false
+
+    init { update() }
 
     /**
      * Constructor for an empty buffer of the given width and height.
@@ -86,7 +89,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * @param index: the index at which to get an element from the buffer.
      * @return the float array at the given index.
      */
-    operator fun get(index: Int) = buffer[index]
+    override operator fun get(index: Int) = buffer[index]
 
     /**
      * Get the width of the buffer.
@@ -163,17 +166,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * @param transform: the transform to perform on each element in the buffer
      * @return a new noise buffer with the mapped data
      */
-    fun mapIndexed(transform: (x: Int, y: Int, z: Int, Float) -> Float): AsyncNoiseBuffer3 {
-        /*
-        val newBuffer = Array(width()) { Array(height()) {FloatArray(depth()) { 0.0f } } }
-        for ((x, plane) in buffer.withIndex())
-            for ((y, item) in plane.withIndex())
-                for ((z, float) in item.withIndex())
-                    newBuffer[x][y][z] = transform(x, y, z, float)
-        return SyncNoiseBuffer3(newBuffer)
-
-         */
-
+    override fun mapIndexed(transform: (x: Int, y: Int, z: Int, Float) -> Float): AsyncNoiseBuffer3 {
         if (update)
             update()
         val newBuffer = Array(width()) { Array(height()) { FloatArray(depth()) { 0.0f } } }
@@ -217,8 +210,8 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer3 {
-        runBlocking {
+    override suspend fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer3 {
+        coroutineScope {
             for (chunk in chunks) {
                 val cX = chunk.x * chunkSize
                 val cY = chunk.y * chunkSize
@@ -241,8 +234,8 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer3 {
-        runBlocking {
+    override suspend fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer3 {
+        coroutineScope {
             for (chunk in chunks) {
                 val cX = chunk.x * chunkSize
                 val cY = chunk.y * chunkSize

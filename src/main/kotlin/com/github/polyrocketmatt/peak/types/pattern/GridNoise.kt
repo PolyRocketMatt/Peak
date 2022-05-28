@@ -23,4 +23,6 @@ class GridNoise(
 
     override fun orientation(): PatternOrientation = PatternOrientation.NOT_AVAILABLE
 
+    override fun clone(): GridNoise = GridNoise(scale)
+
 }

@@ -1,8 +1,8 @@
 package com.github.polyrocketmatt.peak.buffer.operator.unary
 
 import com.github.polyrocketmatt.game.math.normalize
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer3
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
 /**
@@ -17,16 +17,11 @@ class NormalisationOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the normalized elements of the buffer
      */
-    override fun operate(buffer: SyncNoiseBuffer2, vararg data: Float): SyncNoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
         val min = buffer.min()
         val max = buffer.max()
 
-        val buf = buffer.map { fl -> fl.normalize(min, max) }
-
-        val bmin = buf.min()
-        val bmax = buf.max()
-
-        return buf
+        return buffer.map { fl -> fl.normalize(min, max) }
     }
 
     /**
@@ -36,7 +31,7 @@ class NormalisationOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the normalized elements of the buffer
      */
-    override fun operate(buffer: SyncNoiseBuffer3, vararg data: Float): SyncNoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
         val min = buffer.min()
         val max = buffer.max()
 

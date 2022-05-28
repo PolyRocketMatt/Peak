@@ -114,4 +114,7 @@ class PerlinNoise(
     override fun type(): SimpleNoiseType = SimpleNoiseType.PERLIN
 
     override fun calculateFractalBounding() {}
+
+    override fun clone(): PerlinNoise = PerlinNoise(seed, interpolation)
+
 }

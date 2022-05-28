@@ -1,38 +1,41 @@
 package com.github.polyrocketmatt.peak
 
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.*
-import com.github.polyrocketmatt.peak.primitive.noise.CellularPrimitive
-import com.github.polyrocketmatt.peak.primitive.noise.MultiFractalPrimitive
-import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
+import com.github.polyrocketmatt.peak.types.NoiseUtils
+import com.github.polyrocketmatt.peak.types.simple.FractalNoise
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import javax.imageio.ImageIO
+import kotlin.random.Random
 
 fun main(args: Array<String>) {
 
-    val size = 2048
-    val noise = MultiFractalPrimitive(size)
-    val cells = CellularPrimitive(size)
-    val detail = MultiFractalPrimitive(size)
+    runBlocking {
+        val size = 8192
+        val noise = FractalNoise(
+            Random.nextInt(10000),
+            NoiseUtils.InterpolationMethod.QUINTIC,
+            8,
+            0.01f,
+            0.5f,
+            2.0f,
+            type = SimpleNoise.SimpleNoiseType.SIMPLEX)
+        val syncBuffer = SyncNoiseBuffer2(size)
+        val asyncBuffer = AsyncNoiseBuffer2(size, 16, 1.0f)
 
-    noise.seed = 10//Random.nextInt(10000)
-    noise.octaves = 10
-    noise.scale = 0.1f
-    noise.fractal = SimpleNoise.FractalType.BILLOW
+        var start = System.currentTimeMillis()
+        syncBuffer.fill(noise).normalize()
+        println("Sync -> Took ${System.currentTimeMillis() - start}ms!")
 
-    cells.seed = 10//Random.nextInt(10000)
-    cells.frequency = 0.01f
-    cells.returnType = CellularNoise.ReturnType.DISTANCE_2_MUL
+        start = System.currentTimeMillis()
+        asyncBuffer.fill(noise)
+        println("Async -> Took ${System.currentTimeMillis() - start}ms!")
 
-    detail.seed = 10 * 31
-    detail.octaves = 12
-    noise.scale = 0.1f
-    noise.fractal = SimpleNoise.FractalType.RIGID
 
-    val buffer = (((noise.buffer().blend(cells.buffer(), 0.3f))
-        .push(0.0f, 0.9f, 10f)
-        .normalize()) multiply  detail.buffer()).normalize()
-
-    ImageIO.write(buffer.image(), "png", File("img/test.png"))
+        //ImageIO.write(syncBuffer.image(), "png", File("img/test.png"))
+    }
 
 }

@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 /**
  * Represents simple noise.
  */
-abstract class SimpleNoise : NoiseEvaluator {
+abstract class SimpleNoise : NoiseEvaluator() {
 
     /**
      * The types of simple noise.

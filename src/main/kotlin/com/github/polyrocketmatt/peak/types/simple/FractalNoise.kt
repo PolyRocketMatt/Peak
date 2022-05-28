@@ -7,11 +7,10 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils
  * Fractal noise implementation.
  */
 class FractalNoise(
-    seed: Int,
-    interpolation: NoiseUtils.InterpolationMethod,
+    private val seed: Int,
+    private val interpolation: NoiseUtils.InterpolationMethod,
     private val octaves: Int,
     private val scale: Float,
-    private val frequency: Float,
     private val gain: Float,
     private val lacunarity: Float,
     private val fractalType: FractalType = FractalType.FBM,
@@ -167,5 +166,7 @@ class FractalNoise(
         SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_FRACTAL
         else                            -> SimpleNoiseType.VALUE_FRACTAL
     }
+
+    override fun clone(): FractalNoise = FractalNoise(seed, interpolation, octaves, scale, gain, lacunarity, fractalType, type)
 
 }

@@ -1,10 +1,11 @@
 package com.github.polyrocketmatt.peak.primitive.noise
 
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.CellularNoiseProvider
 import com.github.polyrocketmatt.peak.provider.builder.CellularNoiseDataBuilder
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
+import kotlinx.coroutines.runBlocking
 
 /**
  * Defines a primitive for cellular noise. A buffer is constructed
@@ -13,7 +14,7 @@ import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
  * @param width: the width of the buffer
  * @param height: the height of the buffer
  */
-class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(SyncNoiseBuffer2(width, height), true) {
+class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuffer2(width, height), true) {
 
     /**
      * Constructor for a primitive with equal width and height buffer.
@@ -60,7 +61,11 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(SyncNoiseBuffe
 
     private var noise: CellularNoiseProvider = CellularNoiseProvider(CellularNoiseDataBuilder().build())
 
-    init { recompute() }
+    init {
+        runBlocking {
+            recompute()
+        }
+    }
 
     /**
      * Recompute cellular noise in the buffer.
@@ -76,7 +81,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(SyncNoiseBuffe
                 .build()
         )
 
-        this.update(Operators.NORMALIZE.operate(this.buffer().fill(this.noise)))
+        runBlocking { update(Operators.NORMALIZE.operate(buffer().fill(noise) as AsyncNoiseBuffer2)) }
     }
 
 }

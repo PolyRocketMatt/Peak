@@ -14,12 +14,12 @@ import kotlin.random.Random
  */
 @Ref("https://arxiv.org/pdf/1610.03525.pdf")
 class PolynomialNoise(
-    seed: Int,
+    private val seed: Int,
     width: Int,
     height: Int,
     private val octaves: Int,
     private val gain: Float,
-    private val method: NoiseUtils.InterpolationMethod,
+    private val interpolation: NoiseUtils.InterpolationMethod,
 ) : BoundedNoise(width, height) {
 
     private var buffer: SyncNoiseBuffer2 = SyncNoiseBuffer2(width, height)
@@ -55,7 +55,7 @@ class PolynomialNoise(
      */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float = buffer[nX.i()][nY.i()]
 
-    private fun interpolate(x: Float) = when(method) {
+    private fun interpolate(x: Float) = when(interpolation) {
         NoiseUtils.InterpolationMethod.LINEAR -> x
         NoiseUtils.InterpolationMethod.HERMITE -> x.smoothStep()
         NoiseUtils.InterpolationMethod.QUINTIC -> x.smootherStep()
@@ -132,5 +132,7 @@ class PolynomialNoise(
 
         return buffer
     }
+
+    override fun clone(): PolynomialNoise = PolynomialNoise(seed, width, height, octaves, gain, interpolation)
 
 }
