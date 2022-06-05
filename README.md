@@ -92,7 +92,7 @@ Examples:
 
 |                    Perlin                     |                 Polynomial                 |
 |:---------------------------------------------:|:------------------------------------------:|
-| <img src="img/perlin_scaled.png" width="146"> | <img src="img/polynomial.png" width="146"> |
+| <img src="img/perlin_scaled.png" width="148"> | <img src="img/polynomial.png" width="148"> |
 
 ### Primitives
 
