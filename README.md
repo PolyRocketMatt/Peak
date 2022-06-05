@@ -80,13 +80,28 @@ Complex noise types combine other noise types to create interesting noise patter
 
   - Buya Noise (inspired by [Buya Noise (Cinema4D)](https://developers.maxon.net/docs/Cinema4DPythonSDK/html/types/noise.html#buya))
 
+Examples:
+
+|                 Buya                 |
+|:------------------------------------:|
+| <img src="img/buya.png" width="144"> |
+
+(*Note: scale has been modified to produce better examples*)
+
 **4. Cellular Noise Types**
 
 Cellular noise creates a cell-like structured noise. 
 
   - Cellular noise (also known as Voronoi)
-  - Voronoise ([Inigo Quilez](https://iquilezles.org/articles/voronoise/))
   - Poisson noise (uses poisson samples as sample points, instead of a static sample array)
+
+Examples:
+
+|                 Cellular                 |
+|:----------------------------------------:|
+| <img src="img/cellular.png" width="144"> |
+
+(*Note: scale has been modified to produce better examples*)
 
 **5. Bounded Noise Types**
 
