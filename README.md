@@ -92,7 +92,7 @@ Examples:
 
 |                    Perlin                     |                 Polynomial                 |
 |:---------------------------------------------:|:------------------------------------------:|
-| <img src="img/perlin_scaled.png" width="150"> | <img src="img/polynomial.png" width="150"> |
+| <img src="img/perlin_scaled.png" width="146"> | <img src="img/polynomial.png" width="146"> |
 
 ### Primitives
 
@@ -109,13 +109,6 @@ Examples:
 ### 3D Engine
 
 ~ Soon
-
-<div align="center">
-    <img
-        src="img/polynomial.png"
-        width="512"
-    />
-</div>
 
 ---
 
