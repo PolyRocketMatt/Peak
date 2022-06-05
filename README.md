@@ -70,7 +70,7 @@ Examples:
 
 |                 Checkerboard                 |                 Grid                 |             Radial Stripe              |        Straight Stripe (Diagonal)        |
 |:--------------------------------------------:|:------------------------------------:|:--------------------------------------:|:----------------------------------------:|
-| <img src="img/checkerboard.png" width="146"> | <img src="img/grid.png" width="146"> | <img src="img/radial.png" width="146"> | <img src="img/straight.png" width="146"> |
+| <img src="img/checkerboard.png" width="144"> | <img src="img/grid.png" width="144"> | <img src="img/radial.png" width="144"> | <img src="img/straight.png" width="144"> |
 
 (*Note: scale has been modified to produce better examples*)
 
