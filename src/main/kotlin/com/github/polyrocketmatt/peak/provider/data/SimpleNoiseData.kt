@@ -13,7 +13,7 @@ data class SimpleNoiseData(
     val scale: Float = 1.0f,
     val gain: Float = 0.5f,
     val lacunarity: Float = 2.0f,
-    val type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN,
+    val type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.SIMPLEX,
     val interpolation: NoiseUtils.InterpolationMethod = NoiseUtils.InterpolationMethod.HERMITE,
     val fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM,
     val skippedOctaves: IntArray = intArrayOf()

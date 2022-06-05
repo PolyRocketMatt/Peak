@@ -42,20 +42,20 @@ and bounded noise.
 
 **1. Simple Noise Types**
 
-Simple noise types that many libraries implement as well. These include famous algorithms like 
-Perlin noise ([Perlin](https://en.wikipedia.org/wiki/Ken_Perlin)).
+Simple noise types that many libraries implement as well.
 
    - White noise
    - Value noise
-   - Perlin noise
    - Simplex noise
    - Multi-fractal noise (can be based on value, perlin or simplex noise)
 
 Examples:
 
-|                 Fractal                 |                 Smooth                 |                 Simplex                 |                 Value                 |                 White                 |
-|:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:-------------------------------------:|:-------------------------------------:|
-| <img src="img/fractal.png" width="150"> | <img src="img/smooth.png" width="150"> | <img src="img/simplex.png" width="150"> | <img src="img/value.png" width="150"> | <img src="img/white.png" width="150"> |
+|                 Fractal                 |                 Smooth                 |                 Simplex                 |                    Value                     |                 White                 |
+|:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:--------------------------------------------:|:-------------------------------------:|
+| <img src="img/fractal.png" width="150"> | <img src="img/smooth.png" width="150"> | <img src="img/simplex.png" width="150"> | <img src="img/value_scaled.png" width="150"> | <img src="img/white.png" width="150"> |
+
+(*Note: scale has been modified to produce better examples*)
 
 **2. Pattern-based Noise Types**
 
@@ -85,7 +85,14 @@ Cellular noise creates a cell-like structured noise.
 Bounded noise improves or amortizes certain noise types, but has the disadvantage of being bounded by
 a single size parameter (see [WIKI](https://github.com/PolyRocketMatt/Peak/wiki) for more detail)
 
-  - Polynomial noise (fast multi-fractal noise
+  - Perlin noise 
+  - Polynomial noise (fast multi-fractal noise)
+
+Examples:
+
+|                    Perlin                    |                Polynomial                 |
+|:--------------------------------------------:|:-----------------------------------------:|
+| <img src="img/perlin_scaled.png" width="57"> | <img src="img/polynomial.png" width="57"> |
 
 ### Primitives
 

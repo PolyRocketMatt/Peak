@@ -5,6 +5,7 @@ import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.provider.data.BoundedNoiseData
 import com.github.polyrocketmatt.peak.types.bounded.BoundedNoise
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 import com.github.polyrocketmatt.peak.types.bounded.PolynomialNoise
 
 /**
@@ -16,8 +17,8 @@ class BoundedNoiseProvider(data: BoundedNoiseData) : SimpleNoiseProvider() {
 
     init {
         this.noise = when (data.type) {
-            BoundedNoise.BoundedNoiseType.POLYNOMIAL        ->
-                PolynomialNoise(data.seed, data.width, data.height, data.octaves, data.gain, data.method)
+            BoundedNoise.BoundedNoiseType.PERLIN            -> PerlinNoise(data.seed, data.width, data.height, 0, data.method)
+            BoundedNoise.BoundedNoiseType.POLYNOMIAL        -> PolynomialNoise(data.seed, data.width, data.height, data.octaves, data.gain, data.method)
         }
     }
 

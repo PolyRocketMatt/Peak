@@ -10,7 +10,7 @@ abstract class SimpleNoise : NoiseEvaluator() {
     /**
      * The types of simple noise.
      */
-    enum class SimpleNoiseType { VALUE, VALUE_FRACTAL, VALUE_SKIPPED_FRACTAL, PERLIN, PERLIN_FRACTAL, PERLIN_SKIPPED_FRACTAL, SIMPLEX, SIMPLEX_FRACTAL, SIMPLEX_SKIPPED_FRACTAL, WHITE }
+    enum class SimpleNoiseType { VALUE, VALUE_FRACTAL, VALUE_SKIPPED_FRACTAL, SIMPLEX, SIMPLEX_FRACTAL, SIMPLEX_SKIPPED_FRACTAL, WHITE }
 
     /**
      * The types of fractals

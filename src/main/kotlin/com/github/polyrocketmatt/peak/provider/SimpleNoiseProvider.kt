@@ -4,6 +4,7 @@ import com.github.polyrocketmatt.game.math.d
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.peak.provider.data.SimpleNoiseData
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 import com.github.polyrocketmatt.peak.types.simple.*
 
 /**
@@ -15,18 +16,13 @@ class SimpleNoiseProvider(data: SimpleNoiseData) : SimpleNoiseProvider() {
 
     init {
         this.noise = when (data.type) {
-            SimpleNoise.SimpleNoiseType.PERLIN          -> PerlinNoise(data.seed, data.interpolation)
             SimpleNoise.SimpleNoiseType.VALUE           -> ValueNoise(data.seed, data.interpolation)
             SimpleNoise.SimpleNoiseType.SIMPLEX         -> SimplexNoise(data.seed)
             SimpleNoise.SimpleNoiseType.WHITE           -> WhiteNoise(data.seed)
-            SimpleNoise.SimpleNoiseType.PERLIN_FRACTAL  ->
-                FractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.PERLIN)
             SimpleNoise.SimpleNoiseType.VALUE_FRACTAL  ->
                 FractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.VALUE)
             SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL  ->
                 FractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.SIMPLEX)
-            SimpleNoise.SimpleNoiseType.PERLIN_SKIPPED_FRACTAL  ->
-                SmoothDetailFractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.PERLIN, data.skippedOctaves)
             SimpleNoise.SimpleNoiseType.VALUE_SKIPPED_FRACTAL  ->
                 SmoothDetailFractalNoise(data.seed, data.interpolation, data.octaves, data.scale, data.gain, data.lacunarity, data.fractal, SimpleNoise.SimpleNoiseType.VALUE, data.skippedOctaves)
             SimpleNoise.SimpleNoiseType.SIMPLEX_SKIPPED_FRACTAL  ->

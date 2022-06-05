@@ -15,7 +15,7 @@ class SimpleNoiseProviderDataBuilder : ProviderDataBuilder {
     private var scale: Float = 1.0f
     private var gain: Float = 0.5f
     private var lacunarity: Float = 2.0f
-    private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.PERLIN
+    private var type: SimpleNoise.SimpleNoiseType = SimpleNoise.SimpleNoiseType.SIMPLEX
     private var interpolation: NoiseUtils.InterpolationMethod = NoiseUtils.InterpolationMethod.HERMITE
     private var fractal: SimpleNoise.FractalType = SimpleNoise.FractalType.FBM
     private var skippedOctaves: IntArray = intArrayOf()

@@ -2,6 +2,7 @@ package com.github.polyrocketmatt.peak.types.simple
 
 import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.peak.types.NoiseUtils
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
 /**
  * Fractal noise implementation.
@@ -14,11 +15,10 @@ class FractalNoise(
     private val gain: Float,
     private val lacunarity: Float,
     private val fractalType: FractalType = FractalType.FBM,
-    private val type: SimpleNoiseType = SimpleNoiseType.PERLIN
+    private val type: SimpleNoiseType = SimpleNoiseType.SIMPLEX
 ) : SimpleNoise() {
 
     private val noise: SimpleNoise = when(type) {
-        SimpleNoiseType.PERLIN      -> PerlinNoise(seed, interpolation)
         SimpleNoiseType.VALUE       -> ValueNoise(seed, interpolation)
         SimpleNoiseType.SIMPLEX     -> SimplexNoise(seed)
 
@@ -176,7 +176,6 @@ class FractalNoise(
     }
 
     override fun type(): SimpleNoiseType = when(type) {
-        SimpleNoiseType.PERLIN          -> SimpleNoiseType.PERLIN_FRACTAL
         SimpleNoiseType.VALUE           -> SimpleNoiseType.VALUE_FRACTAL
         SimpleNoiseType.SIMPLEX         -> SimpleNoiseType.SIMPLEX_FRACTAL
         else                            -> SimpleNoiseType.VALUE_FRACTAL

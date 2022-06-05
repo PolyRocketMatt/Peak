@@ -1,9 +1,6 @@
-package com.github.polyrocketmatt.peak.types.simple
+package com.github.polyrocketmatt.peak.types.bounded
 
-import com.github.polyrocketmatt.game.math.fastFloor
-import com.github.polyrocketmatt.game.math.lerp
-import com.github.polyrocketmatt.game.math.smoothStep
-import com.github.polyrocketmatt.game.math.smootherStep
+import com.github.polyrocketmatt.game.math.*
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord2d
 import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord3d
@@ -13,8 +10,11 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord3d
  */
 class PerlinNoise(
     private val seed: Int,
+    width: Int,
+    height: Int,
+    depth: Int,
     private val interpolation: NoiseUtils.InterpolationMethod,
-) : SimpleNoise() {
+) : BoundedNoise(width, height, depth) {
 
     /**
      * Sample noise at the given x- and y-coordinates.
@@ -24,31 +24,34 @@ class PerlinNoise(
      * @return the sampled noise at the given x- and y-coordinates
      */
     override fun noise(nX: Float, nY: Float): Float {
-        val x0 = nX.fastFloor()
-        val y0 = nY.fastFloor()
+        val x = nX / width
+        val y = nY / height
+
+        val x0 = x.fastFloor()
+        val y0 = y.fastFloor()
         val x1 = x0 + 1
         val y1 = y0 + 1
         var xs = 0.0f
         var ys = 0.0f
         when (interpolation) {
             NoiseUtils.InterpolationMethod.LINEAR    -> {
-                xs = nX - x0
-                ys = nY - y0
+                xs = x - x0
+                ys = y - y0
             }
 
             NoiseUtils.InterpolationMethod.HERMITE   -> {
-                xs = (nX - x0).smoothStep()
-                ys = (nY - y0).smoothStep()
+                xs = (x - x0).smoothStep()
+                ys = (y - y0).smoothStep()
             }
 
             NoiseUtils.InterpolationMethod.QUINTIC   -> {
-                xs = (nX - x0).smootherStep()
-                ys = (nY - y0).smootherStep()
+                xs = (x - x0).smootherStep()
+                ys = (y - y0).smootherStep()
             }
         }
 
-        val xd0 = nX - x0
-        val yd0 = nY - y0
+        val xd0 = x - x0
+        val yd0 = y - y0
         val xd1 = xd0 - 1
         val yd1 = yd0 - 1
 
@@ -67,9 +70,13 @@ class PerlinNoise(
      * @return the sampled noise at the given x- and z-coordinates
      */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
-        val x0 = nX.fastFloor()
-        val y0 = nY.fastFloor()
-        val z0 = nZ.fastFloor()
+        val x = nX / width
+        val y = nY / height
+        val z = nZ / depth
+
+        val x0 = x.fastFloor()
+        val y0 = y.fastFloor()
+        val z0 = z.fastFloor()
         val x1 = x0 + 1
         val y1 = y0 + 1
         val z1 = z0 + 1
@@ -78,27 +85,27 @@ class PerlinNoise(
         var zs = 0.0f
         when (interpolation) {
             NoiseUtils.InterpolationMethod.LINEAR    -> {
-                xs = nX - x0
-                ys = nY - y0
-                zs = nZ - z0
+                xs = x - x0
+                ys = y - y0
+                zs = z - z0
             }
 
             NoiseUtils.InterpolationMethod.HERMITE   -> {
-                xs = (nX - x0).smoothStep()
-                ys = (nY - y0).smoothStep()
-                zs = (nZ - z0).smoothStep()
+                xs = (x - x0).smoothStep()
+                ys = (y - y0).smoothStep()
+                zs = (z - z0).smoothStep()
             }
 
             NoiseUtils.InterpolationMethod.QUINTIC   -> {
-                xs = (nX - x0).smootherStep()
-                ys = (nY - y0).smootherStep()
-                zs = (nZ - z0).smootherStep()
+                xs = (x - x0).smootherStep()
+                ys = (y - y0).smootherStep()
+                zs = (z - z0).smootherStep()
             }
         }
 
-        val xd0 = nX - x0
-        val yd0 = nY - y0
-        val zd0 = nZ - z0
+        val xd0 = x - x0
+        val yd0 = y - y0
+        val zd0 = z - z0
         val xd1 = xd0 - 1
         val yd1 = yd0 - 1
         val zd1 = zd0 - 1
@@ -126,10 +133,8 @@ class PerlinNoise(
         return zs.lerp(yf0, yf1)
     }
 
-    override fun type(): SimpleNoiseType = SimpleNoiseType.PERLIN
+    override fun type(): BoundedNoiseType = BoundedNoiseType.PERLIN
 
-    override fun calculateFractalBounding() {}
-
-    override fun clone(): PerlinNoise = PerlinNoise(seed, interpolation)
+    override fun clone(): PerlinNoise = PerlinNoise(seed, width, height, depth, interpolation)
 
 }

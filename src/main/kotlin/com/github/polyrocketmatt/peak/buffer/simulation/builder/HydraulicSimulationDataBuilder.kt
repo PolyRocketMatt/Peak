@@ -4,7 +4,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulation
 import com.github.polyrocketmatt.peak.buffer.simulation.data.SimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
-import com.github.polyrocketmatt.peak.types.simple.PerlinNoise
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
 class HydraulicSimulationDataBuilder : SimulationDataBuilder {
 
@@ -24,7 +24,7 @@ class HydraulicSimulationDataBuilder : SimulationDataBuilder {
     private var initialSpeed: Float = 1.0f
     private var talusSlippageAngle: Float = 70.0f
     private var talusDepositionMultiplier: Float = 0.1f
-    private var evaluator: NoiseEvaluator = PerlinNoise(seed, NoiseUtils.InterpolationMethod.LINEAR)
+    private var evaluator: NoiseEvaluator = PerlinNoise(seed, size, size, 0, NoiseUtils.InterpolationMethod.LINEAR)
 
     fun buildSeed(value: Int): HydraulicSimulationDataBuilder {
         this.seed = value

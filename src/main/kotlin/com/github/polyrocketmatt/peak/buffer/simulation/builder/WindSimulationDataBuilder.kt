@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.data.SimulationData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.WindSimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
-import com.github.polyrocketmatt.peak.types.simple.PerlinNoise
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
 class WindSimulationDataBuilder : SimulationDataBuilder {
 
@@ -21,7 +21,7 @@ class WindSimulationDataBuilder : SimulationDataBuilder {
     private var maxParticleLifetime: Int = 30
     private var initialSpeed: Vec3f = Vec3f(-1f, 0f, 1f).normalized().scalarMultiplication(2f)
     private var initialSediment: Float = 0.00001f
-    private var evaluator: NoiseEvaluator = PerlinNoise(this.seed, NoiseUtils.InterpolationMethod.LINEAR)
+    private var evaluator: NoiseEvaluator = PerlinNoise(this.seed, size, size, 0, NoiseUtils.InterpolationMethod.LINEAR)
 
     fun buildSeed(value: Int): WindSimulationDataBuilder {
         this.seed = value

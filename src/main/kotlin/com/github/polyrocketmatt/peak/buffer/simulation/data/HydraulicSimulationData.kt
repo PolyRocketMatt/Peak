@@ -4,7 +4,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
-import com.github.polyrocketmatt.peak.types.simple.PerlinNoise
+import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
 data class HydraulicSimulationData(
     val seed: Int = 0,
@@ -23,7 +23,7 @@ data class HydraulicSimulationData(
     val initialSpeed: Float = 1.0f,
     val talusSlippageAngle: Float = 70.0f,
     val talusDepositionMultiplier: Float = 0.1f,
-    val evaluator: NoiseEvaluator = PerlinNoise(seed, NoiseUtils.InterpolationMethod.LINEAR)
+    val evaluator: NoiseEvaluator = PerlinNoise(seed, size, size, 0, NoiseUtils.InterpolationMethod.LINEAR)
 ) : SimulationData() {
 
     override fun simulator(): AsyncSimulator = HydraulicParticleErosion(this)

@@ -20,7 +20,7 @@ class PolynomialNoise(
     private val octaves: Int,
     private val gain: Float,
     private val interpolation: NoiseUtils.InterpolationMethod,
-) : BoundedNoise(width, height) {
+) : BoundedNoise(width, height, 0) {
 
     private var buffer: SyncNoiseBuffer2 = SyncNoiseBuffer2(width, height)
     private val rng: Random = Random(seed)
@@ -132,6 +132,8 @@ class PolynomialNoise(
 
         return buffer
     }
+
+    override fun type(): BoundedNoiseType = BoundedNoiseType.POLYNOMIAL
 
     override fun clone(): PolynomialNoise = PolynomialNoise(seed, width, height, octaves, gain, interpolation)
 

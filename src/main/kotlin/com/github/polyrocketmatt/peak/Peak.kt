@@ -1,15 +1,9 @@
 package com.github.polyrocketmatt.peak
 
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.operator.blend
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
-import com.github.polyrocketmatt.peak.buffer.operator.scale
-import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicParticleErosion
-import com.github.polyrocketmatt.peak.buffer.simulation.particle.WindParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseUtils
-import com.github.polyrocketmatt.peak.types.complex.BuyaNoise
-import com.github.polyrocketmatt.peak.types.simple.*
-import org.imgscalr.Scalr
+import com.github.polyrocketmatt.peak.types.bounded.PolynomialNoise
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.random.Random
@@ -18,19 +12,9 @@ fun main(args: Array<String>) {
 
     val size = 256
     val seed = Random.nextInt(Int.MAX_VALUE)
-    val fractal = FractalNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC, 8, 0.2f, 0.5f, 2.0f, SimpleNoise.FractalType.FBM, SimpleNoise.SimpleNoiseType.SIMPLEX)
-    val perlin = PerlinNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC)
-    val simplex = SimplexNoise(seed)
-    val smooth = SmoothDetailFractalNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC, 8, 0.2f, 0.5f, 2.0f, SimpleNoise.FractalType.FBM, SimpleNoise.SimpleNoiseType.SIMPLEX, intArrayOf(2, 3, 4, 5))
-    val value = ValueNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC)
-    val white = WhiteNoise(seed)
+    val polynomial = PolynomialNoise(seed, size, size, 8, 0.5f, NoiseUtils.InterpolationMethod.QUINTIC)
 
-    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(fractal).normalize().image(), "png", File("img/fractal.png"))
-    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(perlin).normalize().image(), "png", File("img/perlin.png"))
-    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(simplex).normalize().image(), "png", File("img/simplex.png"))
-    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(smooth).normalize().image(), "png", File("img/smooth.png"))
-    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(value).normalize().image(), "png", File("img/value.png"))
-    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(white).normalize().image(), "png", File("img/white.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(polynomial).normalize().image(), "png", File("img/polynomial.png"))
 
     /*
     val seed = Random.nextInt(Int.MAX_VALUE)
