@@ -21,7 +21,7 @@ realistic looking terrains.
 
 Here is the table of content which describes all features of PEAK:
 
-- [**Noise Providers**](#noise-providers)
+- [**Noise Providers & Evaluators**](#noise-providers--evaluators)
 - [**Primitives**](#primitives)
 - [**Simulation**](#simulation)
 - [**Operators**](#operators)
@@ -30,92 +30,64 @@ Here is the table of content which describes all features of PEAK:
 - [**Data Extractors**](#data-extractors)
 - [**3D Engine**](#3d-engine)
 
-For all 
+More detailed information on how to use PEAK can be found on the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
 
 ---
 
-### Noise Providers
+### Noise Providers & Evaluators
 
-Noise providers form at the basis of PEAK. They form the backbone of any combination of noise, operator, filter or
-mask. All noise providers extend `SimpleNoiseProvider`. A custom noise provider that outputs a uniform value can be
-implemented as follows:
+Peak has a variety of noise providers and evaluators. Providers wrap certain evaluators for ease of use, but
+both can be used to sample noise. There are five categories of noise offered: simple, pattern-based, complex, cellular
+and bounded noise.
 
-```kotlin
-class CustomNoiseProvider(private val value: Float) : SimpleNoiseProvider() {
-    
-    override fun noise(x: Int, z: Int): Float {
-        return value
-    }
+**1. Simple Noise Types**
 
-    override fun noise(x: Float, z: Float): Float {
-        return value
-    }
+Simple noise types that many libraries implement as well. These include famous algorithms like 
+Perlin noise ([Perlin](https://en.wikipedia.org/wiki/Ken_Perlin)).
 
-    override fun noise(x: Double, z: Double): Double {
-        return value.toDouble()
-    }
-    
-}
-```
+   - White noise
+   - Value noise
+   - Perlin noise
+   - Simplex noise
+   - Multi-fractal noise (can be based on value, perlin or simplex noise)
 
-There are two pre-built providers: `FastNoiseProvider`, which implements the famous [FastNoise](https://github.com/Auburn/FastNoiseLite) 
-library written by Jordan Peck. It provides the following types of noise:
+Examples:
 
-- (Fractal) **Value** Noise
-- (Fractal) **Perlin** Noise
-- (Fractal) **Simplex** Noise
-- **Cellular** Noise
-- **White** Noise
+|                 Fractal                 |                 Smooth                 |                 Simplex                 |                 Value                 |                 White                 |
+|:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:-------------------------------------:|:-------------------------------------:|
+| <img src="img/fractal.png" width="100"> | <img src="img/smooth.png" width="100"> | <img src="img/simplex.png" width="100"> | <img src="img/value.png" width="100"> | <img src="img/white.png" width="100"> |
 
-The `FastNoiseProvider` relies on certain parameters. Therefor, you can construct a `FastNoiseProviderData`-object,
-which stores these parameters. This data class can be build using a builder as follows:
+**2. Pattern-based Noise Types**
 
-```kotlin
-val providerData = FastNoiseProviderDataBuilder()
-    .build()
-val fastNoiseProvider = FastNoiseProvider(providerData)
+Pattern-based noises create repeated patterns. These are useful for texturing or filtering.
 
-println("Noise at x=0, y=0: ${fastNoiseProvider.noise(0, 0)}")
-```
+  - Checkerboard noise
+  - Grid noise
+  - Radial-stripe noise
+  - Straight-stripe noise
 
-With the builder, you can modify parameters such as:
+**3. Complex Noise Types**
 
-- seed
-- octaves
-- gain
-- lacunarity
-- type of noise
+Complex noise types combine other noise types to create interesting noise patterns.
 
-All builder functions are explained within the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
+  - Buya Noise (inspired by [Buya Noise (Cinema4D)](https://developers.maxon.net/docs/Cinema4DPythonSDK/html/types/noise.html#buya))
 
-Analogous, the `ComplexNoiseProvider` provides more complex forms of noise. Currently, it provides the following
-types of noise:
+**4. Cellular Noise Types**
 
-- **Polynomial** Noise (Originally developed by Yann Thorimbert & Bastien Chopard)
+Cellular noise creates a cell-like structured noise. 
 
-The `ComplexNoiseProvider` relies on certain parameters. Therefor, you can construct a `ComplexNoiseProviderData`-object,
-which stores these parameters. This data class can be build using a builder as follows:
+  - Cellular noise (also known as Voronoi)
+  - Voronoise ([Inigo Quilez](https://iquilezles.org/articles/voronoise/))
+  - Poisson noise (uses poisson samples as sample points, instead of a static sample array)
 
-```kotlin
-val providerData = ComplexNoiseProviderDataBuilder()
-    .build()
-val complexNoiseProvider = ComplexNoiseProvider(providerData)
+**5. Bounded Noise Types**
 
-println("Noise at x=0, y=0: ${complexNoiseProvider.noise(0, 0)}")
-```
+Bounded noise improves or amortizes certain noise types, but has the disadvantage of being bounded by
+a single size parameter (see [WIKI](https://github.com/PolyRocketMatt/Peak/wiki) for more detail)
 
-The builder works analogue to the previously described builder. All builder functions are explained within 
-the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
+  - Polynomial noise (fast multi-fractal noise
 
 ### Primitives
-
-If you want to create a lot of heightmaps without creating `ProviderDataBuilders` for each one of them, you can
-use the `Primitive` API. A primitive is data-generation object that has the following options:
-
-- `recompute()` - Recomputes the primitive with the updated settings.
-- `buffer()` - Get the `NoiseBuffer`
-
-A `NoisePrimitive` is a primitive 
 
 ### Simulation
 

@@ -8,8 +8,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicPartic
 import com.github.polyrocketmatt.peak.buffer.simulation.particle.WindParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.complex.BuyaNoise
-import com.github.polyrocketmatt.peak.types.simple.FractalNoise
-import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
+import com.github.polyrocketmatt.peak.types.simple.*
 import org.imgscalr.Scalr
 import java.io.File
 import javax.imageio.ImageIO
@@ -17,6 +16,23 @@ import kotlin.random.Random
 
 fun main(args: Array<String>) {
 
+    val size = 256
+    val seed = Random.nextInt(Int.MAX_VALUE)
+    val fractal = FractalNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC, 8, 0.2f, 0.5f, 2.0f, SimpleNoise.FractalType.FBM, SimpleNoise.SimpleNoiseType.SIMPLEX)
+    val perlin = PerlinNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC)
+    val simplex = SimplexNoise(seed)
+    val smooth = SmoothDetailFractalNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC, 8, 0.2f, 0.5f, 2.0f, SimpleNoise.FractalType.FBM, SimpleNoise.SimpleNoiseType.SIMPLEX, intArrayOf(2, 3, 4, 5))
+    val value = ValueNoise(seed, NoiseUtils.InterpolationMethod.QUINTIC)
+    val white = WhiteNoise(seed)
+
+    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(fractal).normalize().image(), "png", File("img/fractal.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(perlin).normalize().image(), "png", File("img/perlin.png"))
+    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(simplex).normalize().image(), "png", File("img/simplex.png"))
+    //ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(smooth).normalize().image(), "png", File("img/smooth.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(value).normalize().image(), "png", File("img/value.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(white).normalize().image(), "png", File("img/white.png"))
+
+    /*
     val seed = Random.nextInt(Int.MAX_VALUE)
     val size = 512
     val buya = BuyaNoise(seed, 0.01f)
@@ -28,6 +44,8 @@ fun main(args: Array<String>) {
     println("Seed: $seed")
     println("Finished calculations...")
     println("Eroding...")
+
+     */
 
     /*
     val windErosion = WindParticleErosion(size, 500000, size, fractal)

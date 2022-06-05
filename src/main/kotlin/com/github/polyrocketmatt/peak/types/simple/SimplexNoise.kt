@@ -13,7 +13,7 @@ import com.github.polyrocketmatt.peak.types.NoiseUtils.Companion.gradCoord3d
  * Simplex noise implementation.
  */
 class SimplexNoise(
-    private val seed: Int,
+    private val seed: Int
 ) : SimpleNoise() {
 
     /**
