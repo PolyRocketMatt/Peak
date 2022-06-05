@@ -55,7 +55,7 @@ Examples:
 
 |                 Fractal                 |                 Smooth                 |                 Simplex                 |                 Value                 |                 White                 |
 |:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:-------------------------------------:|:-------------------------------------:|
-| <img src="img/fractal.png" width="100"> | <img src="img/smooth.png" width="100"> | <img src="img/simplex.png" width="100"> | <img src="img/value.png" width="100"> | <img src="img/white.png" width="100"> |
+| <img src="img/fractal.png" width="150"> | <img src="img/smooth.png" width="150"> | <img src="img/simplex.png" width="150"> | <img src="img/value.png" width="150"> | <img src="img/white.png" width="150"> |
 
 **2. Pattern-based Noise Types**
 
