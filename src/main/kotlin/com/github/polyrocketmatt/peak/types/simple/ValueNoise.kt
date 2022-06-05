@@ -23,7 +23,10 @@ class ValueNoise(
      * @param nY: the y-coordinate to sample noise from
      * @return the sampled noise at the given x- and y-coordinates
      */
-    override fun noise(nX: Float, nY: Float): Float {
+    override fun noise(x: Float, y: Float): Float {
+        val nX = x * 0.05f
+        val nY = y * 0.05f
+
         val x0 = nX.fastFloor()
         val y0 = nY.fastFloor()
         val x1 = x0 + 1
