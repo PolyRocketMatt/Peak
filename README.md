@@ -90,9 +90,9 @@ a single size parameter (see [WIKI](https://github.com/PolyRocketMatt/Peak/wiki)
 
 Examples:
 
-|                    Perlin                    |                Polynomial                 |
-|:--------------------------------------------:|:-----------------------------------------:|
-| <img src="img/perlin_scaled.png" width="57"> | <img src="img/polynomial.png" width="57"> |
+|                    Perlin                     |                 Polynomial                 |
+|:---------------------------------------------:|:------------------------------------------:|
+| <img src="img/perlin_scaled.png" width="150"> | <img src="img/polynomial.png" width="150"> |
 
 ### Primitives
 
