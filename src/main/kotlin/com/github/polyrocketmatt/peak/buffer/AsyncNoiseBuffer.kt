@@ -46,7 +46,8 @@ interface AsyncNoiseBuffer {
      * @param z: the chunk index in the z-direction
      * @param data: the data contained within this chunk
      */
-    data class NoiseChunk3(val x: Int, val y: Int, val z: Int, val data: Array<Array<FloatArray>> = emptyArray()) : NoiseChunk {
+    data class NoiseChunk3(val x: Int, val y: Int, val z: Int, val data: Array<Array<FloatArray>> = emptyArray()) :
+        NoiseChunk {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -79,5 +80,9 @@ interface AsyncNoiseBuffer {
      * @return this buffer in a synchronous format
      */
     fun toSync(): SyncNoiseBuffer
+
+    fun acquire()
+
+    fun release()
 
 }

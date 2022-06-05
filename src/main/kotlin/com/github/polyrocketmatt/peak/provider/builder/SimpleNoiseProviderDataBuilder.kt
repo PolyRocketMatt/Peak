@@ -8,7 +8,7 @@ import java.lang.IllegalArgumentException
 /**
  * Builder for a SimpleNoiseProvider object.
  */
-class SimpleNoiseDataBuilder : DataBuilder {
+class SimpleNoiseProviderDataBuilder : ProviderDataBuilder {
 
     private var seed: Int = 0
     private var octaves: Int = 1
@@ -27,7 +27,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @return this builder with the set seed
      * @throws IllegalArgumentException if the value is less than 0
      */
-    fun buildSeed(value: Int): SimpleNoiseDataBuilder {
+    fun buildSeed(value: Int): SimpleNoiseProviderDataBuilder {
         if (value < 0)
             throw IllegalArgumentException("Seed cannot be less than 0")
 
@@ -42,7 +42,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @return this builder with the set noise octaves
      * @throws IllegalArgumentException if the value is less than 1
      */
-    fun buildOctaves(value: Int): SimpleNoiseDataBuilder {
+    fun buildOctaves(value: Int): SimpleNoiseProviderDataBuilder {
         if (value < 1)
             throw IllegalArgumentException("Octaves cannot be less than 1")
 
@@ -56,7 +56,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the scale of the noise
      * @return this builder with the set scale
      */
-    fun buildScale(value: Float): SimpleNoiseDataBuilder {
+    fun buildScale(value: Float): SimpleNoiseProviderDataBuilder {
         this.scale = value
         return this
     }
@@ -67,7 +67,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the gain of the noise
      * @return this builder with the set gain
      */
-    fun buildGain(value: Float): SimpleNoiseDataBuilder {
+    fun buildGain(value: Float): SimpleNoiseProviderDataBuilder {
         this.gain = value
         return this
     }
@@ -79,7 +79,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the lacunarity of the noise
      * @return this builder with the set lacunarity
      */
-    fun buildLacunarity(value: Float): SimpleNoiseDataBuilder {
+    fun buildLacunarity(value: Float): SimpleNoiseProviderDataBuilder {
         this.lacunarity = value
         return this
     }
@@ -90,7 +90,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the type of the noise
      * @return this builder with the set type
      */
-    fun buildType(value: SimpleNoise.SimpleNoiseType): SimpleNoiseDataBuilder {
+    fun buildType(value: SimpleNoise.SimpleNoiseType): SimpleNoiseProviderDataBuilder {
         this.type = value
         return this
     }
@@ -101,7 +101,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the interpolation method of the noise
      * @return this builder with the set method
      */
-    fun buildInterpolation(value: NoiseUtils.InterpolationMethod): SimpleNoiseDataBuilder {
+    fun buildInterpolation(value: NoiseUtils.InterpolationMethod): SimpleNoiseProviderDataBuilder {
         this.interpolation = value
         return this
     }
@@ -112,7 +112,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the fractal type of the noise
      * @return this builder with the set fractal type
      */
-    fun buildFractal(value: SimpleNoise.FractalType): SimpleNoiseDataBuilder {
+    fun buildFractal(value: SimpleNoise.FractalType): SimpleNoiseProviderDataBuilder {
         this.fractal = value
         return this
     }
@@ -123,7 +123,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @param value: the skipped octaves for the noise
      * @return this builder with the set skipped octaves
      */
-    fun buildSkippedOctaves(value: IntArray): SimpleNoiseDataBuilder {
+    fun buildSkippedOctaves(value: IntArray): SimpleNoiseProviderDataBuilder {
         this.skippedOctaves = value
         return this
     }
@@ -135,7 +135,7 @@ class SimpleNoiseDataBuilder : DataBuilder {
      * @return this builder with the set skipped octaves
      */
     @JvmName("buildSkippedOctavesVararg")
-    fun buildSkippedOctaves(vararg value: Int): SimpleNoiseDataBuilder {
+    fun buildSkippedOctaves(vararg value: Int): SimpleNoiseProviderDataBuilder {
         this.skippedOctaves = value.toTypedArray().toIntArray()
         return this
     }

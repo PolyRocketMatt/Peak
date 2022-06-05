@@ -7,7 +7,6 @@ import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import kotlinx.coroutines.*
 import java.awt.image.BufferedImage
 import java.util.concurrent.*
 import kotlin.random.Random
@@ -19,7 +18,8 @@ import kotlin.random.Random
  * @param buffer: the 2D array of floats, which represent the buffer
  * @param chunkSize: the size of the chunks in all directions
  */
-class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunkSize: Int) : NoiseBuffer2, AsyncNoiseBuffer {
+class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunkSize: Int) : NoiseBuffer2,
+    AsyncNoiseBuffer {
 
     enum class Rotation2 { DEG_90, DEG_180 }
 
@@ -29,6 +29,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
     private var update: Boolean = false
     private var threadCount: Int = 1
     private var maxThreads: Int = 1
+    private var semaphore: Semaphore = Semaphore(1)
 
     init { update() }
 
@@ -105,14 +106,14 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      *
      * @return the width of the buffer
      */
-    fun width(): Int = buffer.size
+    override fun width(): Int = buffer.size
 
     /**
      * Get the height of the buffer.
      *
      * @return the height of the buffer
      */
-    fun height(): Int = buffer[0].size
+    override fun height(): Int = buffer[0].size
 
     /**
      * Get the minimum value within the buffer.
@@ -347,5 +348,9 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @return this buffer in a synchronous format
      */
     override fun toSync(): SyncNoiseBuffer = SyncNoiseBuffer2(this.buffer)
+
+    override fun acquire() = this.semaphore.acquire()
+
+    override fun release() = this.semaphore.release()
 
 }

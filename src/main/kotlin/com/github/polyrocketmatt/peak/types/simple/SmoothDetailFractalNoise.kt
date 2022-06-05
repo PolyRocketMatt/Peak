@@ -116,12 +116,12 @@ class SmoothDetailFractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
+                    amp *= gain
+
                     if (!skippedOctaves.contains(i - 1)) {
                         sX *= lacunarity
                         sY *= lacunarity
                         sZ *= lacunarity
-
-                        amp *= gain
                         sum += noise.noise(sX * scale, sY * scale, sZ * scale) * amp
                     }
                 }
@@ -137,12 +137,12 @@ class SmoothDetailFractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
+                    amp *= gain
+
                     if (!skippedOctaves.contains(i - 1)) {
                         sX *= lacunarity
                         sY *= lacunarity
                         sZ *= lacunarity
-
-                        amp *= gain
                         sum += (noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs() * 2 - 1) * amp
                     }
                 }
@@ -158,12 +158,12 @@ class SmoothDetailFractalNoise(
                 var sZ = z
 
                 for (i in 1 until octaves) {
+                    amp *= gain
+
                     if (!skippedOctaves.contains(i - 1)) {
                         sX *= lacunarity
                         sY *= lacunarity
                         sZ *= lacunarity
-
-                        amp *= gain
                         sum += (1.0f - noise.noise(sX * scale, sY * scale, sZ * scale).fastAbs()) * amp
                     }
                 }
@@ -180,8 +180,9 @@ class SmoothDetailFractalNoise(
         for (i in 1 until octaves) {
             if (!skippedOctaves.contains(i)) {
                 ampFractal += amp
-                amp *= gain
             }
+
+            amp *= gain
         }
 
         fractalBounding = 1.0f / ampFractal

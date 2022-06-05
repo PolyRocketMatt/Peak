@@ -5,7 +5,8 @@ import com.github.polyrocketmatt.peak.provider.data.NoiseData
 /**
  * Builder for provider data.
  */
-interface DataBuilder {
+@FunctionalInterface
+interface ProviderDataBuilder {
 
     /**
      * Build the ProviderData.

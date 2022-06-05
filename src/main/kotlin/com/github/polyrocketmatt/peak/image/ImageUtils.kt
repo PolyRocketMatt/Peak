@@ -61,6 +61,22 @@ class ImageUtils {
             return buffer
         }
 
+        /**
+         * Create a noise buffer from a grayscale image.
+         *
+         * @param image: the grayscale image to create a noise buffer of
+         * @return the noise buffer corresponding to the buffer
+         */
+        fun imageToBufferAsync(image: BufferedImage): AsyncNoiseBuffer2 {
+            val width = image.width
+            val height = image.height
+            val buffer = AsyncNoiseBuffer2(width, height)
+
+            for (x in 0 until width) for (z in 0 until height)
+                buffer[x][z] = fromGrayscaleColor(image.getRGB(x, z))
+            return buffer
+        }
+
         private fun toColor(value: Float): Int {
             val rgb = (value * 255.0f).i()
             return Color(rgb, rgb, rgb).rgb

@@ -2,7 +2,7 @@ package com.github.polyrocketmatt.peak.primitive.noise
 
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
-import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseDataBuilder
+import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseProviderDataBuilder
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import kotlinx.coroutines.runBlocking
@@ -77,7 +77,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoise
             field = value
         }
 
-    private var noise: com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider = com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider(SimpleNoiseDataBuilder().build())
+    private var noise: com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider = com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider(SimpleNoiseProviderDataBuilder().build())
 
     init { recompute() }
 
@@ -87,7 +87,7 @@ class MultiFractalPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoise
     override fun recompute() {
         this.update = false
         this.noise = com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider(
-            SimpleNoiseDataBuilder()
+            SimpleNoiseProviderDataBuilder()
                 .buildType(SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL)
                 .buildInterpolation(NoiseUtils.InterpolationMethod.HERMITE)
                 .buildSeed(seed)

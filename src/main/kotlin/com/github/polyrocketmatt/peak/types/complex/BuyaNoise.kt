@@ -6,6 +6,9 @@ import com.github.polyrocketmatt.peak.types.simple.FractalNoise
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import kotlin.math.pow
 
+/**
+ * Buya noise implementation.
+ */
 class BuyaNoise(
     private val seed: Int,
     private val scale: Float

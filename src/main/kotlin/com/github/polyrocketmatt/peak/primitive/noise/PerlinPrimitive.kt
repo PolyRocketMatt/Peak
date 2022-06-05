@@ -3,7 +3,7 @@ package com.github.polyrocketmatt.peak.primitive.noise
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.SimpleNoiseProvider
-import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseDataBuilder
+import com.github.polyrocketmatt.peak.provider.builder.SimpleNoiseProviderDataBuilder
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import kotlinx.coroutines.runBlocking
@@ -78,7 +78,7 @@ class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuffer
             field = value
         }
 
-    private var noise: SimpleNoiseProvider = SimpleNoiseProvider(SimpleNoiseDataBuilder().build())
+    private var noise: SimpleNoiseProvider = SimpleNoiseProvider(SimpleNoiseProviderDataBuilder().build())
 
     init { recompute() }
 
@@ -88,7 +88,7 @@ class PerlinPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuffer
     override fun recompute() {
         this.update = false
         this.noise = SimpleNoiseProvider(
-            SimpleNoiseDataBuilder()
+            SimpleNoiseProviderDataBuilder()
                 .buildType(SimpleNoise.SimpleNoiseType.PERLIN_FRACTAL)
                 .buildInterpolation(NoiseUtils.InterpolationMethod.HERMITE)
                 .buildSeed(this.seed)

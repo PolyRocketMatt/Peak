@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage
  */
 interface NoiseBuffer2 : NoiseBuffer {
 
+    fun width(): Int
+
+    fun height(): Int
+
     operator fun get(index: Int): FloatArray
 
     fun image(): BufferedImage

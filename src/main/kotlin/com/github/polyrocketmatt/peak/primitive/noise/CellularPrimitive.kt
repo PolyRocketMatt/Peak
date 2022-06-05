@@ -3,7 +3,7 @@ package com.github.polyrocketmatt.peak.primitive.noise
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.Operators
 import com.github.polyrocketmatt.peak.provider.CellularNoiseProvider
-import com.github.polyrocketmatt.peak.provider.builder.CellularNoiseDataBuilder
+import com.github.polyrocketmatt.peak.provider.builder.CellularNoiseProviderDataBuilder
 import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 import kotlinx.coroutines.runBlocking
 
@@ -59,7 +59,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuff
             field = value
         }
 
-    private var noise: CellularNoiseProvider = CellularNoiseProvider(CellularNoiseDataBuilder().build())
+    private var noise: CellularNoiseProvider = CellularNoiseProvider(CellularNoiseProviderDataBuilder().build())
 
     init {
         runBlocking {
@@ -73,7 +73,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuff
     override fun recompute() {
         this.update = false
         this.noise = CellularNoiseProvider(
-            CellularNoiseDataBuilder()
+            CellularNoiseProviderDataBuilder()
                 .buildSeed(this.seed)
                 .buildFrequency(this.frequency)
                 .buildDistanceType(this.distanceType)

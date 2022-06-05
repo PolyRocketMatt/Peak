@@ -87,14 +87,14 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer2, Sy
      *
      * @return the width of the buffer
      */
-    fun width(): Int = buffer.size
+    override fun width(): Int = buffer.size
 
     /**
      * Get the height of the buffer.
      *
      * @return the height of the buffer
      */
-    fun height(): Int = buffer[0].size
+    override fun height(): Int = buffer[0].size
 
     /**
      * Get the minimum value within the buffer.

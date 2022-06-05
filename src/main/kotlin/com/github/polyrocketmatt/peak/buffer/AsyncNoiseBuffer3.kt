@@ -6,9 +6,6 @@ import com.github.polyrocketmatt.game.math.statistics.min
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -19,7 +16,8 @@ import kotlin.random.Random
  *
  * @param buffer: the 3D array of floats, which represent the buffer
  */
-class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : NoiseBuffer3, AsyncNoiseBuffer {
+class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : NoiseBuffer3,
+    AsyncNoiseBuffer {
 
     private val chunksX: Int = buffer.size / chunkSize
     private val chunksY: Int = buffer[0].size / chunkSize
@@ -317,5 +315,13 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * @return this buffer in a synchronous format
      */
     override fun toSync(): SyncNoiseBuffer = SyncNoiseBuffer3(this.buffer)
+
+    override fun acquire() {
+        TODO("Not yet implemented")
+    }
+
+    override fun release() {
+        TODO("Not yet implemented")
+    }
 
 }
