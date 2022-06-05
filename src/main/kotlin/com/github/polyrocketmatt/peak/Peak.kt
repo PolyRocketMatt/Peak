@@ -4,6 +4,7 @@ import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.bounded.PolynomialNoise
+import com.github.polyrocketmatt.peak.types.pattern.*
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.random.Random
@@ -12,9 +13,16 @@ fun main(args: Array<String>) {
 
     val size = 256
     val seed = Random.nextInt(Int.MAX_VALUE)
-    val polynomial = PolynomialNoise(seed, size, size, 8, 0.5f, NoiseUtils.InterpolationMethod.QUINTIC)
 
-    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(polynomial).normalize().image(), "png", File("img/polynomial.png"))
+    val checkerboard = CheckerboardNoise(16f)
+    val grid = GridNoise(16f)
+    val radial = RadialNoise(size, 16f)
+    val straight = StraightStripeNoise(16f, PatternNoise.PatternOrientation.DIAGONAL)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(checkerboard).normalize().image(), "png", File("img/checkerboard.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(grid).normalize().image(), "png", File("img/grid.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(radial).normalize().image(), "png", File("img/radial.png"))
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(straight).normalize().image(), "png", File("img/straight.png"))
 
     /*
     val seed = Random.nextInt(Int.MAX_VALUE)

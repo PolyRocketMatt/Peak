@@ -66,6 +66,14 @@ Pattern-based noises create repeated patterns. These are useful for texturing or
   - Radial-stripe noise
   - Straight-stripe noise
 
+Examples:
+
+|                 Checkerboard                 |                 Grid                 |             Radial Stripe              |        Straight Stripe (Diagonal)        |
+|:--------------------------------------------:|:------------------------------------:|:--------------------------------------:|:----------------------------------------:|
+| <img src="img/checkerboard.png" width="150"> | <img src="img/grid.png" width="150"> | <img src="img/radial.png" width="150"> | <img src="img/straight.png" width="150"> |
+
+(*Note: scale has been modified to produce better examples*)
+
 **3. Complex Noise Types**
 
 Complex noise types combine other noise types to create interesting noise patterns.
@@ -92,7 +100,9 @@ Examples:
 
 |                    Perlin                     |                 Polynomial                 |
 |:---------------------------------------------:|:------------------------------------------:|
-| <img src="img/perlin_scaled.png" width="143"> | <img src="img/polynomial.png" width="143"> |
+| <img src="img/perlin_scaled.png" width="144"> | <img src="img/polynomial.png" width="144"> |
+
+(*Note: scale has been modified to produce better examples*)
 
 ### Primitives
 
