@@ -65,7 +65,7 @@ Pattern-based noises create repeated patterns. These are useful for texturing or
 
 Examples:
 
-|                 Checkerboard                 |                 Grid                 |             Radial Stripe              |        Straight Stripe (Diagonal)        |
+|                 Checkerboard                 |                 Grid                 |             Radial Stripe              |            Stripe (Diagonal)             |
 |:--------------------------------------------:|:------------------------------------:|:--------------------------------------:|:----------------------------------------:|
 | <img src="img/checkerboard.png" width="144"> | <img src="img/grid.png" width="144"> | <img src="img/radial.png" width="144"> | <img src="img/straight.png" width="144"> |
 
