@@ -4,7 +4,9 @@ import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.operator.blend
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
 import com.github.polyrocketmatt.peak.buffer.operator.scale
+import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
+import com.github.polyrocketmatt.peak.buffer.simulation.particle.AeolianParticleErosion
 import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.complex.BuyaNoise
@@ -28,13 +30,13 @@ fun main(args: Array<String>) {
     println("Finished calculations...")
     println("Eroding...")
 
-    //val windErosion = WindParticleErosion(size, 500000, size, fractal)
-    val hydraulicErosion = HydraulicParticleErosion(HydraulicSimulationData(seed, 500000, size, 3, depositSpeed = 0.5f, erosionSpeed = 0.1f))
+    val windErosion = AeolianParticleErosion(AeolianSimulationData(size, 100000, size, evaluator = fractal))
+    //val hydraulicErosion = HydraulicParticleErosion(HydraulicSimulationData(seed, 500000, size, 3, depositSpeed = 0.5f, erosionSpeed = 0.1f))
     //val windEroded = windErosion.simulate(buffer).normalize().scale(0.7f)
-    val eroded = hydraulicErosion.simulate(buffer).normalize().scale(0.7f).image()
+    val eroded = windErosion.simulate(buffer).normalize().scale(0.7f).image()
     //val eroded = (waterEroded.blend(windEroded, 0.75f)).normalize().scale(0.7f)
     //val erodedImg = Scalr.resize(eroded.image(), Scalr.Method.ULTRA_QUALITY, size * 16, size * 16, Scalr.OP_GRAYSCALE)
 
-    ImageIO.write(buffer.scale(0.7f).image(), "png", File("img/hydraulic_erosion_before.png"))
-    ImageIO.write(eroded, "png", File("img/hydraulic_erosion_after.png"))
+    ImageIO.write(buffer.scale(0.7f).image(), "png", File("img/aeolian_erosion_before.png"))
+    ImageIO.write(eroded, "png", File("img/aeolian_erosion_after.png"))
 }

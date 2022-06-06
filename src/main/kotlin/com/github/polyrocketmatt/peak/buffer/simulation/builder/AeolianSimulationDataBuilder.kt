@@ -2,12 +2,12 @@ package com.github.polyrocketmatt.peak.buffer.simulation.builder
 
 import com.github.polyrocketmatt.game.Vec3f
 import com.github.polyrocketmatt.peak.buffer.simulation.data.SimulationData
-import com.github.polyrocketmatt.peak.buffer.simulation.data.WindSimulationData
+import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
-class WindSimulationDataBuilder : SimulationDataBuilder {
+class AeolianSimulationDataBuilder : SimulationDataBuilder {
 
     private var seed: Int = 0
     private var iterations: Int = 1000000
@@ -23,72 +23,72 @@ class WindSimulationDataBuilder : SimulationDataBuilder {
     private var initialSediment: Float = 0.00001f
     private var evaluator: NoiseEvaluator = PerlinNoise(this.seed, size, size, 0, NoiseUtils.InterpolationMethod.LINEAR)
 
-    fun buildSeed(value: Int): WindSimulationDataBuilder {
+    fun buildSeed(value: Int): AeolianSimulationDataBuilder {
         this.seed = value
         return this
     }
 
-    fun buildIterations(value: Int): WindSimulationDataBuilder {
+    fun buildIterations(value: Int): AeolianSimulationDataBuilder {
         this.seed = value
         return this
     }
 
-    fun buildSize(value: Int): WindSimulationDataBuilder {
+    fun buildSize(value: Int): AeolianSimulationDataBuilder {
         this.seed = value
         return this
     }
 
-    fun buildInertia(value: Float): WindSimulationDataBuilder {
+    fun buildInertia(value: Float): AeolianSimulationDataBuilder {
         this.inertia = value
         return this
     }
 
-    fun buildGravity(value: Float): WindSimulationDataBuilder {
+    fun buildGravity(value: Float): AeolianSimulationDataBuilder {
         this.gravity = value
         return this
     }
 
-    fun buildSuspension(value: Float): WindSimulationDataBuilder {
+    fun buildSuspension(value: Float): AeolianSimulationDataBuilder {
         this.suspension = value
         return this
     }
 
-    fun buildAbrasion(value: Float): WindSimulationDataBuilder {
+    fun buildAbrasion(value: Float): AeolianSimulationDataBuilder {
         this.abrasion = value
         return this
     }
 
-    fun buildRoughness(value: Float): WindSimulationDataBuilder {
+    fun buildRoughness(value: Float): AeolianSimulationDataBuilder {
         this.roughness = value
         return this
     }
 
-    fun buildSettling(value: Float): WindSimulationDataBuilder {
+    fun buildSettling(value: Float): AeolianSimulationDataBuilder {
         this.settling = value
         return this
     }
 
-    fun buildMaxParticleLifetime(value: Int): WindSimulationDataBuilder {
+    fun buildMaxParticleLifetime(value: Int): AeolianSimulationDataBuilder {
         this.maxParticleLifetime = value
         return this
     }
 
-    fun buildInitialSpeed(value: Vec3f): WindSimulationDataBuilder {
+    fun buildInitialSpeed(value: Vec3f): AeolianSimulationDataBuilder {
         this.initialSpeed = value
         return this
     }
 
-    fun buildInitialSediment(value: Float): WindSimulationDataBuilder {
+    fun buildInitialSediment(value: Float): AeolianSimulationDataBuilder {
         this.initialSediment = value
         return this
     }
 
-    fun buildEvaluator(value: NoiseEvaluator): WindSimulationDataBuilder {
+    fun buildEvaluator(value: NoiseEvaluator): AeolianSimulationDataBuilder {
         this.evaluator = value
         return this
     }
 
-    override fun build(): SimulationData = WindSimulationData(
+    override fun build(): SimulationData = AeolianSimulationData(
         this.seed,
         this.iterations,
         this.size,

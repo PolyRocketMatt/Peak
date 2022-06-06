@@ -124,6 +124,25 @@ Examples:
 
 ### Simulation
 
+PEAK also offers certain types of simulation. These simulations alter the heightmaps you provide them with.
+Currently, the following three simulations are available:
+
+- Hydraulic Erosion
+- Aeolian Erosion
+- Thermal Erosion
+
+Example of hydraulic erosion:
+
+|                          Before                          |                          After                          |
+|:--------------------------------------------------------:|:-------------------------------------------------------:|
+| <img src="img/hydraulic_erosion_before.png" width="256"> | <img src="img/hydraulic_erosion_after.png" width="256"> |
+
+Example of Aeolian erosion:
+
+|                         Before                         |                         After                         |
+|:------------------------------------------------------:|:-----------------------------------------------------:|
+| <img src="img/aeolian_erosion_before.png" width="256"> | <img src="img/aeolian_erosion_after.png" width="256"> |
+
 ### Operators
 
 ### Filters

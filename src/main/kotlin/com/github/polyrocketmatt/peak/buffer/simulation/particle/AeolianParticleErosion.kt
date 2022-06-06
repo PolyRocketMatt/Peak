@@ -15,7 +15,7 @@ import com.github.polyrocketmatt.peak.buffer.operator.add
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
-import com.github.polyrocketmatt.peak.buffer.simulation.data.WindSimulationData
+import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.io.File
 import java.lang.Exception
@@ -24,7 +24,7 @@ import kotlin.math.min
 import kotlin.random.Random
 
 @Ref("Landscape synthesis achieved through erosion and deposition process simulation")
-class WindParticleErosion(val data: WindSimulationData) : AsyncSimulator {
+class AeolianParticleErosion(val data: AeolianSimulationData) : AsyncSimulator {
 
     private val size: Int = data.size
     private val iterations: Int = data.iterations
@@ -89,29 +89,39 @@ class WindParticleErosion(val data: WindSimulationData) : AsyncSimulator {
 
                 // Find the particle's new height and calculate the deltaHeight
                 val newHeight = calculateHeightAndGradient(map, sedimentMap, posX, posY).height
-                //val deltaHeight = newHeight - heightAndGradient.height
                 val newIndex = posY.i() * size + posX.i()
                 val pos = Vec2f(posX, posY)
 
+                //println("Ok?")
+
                 //  Collision
                 if (newHeight <= map[newIndex] + sedimentMap[newIndex]) {
+                    //println("    Collision")
+
                     val force = speed.magnitude() * (sedimentMap[newIndex] + map[newIndex] - heightAndGradient.height)
                     val suspensionAmount = suspension * force
                     val abrasionAmount = abrasion * force * sediment
 
                     //  Abrasion
                     if (sedimentMap[particleIndex] <= 0f) {
+                        //println("        Should abrade")
+
                         sedimentMap[particleIndex] = 0f
                         map[particleIndex] -= abrasionAmount
                         sedimentMap[particleIndex] += abrasionAmount
+
+                        //println("        Abraded")
                     }
 
                     //  Suspension
                     else if (sedimentMap[particleIndex] > suspensionAmount) {
+                        //println("        Should suspend")
                         sedimentMap[particleIndex] -= suspensionAmount
                         sediment += suspensionAmount
 
                         cascade(pos, particleIndex, map, sedimentMap)
+
+                        //println("        Suspended")
                     }
 
                     else
@@ -120,6 +130,8 @@ class WindParticleErosion(val data: WindSimulationData) : AsyncSimulator {
 
                 //  Flying
                 else {
+                    //println("    Flying")
+
                     val sedimentAmount = suspension * sediment
 
                     sediment -= sedimentAmount
@@ -128,17 +140,23 @@ class WindParticleErosion(val data: WindSimulationData) : AsyncSimulator {
 
                     cascade(pos, newIndex, map, sedimentMap)
                     cascade(pos, particleIndex, map, sedimentMap)
+
+                    //println("        Flown")
                 }
 
                 //  Update speed according to state
                 speed = if (heightAndGradient.height > map[particleIndex] + sedimentMap[particleIndex]) {
                     speed + Vec3f(0f, -gravity, 0f)         //  Flying
                 } else {
+                    //println("$n")
+
                     speed + speed.cross(n).cross(n)                 //  Contact
                 }
 
                 //  Update general speed
                 speed = speed + (initialSpeed - speed).scalarMultiplication(.1f)
+
+                //println("Increased speed")
 
                 //  Particle has no speed (equilibrium movement)
                 if (speed.magnitude() < 0.01f)
