@@ -47,7 +47,8 @@ Simple noise types that many libraries implement as well.
    - White noise
    - Value noise
    - Simplex noise
-   - Multi-fractal noise (can be based on value, perlin or simplex noise)
+   - Multi-fractal noise (can be based on value or simplex noise)
+   - Smooth multi-fractal noise (exclusion of octaves)
 
 Examples:
 
