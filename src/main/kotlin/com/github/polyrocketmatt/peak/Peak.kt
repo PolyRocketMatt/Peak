@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
     println("Finished calculations...")
     println("Eroding...")
 
-    val windErosion = AeolianParticleErosion(AeolianSimulationData(size, 100000, size, evaluator = fractal))
+    val windErosion = AeolianParticleErosion(AeolianSimulationData(size, 100000, size, suspension = 0.001f, abrasion = 0.8f, evaluator = fractal))
     //val hydraulicErosion = HydraulicParticleErosion(HydraulicSimulationData(seed, 500000, size, 3, depositSpeed = 0.5f, erosionSpeed = 0.1f))
     //val windEroded = windErosion.simulate(buffer).normalize().scale(0.7f)
     val eroded = windErosion.simulate(buffer).normalize().scale(0.7f).image()

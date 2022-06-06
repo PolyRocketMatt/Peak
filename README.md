@@ -145,15 +145,51 @@ Example of Aeolian erosion:
 
 ### Operators
 
-### Filters
+PEAK offers a way to store heightmaps efficiently and operate on them in an (a)sync way: buffers. 
+On these buffers, various operations can be performed.
 
-### Masks
+**Scalar Operations**
 
-### Data Extractors
+- Addition
+- Subtraction
+- Multiplication
+- Division
 
-### 3D Engine
+**Unary Operations**
 
-~ Soon
+- Clipping
+- Exponentiation
+- Inverting
+- Lerp (linear interpolation)
+- Normalisation
+- Polynomial evaluation
+- Push/Pull
+- Scaling
+- Smooth(er)step and other [0,1]-interval based functions
+- Square-root
+
+**Binary Operations**
+
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Blending
+- Combined Power (uses the elements from the second buffer as exponents)
+- Min/Max
+
+### Filters (Planned)
+
+Filters will provide a way of filtering buffers.
+
+### Data Extractors (Planned)
+
+Data extractors will be used to extract data from buffers. This can include flow maps, angle maps, etc.
+These can then be used to perform other operations on the buffers based on the collected data.
+
+### 3D Engine (Planned)
+
+A layer-based buffer will be introduced to allow for 3D noise generation, erosion, operation and filtering.
 
 ---
 
