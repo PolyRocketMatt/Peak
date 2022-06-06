@@ -24,8 +24,8 @@ class PerlinNoise(
      * @return the sampled noise at the given x- and y-coordinates
      */
     override fun noise(nX: Float, nY: Float): Float {
-        val x = nX / width
-        val y = nY / height
+        val x = (nX % width) / width
+        val y = (nY % height) / height
 
         val x0 = x.fastFloor()
         val y0 = y.fastFloor()
@@ -70,9 +70,9 @@ class PerlinNoise(
      * @return the sampled noise at the given x- and z-coordinates
      */
     override fun noise(nX: Float, nY: Float, nZ: Float): Float {
-        val x = nX / width
-        val y = nY / height
-        val z = nZ / depth
+        val x = (nX % width) / width
+        val y = (nY % height) / height
+        val z = (nZ % depth) / depth
 
         val x0 = x.fastFloor()
         val y0 = y.fastFloor()

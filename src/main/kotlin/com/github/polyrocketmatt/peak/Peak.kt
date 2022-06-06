@@ -1,25 +1,23 @@
 package com.github.polyrocketmatt.peak
 
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.operator.blend
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
-import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
+import com.github.polyrocketmatt.peak.buffer.operator.scale
+import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
+import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicParticleErosion
+import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.complex.BuyaNoise
+import com.github.polyrocketmatt.peak.types.simple.FractalNoise
+import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.random.Random
 
 fun main(args: Array<String>) {
 
+    val seed = Random.nextInt(Int.MAX_VALUE)
     val size = 256
-    val seed = Random.nextInt(Int.MAX_VALUE)
-
-    val cellular = CellularNoise(seed, 0.05f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE)
-
-    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular.png"))
-
-    /*
-    val seed = Random.nextInt(Int.MAX_VALUE)
-    val size = 512
     val buya = BuyaNoise(seed, 0.01f)
     val fractal = FractalNoise(seed, NoiseUtils.InterpolationMethod.HERMITE, 8, 0.5f, 0.5f, 2.0f, type = SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL)
     val buyaBuffer = AsyncNoiseBuffer2(size, 128).fill(buya).normalize()
@@ -30,18 +28,13 @@ fun main(args: Array<String>) {
     println("Finished calculations...")
     println("Eroding...")
 
-     */
+    //val windErosion = WindParticleErosion(size, 500000, size, fractal)
+    val hydraulicErosion = HydraulicParticleErosion(HydraulicSimulationData(seed, 500000, size, 3, depositSpeed = 0.5f, erosionSpeed = 0.1f))
+    //val windEroded = windErosion.simulate(buffer).normalize().scale(0.7f)
+    val eroded = hydraulicErosion.simulate(buffer).normalize().scale(0.7f).image()
+    //val eroded = (waterEroded.blend(windEroded, 0.75f)).normalize().scale(0.7f)
+    //val erodedImg = Scalr.resize(eroded.image(), Scalr.Method.ULTRA_QUALITY, size * 16, size * 16, Scalr.OP_GRAYSCALE)
 
-    /*
-    val windErosion = WindParticleErosion(size, 500000, size, fractal)
-    val hydraulicErosion = HydraulicParticleErosion(Random.nextInt(Int.MAX_VALUE), 1000000, size, 3, fractal)
-    val windEroded = windErosion.simulate(buffer).normalize().scale(0.7f)
-    val waterEroded = hydraulicErosion.simulate(buffer).normalize()
-    val eroded = (waterEroded.blend(windEroded, 0.75f)).normalize().scale(0.7f)
-    val erodedImg = Scalr.resize(eroded.image(), Scalr.Method.ULTRA_QUALITY, size * 16, size * 16, Scalr.OP_GRAYSCALE)
-
-    ImageIO.write(buffer.scale(0.7f).image(), "png", File("output/buffer.png"))
-    ImageIO.write(erodedImg, "png", File("output/erosion.png"))
-
-     */
+    ImageIO.write(buffer.scale(0.7f).image(), "png", File("img/hydraulic_erosion_before.png"))
+    ImageIO.write(eroded, "png", File("img/hydraulic_erosion_after.png"))
 }
