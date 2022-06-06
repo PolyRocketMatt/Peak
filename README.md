@@ -5,6 +5,8 @@
     />
 </div>
 
+![Peak](img/peak_logo.png#gh-light-mode-only)
+
 # PEAK Library
 
 PEAK stands for **Procedural Environment Algorithms for Kotlin**. It is a collection of various algorithms, noise types, 
