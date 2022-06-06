@@ -48,9 +48,9 @@ Simple noise types that many libraries implement as well.
 
 Examples:
 
-|                 Fractal                 |                 Smooth                 |                 Simplex                 |                    Value                     |                 White                 |
-|:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:--------------------------------------------:|:-------------------------------------:|
-| <img src="img/fractal.png" width="144"> | <img src="img/smooth.png" width="144"> | <img src="img/simplex.png" width="144"> | <img src="img/value_scaled.png" width="144"> | <img src="img/white.png" width="144"> |
+|                 Fractal                 |                 Smooth                 |                 Simplex                 |                    Value                     |
+|:---------------------------------------:|:--------------------------------------:|:---------------------------------------:|:--------------------------------------------:|
+| <img src="img/fractal.png" width="144"> | <img src="img/smooth.png" width="144"> | <img src="img/simplex.png" width="144"> | <img src="img/value_scaled.png" width="144"> ||
 
 (*Note: scale has been modified to produce better examples*)
 
