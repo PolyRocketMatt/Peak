@@ -1,11 +1,5 @@
-<div align="center">
-    <img
-        src="img/peak_logo_dark.png"
-        width="800"
-    />
-</div>
-
 ![Peak](img/peak_logo.png#gh-light-mode-only)
+![Peak](img/peak_logo_dark.png#gh-dark-mode-only)
 
 # PEAK Library
 
