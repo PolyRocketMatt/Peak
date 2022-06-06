@@ -65,7 +65,7 @@ Pattern-based noises create repeated patterns. These are useful for texturing or
   - Checkerboard noise
   - Grid noise
   - Radial-stripe noise
-  - Straight-stripe noise
+  - Straight-stripe noise (horizontal, vertical or diagonal)
 
 Examples:
 
