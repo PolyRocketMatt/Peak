@@ -90,15 +90,20 @@ Examples:
 Cellular noise creates a cell-like structured noise. 
 
   - Cellular noise (also known as Voronoi)
-  - Poisson noise (uses poisson samples as sample points, instead of a static sample array)
 
 Examples:
 
-|                 Cellular                 |
-|:----------------------------------------:|
-| <img src="img/cellular.png" width="144"> |
+|                   Cellular                    |                   Distance 2                    |
+|:---------------------------------------------:|:-----------------------------------------------:|
+| <img src="img/cellular_dist.png" width="144"> | <img src="img/cellular_dist_2.png" width="144"> |
 
 (*Note: scale has been modified to produce better examples*)
+
+Distance variations:
+
+|                   Distance 2 Add                    |                   Distance 2 Sub                    |                   Distance 2 Mul                    |                   Distance 2 Div                    |
+|:---------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------:|
+| <img src="img/cellular_dist_2_add.png" width="144"> | <img src="img/cellular_dist_2_sub.png" width="144"> | <img src="img/cellular_dist_2_mul.png" width="144"> | <img src="img/cellular_dist_2_div.png" width="144"> |
 
 **5. Bounded Noise Types**
 

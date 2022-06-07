@@ -9,6 +9,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulation
 import com.github.polyrocketmatt.peak.buffer.simulation.particle.AeolianParticleErosion
 import com.github.polyrocketmatt.peak.buffer.simulation.particle.HydraulicParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseUtils
+import com.github.polyrocketmatt.peak.types.cellular.CellularNoise
 import com.github.polyrocketmatt.peak.types.complex.BuyaNoise
 import com.github.polyrocketmatt.peak.types.simple.FractalNoise
 import com.github.polyrocketmatt.peak.types.simple.SimpleNoise
@@ -20,6 +21,32 @@ fun main(args: Array<String>) {
 
     val seed = Random.nextInt(Int.MAX_VALUE)
     val size = 256
+
+    var cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist.png"))
+
+    cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE_2)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist_2.png"))
+
+    cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE_2_ADD)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist_2_add.png"))
+
+    cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE_2_SUB)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist_2_sub.png"))
+
+    cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE_2_MUL)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist_2_mul.png"))
+
+    cellular = CellularNoise(seed, 0.02f, CellularNoise.DistanceType.EUCLIDEAN, CellularNoise.ReturnType.DISTANCE_2_DIV)
+
+    ImageIO.write(AsyncNoiseBuffer2(size, 16).fill(cellular).normalize().image(), "png", File("img/cellular_dist_2_div.png"))
+
+    /*
     val buya = BuyaNoise(seed, 0.01f)
     val fractal = FractalNoise(seed, NoiseUtils.InterpolationMethod.HERMITE, 8, 0.5f, 0.5f, 2.0f, type = SimpleNoise.SimpleNoiseType.SIMPLEX_FRACTAL)
     val buyaBuffer = AsyncNoiseBuffer2(size, 128).fill(buya).normalize()
@@ -39,4 +66,6 @@ fun main(args: Array<String>) {
 
     ImageIO.write(buffer.scale(0.7f).image(), "png", File("img/aeolian_erosion_before.png"))
     ImageIO.write(eroded, "png", File("img/aeolian_erosion_after.png"))
+
+     */
 }
