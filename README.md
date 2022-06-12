@@ -159,6 +159,9 @@ On these buffers, various operations can be performed.
 **Unary Operations**
 
 - Clipping
+- Cross blurring
+- Fast blur (custom blurring kernel)
+- Heal
 - Exponentiation
 - Inverting
 - Lerp (linear interpolation)
@@ -178,6 +181,7 @@ On these buffers, various operations can be performed.
 - Blending
 - Combined Power (uses the elements from the second buffer as exponents)
 - Min/Max
+- Stitching (stitch heightmaps into one)
 
 ### Filters (Planned)
 
