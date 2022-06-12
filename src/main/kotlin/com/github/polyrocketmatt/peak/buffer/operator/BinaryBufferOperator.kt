@@ -15,7 +15,7 @@ interface BinaryBufferOperator : BufferOperator {
      * @param data: the additional data to perform the operation
      * @return a new NoiseBuffer that contains the result of the operation
      */
-    fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2
+    fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2
 
     /**
      * Perform an operation on the buffers with the given data.
@@ -25,6 +25,6 @@ interface BinaryBufferOperator : BufferOperator {
      * @param data: the additional data to perform the operation
      * @return a new NoiseBuffer that contains the result of the operation
      */
-    fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3
+    fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3
 
 }

@@ -1,30 +1,47 @@
-package com.github.polyrocketmatt.peak.buffer
+package com.github.polyrocketmatt.peak.buffer.layer
 
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer
+import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.awt.image.BufferedImage
-import java.util.concurrent.*
+import java.util.concurrent.ForkJoinPool
+import java.util.concurrent.Semaphore
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
-/**
- * Constructs a wrapper for a 2D array on which special noise-related
- * operations can be performed.
- *
- * @param buffer: the 2D array of floats, which represent the buffer
- * @param chunkSize: the size of the chunks in all directions
- */
-class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunkSize: Int) : NoiseBuffer2, AsyncNoiseBuffer {
+class AsyncLayerBuffer(private val buffer: Array<Array<Layer>>, private val chunkSize: Int) {
 
-    enum class Rotation2 { DEG_90, DEG_180 }
+    data class Layer(
+        val name: String = "bedrock"
+    )
+
+    /*
+    data class LayerChunk(val x: Int, val y: Int, val data: Array<Array<Layer>> = emptyArray()) {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as LayerChunk
+
+            if (!data.contentDeepEquals(other.data)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int = data.contentDeepHashCode()
+    }
 
     private val chunksX: Int = buffer.size / chunkSize
     private val chunksY: Int = buffer[0].size / chunkSize
-    private var chunks: List<AsyncNoiseBuffer.NoiseChunk2> = arrayListOf()
+    private var chunks: List<LayerChunk> = arrayListOf()
     private var update: Boolean = false
     private var threadCount: Int = 1
     private var maxThreads: Int = 1
@@ -226,20 +243,17 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * Fill the buffer given a noise provider.
      *
      * @param provider: the provider to use when filling the buffer
-     * @param offsetX: the x-coordinate offset to use in the evaluator
-     * @param offsetY: the y-coordinate offset to use in the evaluator
-     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider, offsetX: Float, offsetY: Float, offsetZ: Float): AsyncNoiseBuffer2 {
+    override fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer2 {
         val service = ForkJoinPool(this.chunks.size)
         for (chunk in this.chunks) {
             val cX = chunk.x * chunkSize
             val cY = chunk.y * chunkSize
             val task = AsyncNoiseBuffer.AsyncTask {
                 for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
-                    this.buffer[x][y] = provider.noise(x + offsetX, y + offsetY)
+                    this.buffer[x][y] = provider.noise(x, y)
             }
 
             service.submit(task)
@@ -259,20 +273,17 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * Fill the buffer given a noise evaluator.
      *
      * @param evaluator: the evaluator to use when filling the buffer
-     * @param offsetX: the x-coordinate offset to use in the evaluator
-     * @param offsetY: the y-coordinate offset to use in the evaluator
-     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator, offsetX: Float, offsetY: Float, offsetZ: Float): AsyncNoiseBuffer2 {
+    override fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer2 {
         val service = ForkJoinPool(this.chunks.size)
         for (chunk in this.chunks) {
             val cX = chunk.x * chunkSize
             val cY = chunk.y * chunkSize
             val task = AsyncNoiseBuffer.AsyncTask {
                 for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize)
-                    this.buffer[x][y] = evaluator.noise(x.f() + offsetX, y.f() + offsetY)
+                    this.buffer[x][y] = evaluator.noise(x.f(), y.f())
             }
 
             service.submit(task)
@@ -294,9 +305,9 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param rotation: the rotation on how to rotate the buffer
      * @return the rotated buffer according to the given rotation
      */
-    fun rotate(rotation: Rotation2): AsyncNoiseBuffer2 {
+    fun rotate(rotation: AsyncNoiseBuffer2.Rotation2): AsyncNoiseBuffer2 {
         val rotated = when (rotation) {
-            Rotation2.DEG_90 -> {
+            AsyncNoiseBuffer2.Rotation2.DEG_90 -> {
                 //  Columns -> Rows
                 val rotated = Array(height()) { FloatArray(width()) { 0.0f } }
                 for ((index, row) in buffer.withIndex())
@@ -306,7 +317,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
                 rotated
             }
 
-            Rotation2.DEG_180 -> {
+            AsyncNoiseBuffer2.Rotation2.DEG_180 -> {
                 val rotated = Array(width()) { FloatArray(height()) { 0.0f } }
                 for ((index, row) in buffer.withIndex())
                     rotated[index] = row.reversedArray()
@@ -357,5 +368,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
     override fun acquire() = this.semaphore.acquire()
 
     override fun release() = this.semaphore.release()
+
+     */
 
 }

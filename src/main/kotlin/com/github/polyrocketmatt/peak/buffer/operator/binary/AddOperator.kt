@@ -19,7 +19,7 @@ class AddOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the addition of the two buffers
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 = first.mapIndexed { x, y, fl -> fl + second[x][y] }
+    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 = first.mapIndexed { x, y, fl -> fl + second[x][y] }
 
     /**
      *  Adds the elements of the first buffer and the second buffer.
@@ -29,6 +29,6 @@ class AddOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the addition of the two buffers
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 = second.mapIndexed { x, y, z, fl -> fl + second[x][y][z] }
+    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3 = second.mapIndexed { x, y, z, fl -> fl + second[x][y][z] }
 
 }

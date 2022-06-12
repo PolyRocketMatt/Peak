@@ -2,9 +2,11 @@ package com.github.polyrocketmatt.peak.buffer.simulation.builder
 
 import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.SimulationData
+import com.github.polyrocketmatt.peak.math.toRadians
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
+import kotlin.math.tan
 
 class HydraulicSimulationDataBuilder : SimulationDataBuilder {
 
@@ -22,9 +24,15 @@ class HydraulicSimulationDataBuilder : SimulationDataBuilder {
     private var maxParticleLifetime: Int = 30
     private var initialWaterVolume: Float = 1.0f
     private var initialSpeed: Float = 1.0f
-    private var talusSlippageAngle: Float = 70.0f
-    private var talusDepositionMultiplier: Float = 0.1f
     private var evaluator: NoiseEvaluator = PerlinNoise(seed, size, size, 0, NoiseUtils.InterpolationMethod.LINEAR)
+    private var sedimentCascade: Boolean = true
+    private var sedimentTalus: Float =  5.0f
+    private var sedimentRoughness: Float = 0.005f
+    private var sedimentAbrasion: Float = 0.1f
+    private var sedimentSettling: Float = 0.75f
+    private var sedimentCellSize: Float = 0.01f
+    private var sedimentCascadeIteration: Int = 1
+    private var sedimentCascadeRemoval: Float = 0.15f
 
     fun buildSeed(value: Int): HydraulicSimulationDataBuilder {
         this.seed = value
@@ -96,18 +104,48 @@ class HydraulicSimulationDataBuilder : SimulationDataBuilder {
         return this
     }
 
-    fun buildTalusSlippageAngle(value: Float): HydraulicSimulationDataBuilder {
-        this.talusSlippageAngle = value
-        return this
-    }
-
-    fun buildTalusDepositionMultiplier(value: Float): HydraulicSimulationDataBuilder {
-        this.talusDepositionMultiplier = value
-        return this
-    }
-
     fun buildEvaluator(value: NoiseEvaluator): HydraulicSimulationDataBuilder {
         this.evaluator = value
+        return this
+    }
+
+    fun buildCascade(value: Boolean): HydraulicSimulationDataBuilder {
+        this.sedimentCascade = value
+        return this
+    }
+
+    fun buildTalusAngle(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentTalus = value
+        return this
+    }
+
+    fun buildRoughness(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentRoughness = value
+        return this
+    }
+
+    fun buildAbrasion(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentAbrasion = value
+        return this
+    }
+
+    fun buildSettling(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentSettling = value
+        return this
+    }
+
+    fun buildCellSize(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentCellSize = value
+        return this
+    }
+
+    fun buildCascadeIterations(value: Int): HydraulicSimulationDataBuilder {
+        this.sedimentCascadeIteration = value
+        return this
+    }
+
+    fun buildCascadeRemoval(value: Float): HydraulicSimulationDataBuilder {
+        this.sedimentCascadeRemoval = value
         return this
     }
 
@@ -126,8 +164,6 @@ class HydraulicSimulationDataBuilder : SimulationDataBuilder {
         this.maxParticleLifetime,
         this.initialWaterVolume,
         this.initialSpeed,
-        this.talusSlippageAngle,
-        this.talusDepositionMultiplier,
-        this.evaluator
+        evaluator = this.evaluator
     )
 }

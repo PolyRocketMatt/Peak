@@ -81,7 +81,7 @@ class CellularPrimitive(width: Int, height: Int) : NoisePrimitive(AsyncNoiseBuff
                 .build()
         )
 
-        runBlocking { update(Operators.NORMALIZE.operate(buffer().fill(noise) as AsyncNoiseBuffer2)) }
+        runBlocking { update(Operators.NORMALIZE.operate(buffer().fill(noise, 0f, 0f, 0f) as AsyncNoiseBuffer2)) }
     }
 
 }

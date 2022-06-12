@@ -14,6 +14,7 @@ import kotlin.random.Random
  *
  * @param buffer: the 3D array of floats, which represent the buffer
  */
+@Deprecated("Use AsyncNoiseBuffer3 instead")
 class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) : NoiseBuffer3, SyncNoiseBuffer {
 
     /**
@@ -172,7 +173,7 @@ class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) : NoiseBuff
      * @param provider: the provider to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer3 {
+    override fun fill(provider: SimpleNoiseProvider, offsetX: Float, offsetY: Float, offsetZ: Float): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = provider.noise(x, y, z)
         return this
@@ -184,7 +185,7 @@ class SyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>) : NoiseBuff
      * @param evaluator: the evaluator to use when filling the buffer
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer3 {
+    override fun fill(evaluator: NoiseEvaluator, offsetX: Float, offsetY: Float, offsetZ: Float): SyncNoiseBuffer3 {
         for (x in 0 until width()) for (y in 0 until height()) for (z in 0 until depth())
             buffer[x][y][z] = evaluator.noise(x.f(), y.f(), z.f())
         return this

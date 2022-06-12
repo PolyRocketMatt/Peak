@@ -19,7 +19,7 @@ class SquareRootOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the square-rooted elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 = buffer.map { fl -> fl.sqrt() }
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 = buffer.map { fl -> fl.sqrt() }
 
     /**
      * Takes the square root of a buffer.
@@ -28,6 +28,6 @@ class SquareRootOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the square-rooted elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 = buffer.map { fl -> fl.sqrt() }
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 = buffer.map { fl -> fl.sqrt() }
 
 }

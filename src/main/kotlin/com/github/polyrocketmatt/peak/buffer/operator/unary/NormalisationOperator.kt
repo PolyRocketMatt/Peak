@@ -17,7 +17,7 @@ class NormalisationOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the normalized elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         val min = buffer.min()
         val max = buffer.max()
 
@@ -31,7 +31,7 @@ class NormalisationOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the normalized elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         val min = buffer.min()
         val max = buffer.max()
 

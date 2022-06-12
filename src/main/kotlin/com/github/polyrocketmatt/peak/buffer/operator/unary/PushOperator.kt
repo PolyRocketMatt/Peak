@@ -25,12 +25,19 @@ class PushOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max / increase values provided
      * @return a new NoiseBuffer that contains the pushed elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 3)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min, max and increase arguments!")
-        val min = data[0]
-        val max = data[1]
-        val inc = data[2]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected min argument to be of type float!")
+        if (data[1] !is Float)
+            throw BufferOperationException("Expected max argument to be of type float!")
+        if (data[2] !is Float)
+            throw BufferOperationException("Expected increase argument to be of type float!")
+
+        val min = data[0] as Float
+        val max = data[1] as Float
+        val inc = data[2] as Float
 
         return buffer.map { fl -> kotlin.run {
             val smoothStepped = fl.inverseSmoothStepLerp(min, max)
@@ -51,12 +58,19 @@ class PushOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max / increase values provided
      * @return a new NoiseBuffer that contains the pushed elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         if (data.size != 3)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min, max and increase arguments!")
-        val min = data[0]
-        val max = data[1]
-        val inc = data[2]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected min argument to be of type float!")
+        if (data[1] !is Float)
+            throw BufferOperationException("Expected max argument to be of type float!")
+        if (data[2] !is Float)
+            throw BufferOperationException("Expected increase argument to be of type float!")
+
+        val min = data[0] as Float
+        val max = data[1] as Float
+        val inc = data[2] as Float
 
         return buffer.map { fl -> kotlin.run {
             val smoothStepped = fl.inverseSmoothStepLerp(min, max)

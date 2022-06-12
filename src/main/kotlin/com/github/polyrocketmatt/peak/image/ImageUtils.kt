@@ -3,9 +3,16 @@ package com.github.polyrocketmatt.peak.image
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
+import org.imgscalr.Scalr
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
+
+fun BufferedImage.scale(scaleX: Int, scaleY: Int): BufferedImage {
+    val width = this.width
+    val height = this.height
+    return Scalr.resize(this, Scalr.Method.ULTRA_QUALITY, width * scaleX, height * scaleY, Scalr.OP_GRAYSCALE)
+}
 
 /**
  * Contains various utilities to construct and manipulate
@@ -75,6 +82,12 @@ class ImageUtils {
             for (x in 0 until width) for (z in 0 until height)
                 buffer[x][z] = fromGrayscaleColor(image.getRGB(x, z))
             return buffer
+        }
+
+        fun scale(image: BufferedImage, scaleX: Int, scaleY: Int): BufferedImage {
+            val width = image.width
+            val height = image.height
+            return Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, width * scaleX, height * scaleY, Scalr.OP_GRAYSCALE)
         }
 
         private fun toColor(value: Float): Int {

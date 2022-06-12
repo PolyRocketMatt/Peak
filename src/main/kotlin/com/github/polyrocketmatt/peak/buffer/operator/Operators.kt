@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.peak.buffer.operator
 
+import com.github.polyrocketmatt.game.Vec2
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.peak.buffer.*
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.ADD
@@ -7,8 +8,11 @@ import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.ADDITI
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.BLEND
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.CLIP
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.COMBO_POW
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.CROSS_BLUR
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.DIVIDE
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.DIVISION
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.FAST_BLUR
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.HEAL
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.INT_POW
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.INVERT
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.LERP
@@ -25,14 +29,17 @@ import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SCALE
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SMOOTHER_STEP
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SMOOTH_STEP
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SQUARE_ROOT
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.STITCH
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SUBTRACT
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.SUBTRACTION
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.WARP
 import com.github.polyrocketmatt.peak.buffer.operator.unary.*
 import com.github.polyrocketmatt.peak.buffer.operator.binary.*
 import com.github.polyrocketmatt.peak.buffer.operator.scalar.ScalarAddOperator
 import com.github.polyrocketmatt.peak.buffer.operator.scalar.ScalarDivideOperator
 import com.github.polyrocketmatt.peak.buffer.operator.scalar.ScalarMultiplyOperator
 import com.github.polyrocketmatt.peak.buffer.operator.scalar.ScalarSubtractOperator
+import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
 class Operators {
 
@@ -41,6 +48,9 @@ class Operators {
          * Unary Operators
          */
         val CLIP: ClipOperator = ClipOperator()
+        val CROSS_BLUR: CrossBlur = CrossBlur()
+        val FAST_BLUR: FastBlur = FastBlur()
+        val HEAL: HealOperator = HealOperator()
         val INT_POW: IntPowerOperator = IntPowerOperator()
         val INVERT: InvertOperator = InvertOperator()
         val LERP: LerpOperator = LerpOperator()
@@ -53,6 +63,7 @@ class Operators {
         val SMOOTH_STEP: SmoothStepOperator = SmoothStepOperator()
         val SMOOTHER_STEP: SmootherStepOperator = SmootherStepOperator()
         val SQUARE_ROOT: SquareRootOperator = SquareRootOperator()
+        val WARP: WarpOperator = WarpOperator()
 
         /**
          * Binary Operators
@@ -64,6 +75,7 @@ class Operators {
         val MAX: MaxOperator = MaxOperator()
         val MIN: MinOperator = MinOperator()
         val MULTIPLY: MultiplyOperator = MultiplyOperator()
+        val STITCH: StitchOperator = StitchOperator()
         val SUBTRACT: SubtractOperator = SubtractOperator()
 
         /**
@@ -78,11 +90,14 @@ class Operators {
 }
 
 fun NoiseBuffer2.clip(min: Float, max: Float) = CLIP.operate(this, min, max)
+fun NoiseBuffer2.crossBlur(radius: Int) = CROSS_BLUR.operate(this, radius)
+fun NoiseBuffer2.blur(radius: Float, evaluator: NoiseEvaluator) = FAST_BLUR.operate(this, radius, evaluator)
+fun NoiseBuffer2.heal(evaluator: NoiseEvaluator, power: Float, mask: NoiseBuffer2) = HEAL.operate(this, evaluator, power, mask)
 fun NoiseBuffer2.intPow(pow: Int) = INT_POW.operate(this, pow.f())
 fun NoiseBuffer2.invert() = INVERT.operate(this)
 fun NoiseBuffer2.lerp(min: Float, max: Float) = LERP.operate(this, min, max)
 fun NoiseBuffer2.normalize() = NORMALIZE.operate(this)
-fun NoiseBuffer2.polynomial(vararg coefficients: Float) = POLYNOMIAL.operate(this, *coefficients)
+fun NoiseBuffer2.polynomial(vararg coefficients: Any) = POLYNOMIAL.operate(this, *coefficients)
 fun NoiseBuffer2.power(pow: Float) = POWER.operate(this, pow)
 fun NoiseBuffer2.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)
 fun NoiseBuffer2.push(min: Float, max: Float, inc: Float) = PUSH.operate(this, min, max, inc)
@@ -90,6 +105,7 @@ fun NoiseBuffer2.scale(scale: Float) = SCALE.operate(this, scale)
 fun NoiseBuffer2.smoothStep() = SMOOTH_STEP.operate(this)
 fun NoiseBuffer2.smootherStep() = SMOOTHER_STEP.operate(this)
 fun NoiseBuffer2.sqrt() = SQUARE_ROOT.operate(this)
+fun NoiseBuffer2.warp(evaluator: NoiseEvaluator, x: Vec2, y: Vec2, warp: Float) = WARP.operate(this, evaluator, x, y, warp)
 infix fun NoiseBuffer2.add(other: NoiseBuffer2) = ADD.operate(this, other)
 fun NoiseBuffer2.blend(other: NoiseBuffer2, blend: Float) = BLEND.operate(this, other, blend)
 infix fun NoiseBuffer2.pow(other: NoiseBuffer2) = COMBO_POW.operate(this, other)
@@ -97,6 +113,7 @@ infix fun NoiseBuffer2.divide(other: NoiseBuffer2) = DIVIDE.operate(this, other)
 infix fun NoiseBuffer2.max(other: NoiseBuffer2) = MAX.operate(this, other)
 infix fun NoiseBuffer2.min(other: NoiseBuffer2) = MIN.operate(this, other)
 infix fun NoiseBuffer2.multiply(other: NoiseBuffer2) = MULTIPLY.operate(this, other)
+fun NoiseBuffer2.stitch(other: NoiseBuffer2, direction: StitchOperator.StitchDirection, distance: Int, power: Float) = STITCH.operate(this, other, direction, distance, power)
 infix fun NoiseBuffer2.subtract(other: NoiseBuffer2) = SUBTRACT.operate(this, other)
 fun NoiseBuffer2.plus(data: Float) = ADDITION.operate(this, data)
 fun NoiseBuffer2.minus(data: Float) = SUBTRACTION.operate(this, data)
@@ -104,11 +121,14 @@ fun NoiseBuffer2.times(data: Float) = MULTIPLICATION.operate(this, data)
 fun NoiseBuffer2.div(data: Float) = DIVISION.operate(this, data)
 
 fun NoiseBuffer3.clip(min: Float, max: Float) = CLIP.operate(this, min, max)
+fun NoiseBuffer3.crossBlur(radius: Int) = CROSS_BLUR.operate(this, radius)
+fun NoiseBuffer3.blur(radius: Float) = FAST_BLUR.operate(this, radius)
+fun NoiseBuffer3.heal(evaluator: NoiseEvaluator, power: Float, mask: NoiseBuffer3) = HEAL.operate(this, evaluator, power, mask)
 fun NoiseBuffer3.intPow(pow: Int) = INT_POW.operate(this, pow.f())
 fun NoiseBuffer3.invert() = INVERT.operate(this)
 fun NoiseBuffer3.lerp(min: Float, max: Float) = LERP.operate(this, min, max)
 fun NoiseBuffer3.normalize() = NORMALIZE.operate(this)
-fun NoiseBuffer3.polynomial(vararg coefficients: Float) = POLYNOMIAL.operate(this, *coefficients)
+fun NoiseBuffer3.polynomial(vararg coefficients: Any) = POLYNOMIAL.operate(this, *coefficients)
 fun NoiseBuffer3.power(pow: Float) = POWER.operate(this, pow)
 fun NoiseBuffer3.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)
 fun NoiseBuffer3.push(min: Float, max: Float, inc: Float) = PUSH.operate(this, min, max, inc)
@@ -116,6 +136,7 @@ fun NoiseBuffer3.scale(scale: Float) = SCALE.operate(this, scale)
 fun NoiseBuffer3.smoothStep() = SMOOTH_STEP.operate(this)
 fun NoiseBuffer3.smootherStep() = SMOOTHER_STEP.operate(this)
 fun NoiseBuffer3.sqrt() = SQUARE_ROOT.operate(this)
+fun NoiseBuffer3.warp(evaluator: NoiseEvaluator, x: Vec2, y: Vec2, warp: Float) = WARP.operate(this, evaluator, x, y, warp)
 infix fun NoiseBuffer3.add(other: NoiseBuffer3) = ADD.operate(this, other)
 fun NoiseBuffer3.blend(other: NoiseBuffer3, blend: Float) = BLEND.operate(this, other, blend)
 infix fun NoiseBuffer3.pow(other: NoiseBuffer3) = COMBO_POW.operate(this, other)
@@ -123,6 +144,7 @@ infix fun NoiseBuffer3.divide(other: NoiseBuffer3) = DIVIDE.operate(this, other)
 infix fun NoiseBuffer3.max(other: NoiseBuffer3) = MAX.operate(this, other)
 infix fun NoiseBuffer3.min(other: NoiseBuffer3) = MIN.operate(this, other)
 infix fun NoiseBuffer3.multiply(other: NoiseBuffer3) = MULTIPLY.operate(this, other)
+fun NoiseBuffer3.stitch(other: NoiseBuffer3, direction: StitchOperator.StitchDirection, distance: Int, power: Float) = STITCH.operate(this, other, direction, distance, power)
 infix fun NoiseBuffer3.subtract(other: NoiseBuffer3) = SUBTRACT.operate(this, other)
 fun NoiseBuffer3.plus(data: Float) = ADDITION.operate(this, data)
 fun NoiseBuffer3.minus(data: Float) = SUBTRACTION.operate(this, data)

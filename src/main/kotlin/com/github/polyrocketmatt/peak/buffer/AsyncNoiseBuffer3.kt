@@ -223,10 +223,13 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * Fill the buffer given a noise provider.
      *
      * @param provider: the provider to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the evaluator
+     * @param offsetY: the y-coordinate offset to use in the evaluator
+     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): AsyncNoiseBuffer3 {
+    override fun fill(provider: SimpleNoiseProvider, offsetX: Float, offsetY: Float, offsetZ: Float): AsyncNoiseBuffer3 {
         val service = ForkJoinPool(this.chunks.size)
         for (chunk in this.chunks) {
             val cX = chunk.x * chunkSize
@@ -234,7 +237,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
             val cZ = chunk.z * chunkSize
             val task = AsyncNoiseBuffer.AsyncTask {
                 for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize) for (z in cZ until cZ + chunkSize)
-                    this.buffer[x][y][z] = provider.noise(x, y, z)
+                    this.buffer[x][y][z] = provider.noise(x + offsetX, y + offsetY, z + offsetZ)
             }
 
             service.submit(task)
@@ -254,10 +257,13 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      * Fill the buffer given a noise evaluator.
      *
      * @param evaluator: the evaluator to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the evaluator
+     * @param offsetY: the y-coordinate offset to use in the evaluator
+     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @throws NoiseException if the buffer took too long to compute
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): AsyncNoiseBuffer3 {
+    override fun fill(evaluator: NoiseEvaluator, offsetX: Float, offsetY: Float, offsetZ: Float): AsyncNoiseBuffer3 {
         val service = ForkJoinPool(this.chunks.size)
         for (chunk in this.chunks) {
             val cX = chunk.x * chunkSize
@@ -265,7 +271,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
             val cZ = chunk.z * chunkSize
             val task = AsyncNoiseBuffer.AsyncTask {
                 for (x in cX until cX + chunkSize) for (y in cY until cY + chunkSize) for (z in cZ until cZ + chunkSize)
-                    this.buffer[x][y][z] = evaluator.noise(x.f(), y.f(), z.f())
+                    this.buffer[x][y][z] = evaluator.noise(x.f() + offsetX, y.f() + offsetY, z.f() + offsetZ)
             }
 
             service.submit(task)

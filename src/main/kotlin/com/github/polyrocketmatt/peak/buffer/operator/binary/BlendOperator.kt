@@ -23,10 +23,13 @@ class BlendOperator : BinaryBufferOperator {
      *  @throws BufferOperationException if the ratio is not contained within [0:1]
      *  @return a new NoiseBuffer that contains the blend of the two buffers
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected ratio arguments!")
-        val ratio = data[0]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected ratio argument to be of type float!")
+
+        val ratio = data[0] as Float
         if (ratio < 0.0f || ratio > 1.0f)
             throw BufferOperationException("Ratio for combine was not within [0:1] bounds")
         val inverseRatio = 1.0f - ratio
@@ -45,10 +48,13 @@ class BlendOperator : BinaryBufferOperator {
      *  @throws BufferOperationException if the ratio is not contained within [0:1]
      *  @return a new NoiseBuffer that contains the blend of the two buffers
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected ratio arguments!")
-        val ratio = data[0]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected ratio argument to be of type float!")
+
+        val ratio = data[0] as Float
         if (ratio < 0.0f || ratio > 1.0f)
             throw BufferOperationException("Ratio for combine was not within [0:1] bounds")
         val inverseRatio = 1.0f - ratio

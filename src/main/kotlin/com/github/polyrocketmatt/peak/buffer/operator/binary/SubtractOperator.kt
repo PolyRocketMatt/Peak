@@ -19,7 +19,7 @@ class SubtractOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the subtraction of the second buffer from the first buffer
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 =
+    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 =
         first.mapIndexed { x, y, fl -> fl - second[x][y] }
 
     /**
@@ -30,7 +30,7 @@ class SubtractOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the subtraction of the second buffer from the first buffer
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 =
+    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3 =
         first.mapIndexed { x, y, z, fl -> fl - second[x][y][z] }
 
 }

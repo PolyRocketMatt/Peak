@@ -18,6 +18,9 @@ class FractalNoise(
     private val type: SimpleNoiseType = SimpleNoiseType.SIMPLEX
 ) : SimpleNoise() {
 
+    private val maxSimplex2: Float = 0.707106f
+    private val maxSimplex3: Float = 0.866025f
+
     private val noise: SimpleNoise = when(type) {
         SimpleNoiseType.VALUE       -> ValueNoise(seed, interpolation)
         SimpleNoiseType.SIMPLEX     -> SimplexNoise(seed)
@@ -72,17 +75,19 @@ class FractalNoise(
             }
 
             FractalType.RIGID     -> {
-                var sum = noise.noise(x * scale, y * scale).fastAbs() * 2 - 1
+                var sum = 1.0f - (noise.noise(x * scale, y * scale).fastAbs() / maxSimplex2)
                 var amp = 1.0f
                 var sX = x
                 var sY = y
+                var normalizer = maxSimplex2
 
                 for (i in 1 until octaves) {
                     sX *= lacunarity
                     sY *= lacunarity
 
                     amp *= gain
-                    sum += (1.0f - noise.noise(sX * scale, sY * scale).fastAbs())
+                    normalizer *= amp
+                    sum += (1.0f - (noise.noise(sX * scale, sY * scale).fastAbs() / normalizer))
                 }
 
                 return sum * fractalBounding

@@ -1,16 +1,19 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.particle
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms
 
 import com.github.polyrocketmatt.game.math.f
+import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.game.math.sqrt
 import com.github.polyrocketmatt.peak.ArrayUtils
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
+import com.github.polyrocketmatt.peak.buffer.operator.scale
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
 import com.github.polyrocketmatt.peak.exception.SimulationException
+import com.github.polyrocketmatt.peak.math.toRadians
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.io.File
 import java.lang.Exception
@@ -37,9 +40,15 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private val maxParticleLifetime: Int = data.maxParticleLifetime
     private val initialWaterVolume: Float = data.initialWaterVolume
     private val initialSpeed: Float = data.initialSpeed
-    private val talusSlippageAngle: Float = data.talusSlippageAngle * 0.017453292f
-    private val talusDepositionFactor: Float = data.talusDepositionMultiplier
     private val evaluator: NoiseEvaluator = data.evaluator
+    private val sedimentCascade: Boolean = data.sedimentCascade
+    private val sedimentTalus: Float =  tan(data.sedimentTalus.toRadians())
+    private val sedimentRoughness: Float = data.sedimentRoughness
+    private val sedimentAbrasion: Float = data.sedimentAbrasion
+    private val sedimentSettling: Float = data.sedimentSettling
+    private val sedimentCellSize: Float = data.sedimentCellSize
+    private val sedimentCascadeIterations: Int = data.sedimentCascadeIteration
+    private val sedimentCascadeRemoval: Float = data.sedimentCascadeRemoval
     private var erosionBrushIndices = Array(size * size) { IntArray(radius * radius * 4) { 0 } }
     private var erosionBrushWeights = Array(size * size) { FloatArray(radius * radius * 4) { 0f } }
 
@@ -50,9 +59,10 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private fun simulateHydraulicErosion(simulationBuffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 {
         initBrushes()
 
+        val width = simulationBuffer.width()
+        val height = simulationBuffer.height()
         val map = ArrayUtils.linearize(simulationBuffer)
         val percentile = iterations / 10
-        val sizeSq = size * size
         for (i in 0 until iterations) {
             var posX = rng.nextFloat() * size
             var posY = rng.nextFloat() * size
@@ -100,7 +110,6 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
                 // Find the droplet's new height and calculate the deltaHeight
                 val newHeight = calculateHeightAndGradient(map, posX, posY).height
                 val deltaHeight = newHeight - heightAndGradient.height
-                //val heightFactor = -(newHeight * newHeight  - 2f * newHeight + 1.0f) + 1.0f
 
                 // Calculate the droplet's sediment capacity (higher when moving fast down a slope and contains lots of water)
                 val sedimentCapacity: Float = max(-deltaHeight * speed * water * sedimentCapacityMultiplier, minSedimentCapacity)
@@ -118,25 +127,63 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
                     map[dropletIndex + size] += amountToDeposit * (1 - cellOffsetX) * cellOffsetY
                     map[dropletIndex + size + 1] += amountToDeposit * cellOffsetX * cellOffsetY
 
-                    //  Compute talus angle and perform slippage
-                    val gradientAngleX = asin(deltaHeight / heightAndGradient.gradX)
-                    val gradientAngleY = asin(deltaHeight / heightAndGradient.gradY)
-                    val talusAngle = max(0.00001f, (gradientAngleX + gradientAngleY) / 2f)
+                    //  Check cascade
+                    if (sedimentCascade && sediment < 0.5f * sedimentCapacity) {
+                        var x = posX.i()
+                        var y = posY.i()
+                        var xSteepest = -1
+                        var ySteepest = -1
+                        var steepestSlope = -1.0f
+                        var performed = true
+                        var iteration = 0
 
-                    //  TODO: Compute trigonometry tables
-                    //  TODO: See if talus angle computation can be replaced with dot product between normal and sum of gradient
-                    if (talusAngle > talusSlippageAngle) {
-                        //  Compute value to distribute
-                        val talusDeposition = deltaHeight * tan(talusAngle) + talusDepositionFactor * deltaHeight
+                        while (performed && iteration < sedimentCascadeIterations) {
+                            //  Check neighbourhood
+                            for (oX in -1 .. 1) for (oY in -1 .. 1) {
+                                val iX = x + oX
+                                val iY = y + oY
 
-                        //  Divide over lower neighbours, depending on height difference
-                        for (x in -1..1) for (y in -1 until 1)
-                            if (x != 0 && y != 0) {
-                                val depositionIndex = (posX.i() + x) + (posY.i() + y) * size
-                                if (depositionIndex in 0 until sizeSq) {
-                                    map[depositionIndex] += talusDeposition
+                                //  Boundary
+                                if (iX in 2 until size - 2 && iY in 2 until size - 2 && iX != x && iY != y) {
+                                    val neighbourIndex = iY * size + iX
+                                    val valueDiff = map[dropletIndex] - map[neighbourIndex]
+
+
+                                    //  If current is higher than neighbour
+                                    if (valueDiff > 0.0f && valueDiff > steepestSlope) {
+                                        steepestSlope = valueDiff
+                                        xSteepest = iX
+                                        ySteepest = iY
+                                    }
                                 }
                             }
+
+                            // Sediment talus angle exceeded
+                            if (steepestSlope / sedimentCellSize > sedimentTalus) {
+                                //  Leave some sediment
+                                val deposit = (amountToDeposit * sedimentCascadeRemoval) / 4
+
+                                map[dropletIndex] += deposit * (1 - cellOffsetX) * (1 - cellOffsetY)
+                                map[dropletIndex + 1] += deposit * cellOffsetX * (1 - cellOffsetY)
+                                map[dropletIndex + size] += deposit * (1 - cellOffsetX) * cellOffsetY
+                                map[dropletIndex + size + 1] += deposit * cellOffsetX * cellOffsetY
+
+                                cascade(x + 1, y, map, width, height)
+                                cascade(x, y + 1, map, width, height)
+                                cascade(x - 1, y, map, width, height)
+                                cascade(x, y - 1, map, width, height)
+                                cascade(x, y, map, width, height)
+
+                                if (xSteepest in 0 until width && ySteepest in 0 until height && xSteepest != x && ySteepest != y)
+                                    cascade(xSteepest, ySteepest, map, width, height)
+
+                                x = xSteepest
+                                y = ySteepest
+                            } else
+                                performed = false
+
+                            iteration++
+                        }
                     }
                 } else {
                     // Erode a fraction of the droplet's current carry capacity.
@@ -162,10 +209,6 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
             if (i % percentile == 0)
                 println("   Simulated Water: ${i / iterations.f() * 100f}%")
         }
-
-        val buff = ArrayUtils.deLinearize(map, simulationBuffer.width(), simulationBuffer.height())
-
-        ImageIO.write(buff.normalize().image(), "png", File("output/water.png"))
 
         return ArrayUtils.deLinearize(map, simulationBuffer.width(), simulationBuffer.height())
     }
@@ -243,5 +286,34 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
             }
         }
     }
+
+    private fun cascade(x: Int, y: Int, h: FloatArray, width: Int, height: Int) {
+        val base = y * width + x
+        for (oX in -1 .. 1) for (oY in -1 .. 1) {
+            val iX = oX + x
+            val iY = oY + y
+
+            //  Bound check
+            if (iX !in 0 until width || iY !in 0 until height)
+                continue
+
+            val index = iY * width + iX
+
+            //  Pile size difference
+            val diff = (h[base] - (h[index]))
+            val excess = diff.fastAbs() - sedimentRoughness
+            if (excess <= 0)
+                continue
+
+            //  Transfer mass
+            val transfer = if (diff > 0f) min(h[base], excess / 2f) else -min(h[index], excess / 2f)
+            val settlingAmount = sedimentSettling * transfer
+            val abrasionAmount = sedimentAbrasion * transfer
+
+            h[base] -= abrasionAmount
+            h[index] += settlingAmount
+        }
+    }
+
 
 }

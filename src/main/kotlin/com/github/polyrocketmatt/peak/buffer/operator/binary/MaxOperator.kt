@@ -20,7 +20,7 @@ class MaxOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the maximum of the first and second buffer
      */
-    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Float): NoiseBuffer2 =
+    override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 =
         first.mapIndexed { x, y, fl -> max(fl, second[x][y]) }
 
     /**
@@ -31,7 +31,7 @@ class MaxOperator : BinaryBufferOperator {
      *  @param data: no additional data required for this operation
      *  @return a new NoiseBuffer that contains the maximum of the first and second buffer
      */
-    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Float): NoiseBuffer3 =
+    override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3 =
         first.mapIndexed { x, y, z, fl -> max(fl, second[x][y][z]) }
 
 }

@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.particle
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms
 
 import com.github.polyrocketmatt.game.Vec2f
 import com.github.polyrocketmatt.game.Vec2i
@@ -13,6 +13,7 @@ import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.add
 import com.github.polyrocketmatt.peak.buffer.operator.normalize
+import com.github.polyrocketmatt.peak.buffer.operator.scale
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
@@ -150,7 +151,7 @@ class AeolianParticleErosion(val data: AeolianSimulationData) : AsyncSimulator {
                 } else {
                     //println("$n")
 
-                    speed + speed.cross(n).cross(n)                 //  Contact
+                    Vec3f.ZERO//speed + speed.cross(n).cross(n)                 //  Contact
                 }
 
                 //  Update general speed
@@ -166,10 +167,6 @@ class AeolianParticleErosion(val data: AeolianSimulationData) : AsyncSimulator {
             if (i % percentile == 0)
                 println("   Simulated Wind: ${i / iterations.f() * 100f}%")
         }
-
-        val buff = ArrayUtils.deLinearize(sedimentMap, size, size)
-
-        ImageIO.write(buff.normalize().image(), "png", File("output/sediment.png"))
 
         return ArrayUtils.deLinearize(map, size, size).add(ArrayUtils.deLinearize(sedimentMap, size, size)) as AsyncNoiseBuffer2
     }

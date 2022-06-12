@@ -16,6 +16,7 @@ import kotlin.random.Random
  *
  * @param buffer: the 2D array of floats, which represent the buffer
  */
+@Deprecated("Use AsyncNoiseBuffer2 instead")
 class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer2, SyncNoiseBuffer {
 
     enum class Rotation2 { DEG_90, DEG_180 }
@@ -168,9 +169,12 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer2, Sy
      * Fill the buffer given a noise provider.
      *
      * @param provider: the provider to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the evaluator
+     * @param offsetY: the y-coordinate offset to use in the evaluator
+     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @return this noise buffer
      */
-    override fun fill(provider: SimpleNoiseProvider): SyncNoiseBuffer2 {
+    override fun fill(provider: SimpleNoiseProvider, offsetX: Float, offsetY: Float, offsetZ: Float): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = provider.noise(x, z)
         return this
@@ -180,9 +184,12 @@ class SyncNoiseBuffer2(private val buffer: Array<FloatArray>) : NoiseBuffer2, Sy
      * Fill the buffer given a noise evaluator.
      *
      * @param evaluator: the evaluator to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the evaluator
+     * @param offsetY: the y-coordinate offset to use in the evaluator
+     * @param offsetZ: the z-coordinate offset to use in the evaluator
      * @return this noise buffer
      */
-    override fun fill(evaluator: NoiseEvaluator): SyncNoiseBuffer2 {
+    override fun fill(evaluator: NoiseEvaluator, offsetX: Float, offsetY: Float, offsetZ: Float): SyncNoiseBuffer2 {
         for (x in 0 until width()) for (z in 0 until height())
             buffer[x][z] = evaluator.noise(x.f(), z.f())
         return this

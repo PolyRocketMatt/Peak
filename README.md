@@ -93,7 +93,7 @@ Cellular noise creates a cell-like structured noise.
 
 Examples:
 
-|                   Cellular                    |                   Distance 2                    |
+|                   Cellular                    |                   Distance Sq                   |
 |:---------------------------------------------:|:-----------------------------------------------:|
 | <img src="img/cellular_dist.png" width="144"> | <img src="img/cellular_dist_2.png" width="144"> |
 
@@ -101,7 +101,7 @@ Examples:
 
 Distance variations:
 
-|                   Distance 2 Add                    |                   Distance 2 Sub                    |                   Distance 2 Mul                    |                   Distance 2 Div                    |
+|                   Distance Sq Add                   |                   Distance Sq Sub                   |                   Distance Sq Mul                   |                   Distance Sq Div                   |
 |:---------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------:|
 | <img src="img/cellular_dist_2_add.png" width="144"> | <img src="img/cellular_dist_2_sub.png" width="144"> | <img src="img/cellular_dist_2_mul.png" width="144"> | <img src="img/cellular_dist_2_div.png" width="144"> |
 

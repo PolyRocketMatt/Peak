@@ -19,7 +19,7 @@ class SmoothStepOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the smoother-stepped elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 = buffer.map { fl -> fl.smoothStep() }
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 = buffer.map { fl -> fl.smoothStep() }
 
     /**
      * Performs the smoother-step function on a buffer.
@@ -28,6 +28,6 @@ class SmoothStepOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operation
      * @return a new NoiseBuffer that contains the smoother-stepped elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 = buffer.map { fl -> fl.smoothStep() }
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 = buffer.map { fl -> fl.smoothStep() }
 
 }

@@ -48,16 +48,22 @@ interface NoiseBuffer {
      * Fill the buffer given a noise provider.
      *
      * @param provider: the provider to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the provider
+     * @param offsetY: the y-coordinate offset to use in the provider
+     * @param offsetZ: the z-coordinate offset to use in the provider
      * @return this noise buffer
      */
-    fun fill(provider: SimpleNoiseProvider): NoiseBuffer
+    fun fill(provider: SimpleNoiseProvider, offsetX: Float, offsetY: Float, offsetZ: Float): NoiseBuffer
 
     /**
      * Fill the buffer given a noise evaluator.
      *
      * @param evaluator: the evaluator to use when filling the buffer
+     * @param offsetX: the x-coordinate offset to use in the provider
+     * @param offsetY: the y-coordinate offset to use in the provider
+     * @param offsetZ: the z-coordinate offset to use in the provider
      * @return this noise buffer
      */
-    fun fill(evaluator: NoiseEvaluator): NoiseBuffer
+    fun fill(evaluator: NoiseEvaluator, offsetX: Float, offsetY: Float, offsetZ: Float): NoiseBuffer
 
 }

@@ -19,7 +19,7 @@ class InvertOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operator
      * @return a new NoiseBuffer that contains the inverted elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         val max = buffer.max()
         return buffer.map { fl -> max - fl }
     }
@@ -31,7 +31,7 @@ class InvertOperator : UnaryBufferOperator {
      * @param data: no additional data required for this operator
      * @return a new NoiseBuffer that contains the inverted elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         val max = buffer.max()
         return buffer.map { fl -> max - fl }
     }

@@ -22,10 +22,13 @@ class PowerOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no exponent provided
      * @return a new NoiseBuffer that contains the raised elements of the buffer to the provided power
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected exponent argument!")
-        val exp = data[0]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected exponent argument to be of type float!")
+
+        val exp = data[0] as Float
         return buffer.map { fl -> fl.pow(exp) }
     }
 
@@ -38,10 +41,13 @@ class PowerOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no exponent provided
      * @return a new NoiseBuffer that contains the raised elements of the buffer to the provided power
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         if (data.size != 1)
             throw BufferOperationException("Incorrect number of arguments provided! Expected exponent argument!")
-        val exp = data[0]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected exponent argument to be of type float!")
+
+        val exp = data[0] as Float
         return buffer.map { fl -> fl.pow(exp) }
     }
 

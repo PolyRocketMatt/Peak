@@ -23,11 +23,16 @@ class LerpOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max values provided
      * @return a new NoiseBuffer that contains the linearly interpolated elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer2, vararg data: Float): NoiseBuffer2 {
+    override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 2)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min and max arguments!")
-        val min = data[0]
-        val max = data[1]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected min argument to be of type float!")
+        if (data[1] !is Float)
+            throw BufferOperationException("Expected max argument to be of type float!")
+
+        val min = data[0] as Float
+        val max = data[1] as Float
 
         return buffer.map { fl -> fl.lerp(min, max) }
     }
@@ -42,11 +47,16 @@ class LerpOperator : UnaryBufferOperator {
      * @throws BufferOperationException if there are no min / max values provided
      * @return a new NoiseBuffer that contains the linearly interpolated elements of the buffer
      */
-    override fun operate(buffer: NoiseBuffer3, vararg data: Float): NoiseBuffer3 {
+    override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         if (data.size != 2)
             throw BufferOperationException("Incorrect number of arguments provided! Expected min and max arguments!")
-        val min = data[0]
-        val max = data[1]
+        if (data[0] !is Float)
+            throw BufferOperationException("Expected min argument to be of type float!")
+        if (data[1] !is Float)
+            throw BufferOperationException("Expected max argument to be of type float!")
+
+        val min = data[0] as Float
+        val max = data[1] as Float
 
         return buffer.map { fl -> fl.lerp(min, max) }
     }

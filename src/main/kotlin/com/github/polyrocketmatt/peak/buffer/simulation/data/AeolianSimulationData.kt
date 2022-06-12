@@ -2,12 +2,12 @@ package com.github.polyrocketmatt.peak.buffer.simulation.data
 
 import com.github.polyrocketmatt.game.Vec3f
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
-import com.github.polyrocketmatt.peak.buffer.simulation.particle.AeolianParticleErosion
+import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.AeolianParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
 data class AeolianSimulationData (
     val seed: Int,
-    val iterations: Int = 1000000,
+    val iterations: Int = 100000,
     val size: Int,
     val inertia: Float = 0.05f,
     val gravity: Float = 0.5f,
