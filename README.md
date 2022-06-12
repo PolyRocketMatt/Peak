@@ -15,6 +15,30 @@ realistic looking terrains.
 
 ## Quickstart
 
+To start using PEAK in your project, use the following Maven repository and dependencies
+
+```xml
+<repository>
+	<id>prm-plugins</id>
+	<url>https://github.com/PolyRocketMatt/Maven-Repo/raw/main</url>
+</repository>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.polyrocketmatt</groupId>
+        <artifactId>Game</artifactId>
+        <version>3.0.7</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.github.polyrocketmatt</groupId>
+        <artifactId>Peak</artifactId>
+        <version>1.0.3</version>
+        <scope>compile</scope>
+    </dependency>
+</dependencies>
+```
+
 Here is the table of content which describes all features of PEAK:
 
 - [**Noise Providers & Evaluators**](#noise-providers--evaluators)
