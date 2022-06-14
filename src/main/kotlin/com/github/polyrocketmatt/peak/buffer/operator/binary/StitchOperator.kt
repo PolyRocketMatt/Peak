@@ -29,6 +29,7 @@ class StitchOperator : BinaryBufferOperator {
      * @throws BufferOperationException if the max distance argument is not an Int
      * @throws BufferOperationException if the power argument is not a Float
      * @throws BufferOperationException if the buffer dimensions are not able to be stitched
+     * @return a new NoiseBuffer that contains the stitched noise buffers
      */
     override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 3)

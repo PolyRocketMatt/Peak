@@ -11,8 +11,20 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.simple.ValueNoise
 
+/**
+ * Operator that applies a fast blur to the buffer.
+ */
 class FastBlur : UnaryBufferOperator {
 
+    /**
+     * Blurs a buffer with a provided radius.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * radius - the radius to use for blurring.
+     * @throws BufferOperationException if there is no radius value provided
+     * @return a new NoiseBuffer that contains the blurred elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 2)
             throw BufferOperationException("Incorrect number of arguments provided! Expected radius and evaluator argument!")
@@ -58,6 +70,15 @@ class FastBlur : UnaryBufferOperator {
         } }
     }
 
+    /**
+     * Blurs a buffer with a provided radius.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * radius - the radius to use for blurring.
+     * @throws BufferOperationException if there is no radius value provided
+     * @return a new NoiseBuffer that contains the blurred elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         TODO("Not yet implemented")
     }

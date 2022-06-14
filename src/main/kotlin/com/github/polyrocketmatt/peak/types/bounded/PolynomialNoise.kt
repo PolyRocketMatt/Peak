@@ -4,6 +4,7 @@ import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.game.math.smoothStep
 import com.github.polyrocketmatt.game.math.smootherStep
 import com.github.polyrocketmatt.peak.annotation.Ref
+import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import kotlin.random.Random
@@ -21,18 +22,18 @@ class PolynomialNoise(
     private val interpolation: NoiseUtils.InterpolationMethod,
 ) : BoundedNoise(width, height, 0) {
 
-    private var buffer: SyncNoiseBuffer2 = SyncNoiseBuffer2(width, height)
+    private var buffer: AsyncNoiseBuffer2 = AsyncNoiseBuffer2(width, height)
     private val rng: Random = Random(seed)
 
     init { recalculate() }
 
-    fun buffer(): SyncNoiseBuffer2 = this.buffer
+    fun buffer(): AsyncNoiseBuffer2 = this.buffer
 
     /**
      * Recalculate the complex noise.
      */
     fun recalculate() {
-        this.buffer = polynomial(SyncNoiseBuffer2(width, height))
+        this.buffer = polynomial(AsyncNoiseBuffer2(width, height))
     }
 
     /**
@@ -60,11 +61,11 @@ class PolynomialNoise(
         NoiseUtils.InterpolationMethod.QUINTIC -> x.smootherStep()
     }
 
-    private fun polynomial(buffer: SyncNoiseBuffer2): SyncNoiseBuffer2 {
+    private fun polynomial(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 {
         if (width != height)
             throw NoiseException("Width must equal height for polynomial height")
 
-        val boundary = SyncNoiseBuffer2(width, height, rng)
+        val boundary = AsyncNoiseBuffer2(width, height, buffer.threadCount(), rng)
 
         var deltaX = 0.0f
         var deltaY = 0.0f

@@ -288,6 +288,13 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
     }
 
     /**
+     * Get the amount of threads currently allocated to the buffer.
+     *
+     * @return the amount of threads allocated to the buffer
+     */
+    override fun threadCount(): Int = this.threadCount
+
+    /**
      * Set the maximum number of threads this buffer can use.
      *
      * @param maxThreads: the maximum number of threads this buffer can use
