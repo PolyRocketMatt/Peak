@@ -21,7 +21,7 @@ data class HydraulicSimulationData(
     val downcutting: Float = 1.2f,
     val downcuttingMultiplier: Float = 0.98f,
     val depositSpeed: Float = 0.3f,
-    val evaporateSpeed: Float = 0.01f,
+    val evaporationSpeed: Float = 0.01f,
     val gravity: Float = 4.0f,
     val maxParticleLifetime: Int = 30,
     val initialWaterVolume: Float = 1.0f,

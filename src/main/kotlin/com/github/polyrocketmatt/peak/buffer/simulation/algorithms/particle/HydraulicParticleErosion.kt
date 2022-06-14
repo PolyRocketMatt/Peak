@@ -36,7 +36,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : Simulation {
     private val downcutting: Float = data.downcutting
     private val downcuttingMultiplier: Float = data.downcuttingMultiplier
     private val depositSpeed: Float = data.depositSpeed
-    private val evaporateSpeed: Float = data.evaporateSpeed
+    private val evaporationSpeed: Float = data.evaporationSpeed
     private val gravity: Float = data.gravity
     private val maxParticleLifetime: Int = data.maxParticleLifetime
     private val initialWaterVolume: Float = data.initialWaterVolume
@@ -217,7 +217,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : Simulation {
 
                 // Update droplet's speed and water content
                 speed = (speed * speed + deltaHeight * gravity).sqrt()
-                water *= (1f - evaporateSpeed)
+                water *= (1f - evaporationSpeed)
 
                 //  Update cut
                 sedimentDownCut *= downcuttingMultiplier

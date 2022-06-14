@@ -18,7 +18,7 @@ class ThermalParticleErosion(data: ThermalSimulationData) : Simulation {
 
     private val iterations: Int = data.iterations
     private val talusAngle: Float = data.talusAngle
-    private val sedimentTalusAngle: Float = data.sedimentTalus
+    private val sedimentTalusAngle: Float = data.sedimentTalusAngle
     private val cascade: Boolean = data.cascade
     private val cellSize: Float = data.cellSize
     private val talusAngleThreshold: Float = tan(talusAngle.toRadians())

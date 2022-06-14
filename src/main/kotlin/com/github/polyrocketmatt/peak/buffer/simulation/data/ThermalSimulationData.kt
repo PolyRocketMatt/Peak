@@ -9,7 +9,7 @@ import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle.Ther
 data class ThermalSimulationData(
     val iterations: Int = 50,
     val talusAngle: Float,
-    val sedimentTalus: Float,
+    val sedimentTalusAngle: Float,
     val cascade: Boolean,
     val cellSize: Float,
     val sedimentRemoval: Float = 0.05f,
