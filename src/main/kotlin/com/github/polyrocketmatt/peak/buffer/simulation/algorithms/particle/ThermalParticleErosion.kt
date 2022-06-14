@@ -1,17 +1,20 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle
 
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.add
-import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
+import com.github.polyrocketmatt.peak.buffer.simulation.Simulation
 import com.github.polyrocketmatt.peak.buffer.simulation.data.ThermalSimulationData
 import com.github.polyrocketmatt.peak.math.toRadians
 import kotlin.math.min
 import kotlin.math.tan
 
-class ThermalParticleErosion(data: ThermalSimulationData) : AsyncSimulator {
+/**
+ * Simulation that simulates thermal erosion processes on a buffer.
+ */
+class ThermalParticleErosion(data: ThermalSimulationData) : Simulation {
 
     private val iterations: Int = data.iterations
     private val talusAngle: Float = data.talusAngle
@@ -30,8 +33,20 @@ class ThermalParticleErosion(data: ThermalSimulationData) : AsyncSimulator {
     private val depositBelow: Float = data.depositBelow
     private val sedimentParticleLifetime: Int = data.sedimentParticleLifetime
 
+    /**
+     * Perform a simulation on a 2D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 = simulateThermalErosionSteepest(buffer)
 
+    /**
+     * Perform a simulation on a 3D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer3): AsyncNoiseBuffer3 {
         TODO("Not yet implemented")
     }

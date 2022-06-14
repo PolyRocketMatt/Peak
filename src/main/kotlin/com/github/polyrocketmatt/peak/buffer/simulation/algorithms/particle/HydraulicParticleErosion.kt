@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle
 
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.fastAbs
@@ -7,7 +7,7 @@ import com.github.polyrocketmatt.game.math.sqrt
 import com.github.polyrocketmatt.peak.ArrayUtils
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
-import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
+import com.github.polyrocketmatt.peak.buffer.simulation.Simulation
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
 import com.github.polyrocketmatt.peak.exception.SimulationException
@@ -17,7 +17,10 @@ import java.lang.Exception
 import kotlin.math.*
 import kotlin.random.Random
 
-class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulator {
+/**
+ * Simulation that simulates hydraulic erosion processes on a buffer.
+ */
+class HydraulicParticleErosion(val data: HydraulicSimulationData) : Simulation {
 
     /**
      * Parameters for particle based
@@ -31,6 +34,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private val minSedimentCapacity: Float = data.minimalSedimentCapacity
     private val erosionSpeed: Float = data.erosionSpeed
     private val downcutting: Float = data.downcutting
+    private val downcuttingMultiplier: Float = data.downcuttingMultiplier
     private val depositSpeed: Float = data.depositSpeed
     private val evaporateSpeed: Float = data.evaporateSpeed
     private val gravity: Float = data.gravity
@@ -49,10 +53,20 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private var erosionBrushIndices = Array(size * size) { IntArray(radius * radius * 4) { 0 } }
     private var erosionBrushWeights = Array(size * size) { FloatArray(radius * radius * 4) { 0f } }
 
-    private var downcutMultiplier = 0.98f
-
+    /**
+     * Perform a simulation on a 2D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 = simulateHydraulicErosion(buffer)
 
+    /**
+     * Perform a simulation on a 3D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer3): AsyncNoiseBuffer3 = throw SimulationException("Hydraulic erosion is not supported for 3D buffers!")
 
     private fun simulateHydraulicErosion(simulationBuffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 {
@@ -206,7 +220,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
                 water *= (1f - evaporateSpeed)
 
                 //  Update cut
-                sedimentDownCut *= downcutMultiplier
+                sedimentDownCut *= downcuttingMultiplier
             }
 
             if (i % percentile == 0)

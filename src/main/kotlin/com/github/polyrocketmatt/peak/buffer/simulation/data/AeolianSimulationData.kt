@@ -1,10 +1,13 @@
 package com.github.polyrocketmatt.peak.buffer.simulation.data
 
 import com.github.polyrocketmatt.game.Vec3f
-import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
-import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer.AeolianParticleErosion
+import com.github.polyrocketmatt.peak.buffer.simulation.Simulation
+import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle.AeolianParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
+/**
+ * Data class that holds all parameters for aeolian erosion simulation.
+ */
 data class AeolianSimulationData (
     val seed: Int,
     val iterations: Int = 100000,
@@ -21,5 +24,9 @@ data class AeolianSimulationData (
     val evaluator: NoiseEvaluator,
 ) : SimulationData() {
 
-    override fun simulator(): AsyncSimulator = AeolianParticleErosion(this)
+    /**
+     * Get a new instance of an aeolian erosion simulator for this data.
+     */
+    override fun simulator(): Simulation = AeolianParticleErosion(this)
+
 }

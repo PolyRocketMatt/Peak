@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle
 
 import com.github.polyrocketmatt.game.Vec2f
 import com.github.polyrocketmatt.game.Vec2i
@@ -12,7 +12,7 @@ import com.github.polyrocketmatt.peak.annotation.Ref
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.add
-import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
+import com.github.polyrocketmatt.peak.buffer.simulation.Simulation
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
@@ -20,8 +20,11 @@ import java.lang.Exception
 import kotlin.math.min
 import kotlin.random.Random
 
+/**
+ * Simulation that simulates Aeolian erosion processes on a buffer.
+ */
 @Ref("Landscape synthesis achieved through erosion and deposition process simulation")
-class AeolianParticleErosion(val data: AeolianSimulationData) : AsyncSimulator {
+class AeolianParticleErosion(val data: AeolianSimulationData) : Simulation {
 
     private val size: Int = data.size
     private val iterations: Int = data.iterations
@@ -38,8 +41,20 @@ class AeolianParticleErosion(val data: AeolianSimulationData) : AsyncSimulator {
     private val evaluator: NoiseEvaluator = data.evaluator
     private val sizeSq: Int = size * size
 
+    /**
+     * Perform a simulation on a 2D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 = simulateWindErosion(buffer)
 
+    /**
+     * Perform a simulation on a 3D buffer.
+     *
+     * @param buffer: the buffer to perform the simulation on
+     * @return a new buffer that contains the effect of the simulation on the buffer
+     */
     override fun simulate(buffer: AsyncNoiseBuffer3): AsyncNoiseBuffer3 { TODO("Not yet implemented") }
 
     private fun simulateWindErosion(simulationBuffer: AsyncNoiseBuffer2) : AsyncNoiseBuffer2 {

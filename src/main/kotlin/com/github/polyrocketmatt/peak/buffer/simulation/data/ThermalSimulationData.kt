@@ -1,8 +1,11 @@
 package com.github.polyrocketmatt.peak.buffer.simulation.data
 
-import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
-import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer.ThermalParticleErosion
+import com.github.polyrocketmatt.peak.buffer.simulation.Simulation
+import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.particle.ThermalParticleErosion
 
+/**
+ * Data class that holds all parameters for a thermal erosion simulation.
+ */
 data class ThermalSimulationData(
     val iterations: Int = 50,
     val talusAngle: Float,
@@ -20,5 +23,8 @@ data class ThermalSimulationData(
     val sedimentParticleLifetime: Int = 50
 ) : SimulationData() {
 
-    override fun simulator(): AsyncSimulator = ThermalParticleErosion(this)
+    /**
+     * Get a new instance of a thermal erosion simulator for this data.
+     */
+    override fun simulator(): Simulation = ThermalParticleErosion(this)
 }
