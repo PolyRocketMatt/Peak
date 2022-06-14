@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HydraulicSimulationData</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>Peak</span>
+            </a>
+    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="Peak::com.github.polyrocketmatt.peak.buffer.simulation.data/HydraulicSimulationData///PointingToDeclaration//2044470269">
+  <div class="breadcrumbs"><a href="../../../index.html">Peak</a><span class="delimiter">/</span><a href="../index.html">com.github.polyrocketmatt.peak.buffer.simulation.data</a><span class="delimiter">/</span><a href="index.html">HydraulicSimulationData</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Hydraulic</span><wbr></wbr><span>Simulation</span><wbr></wbr><span><span>Data</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">HydraulicSimulationData</a><span class="token keyword"> extends </span><a href="../-simulation-data/index.html">SimulationData</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Data class that holds all parameters for a hydraulic erosion simulation.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="1087250932%2FConstructors%2F2044470269" anchor-label="HydraulicSimulationData" id="1087250932%2FConstructors%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-hydraulic-simulation-data.html"><span>Hydraulic</span><wbr></wbr><span>Simulation</span><wbr></wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1087250932%2FConstructors%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword"></span><a href="index.html">HydraulicSimulationData</a> <a href="-hydraulic-simulation-data.html"><span class="token function">HydraulicSimulationData</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> seed<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> iterations<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> size<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> radius<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> inertia<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentCapacityMultiplier<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> minimalSedimentCapacity<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> erosionSpeed<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> downcutting<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> downcuttingMultiplier<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> depositSpeed<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> evaporationSpeed<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> gravity<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> maxParticleLifetime<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> initialWaterVolume<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> initialSpeed<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> sedimentCascade<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentTalus<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentRoughness<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentAbrasion<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentSettling<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentCellSize<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> sedimentCascadeIteration<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> sedimentCascadeRemoval<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword"></span><a href="../../com.github.polyrocketmatt.peak.types/-noise-evaluator/index.html">NoiseEvaluator</a> evaluator</span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-692092766%2FFunctions%2F2044470269" anchor-label="getDepositSpeed" id="-692092766%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-deposit-speed.html"><span>get</span><wbr></wbr><span>Deposit</span><wbr></wbr><span><span>Speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-692092766%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-deposit-speed.html"><span class="token function">getDepositSpeed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1234893983%2FFunctions%2F2044470269" anchor-label="getDowncutting" id="-1234893983%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-downcutting.html"><span>get</span><wbr></wbr><span><span>Downcutting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1234893983%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-downcutting.html"><span class="token function">getDowncutting</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1731486816%2FFunctions%2F2044470269" anchor-label="getDowncuttingMultiplier" id="-1731486816%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-downcutting-multiplier.html"><span>get</span><wbr></wbr><span>Downcutting</span><wbr></wbr><span><span>Multiplier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1731486816%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-downcutting-multiplier.html"><span class="token function">getDowncuttingMultiplier</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="679671643%2FFunctions%2F2044470269" anchor-label="getErosionSpeed" id="679671643%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-erosion-speed.html"><span>get</span><wbr></wbr><span>Erosion</span><wbr></wbr><span><span>Speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="679671643%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-erosion-speed.html"><span class="token function">getErosionSpeed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="794997792%2FFunctions%2F2044470269" anchor-label="getEvaluator" id="794997792%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-evaluator.html"><span>get</span><wbr></wbr><span><span>Evaluator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="794997792%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="../../com.github.polyrocketmatt.peak.types/-noise-evaluator/index.html">NoiseEvaluator</a> <a href="get-evaluator.html"><span class="token function">getEvaluator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="663322198%2FFunctions%2F2044470269" anchor-label="getEvaporationSpeed" id="663322198%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-evaporation-speed.html"><span>get</span><wbr></wbr><span>Evaporation</span><wbr></wbr><span><span>Speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="663322198%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-evaporation-speed.html"><span class="token function">getEvaporationSpeed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="189874017%2FFunctions%2F2044470269" anchor-label="getGravity" id="189874017%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-gravity.html"><span>get</span><wbr></wbr><span><span>Gravity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="189874017%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-gravity.html"><span class="token function">getGravity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-610170763%2FFunctions%2F2044470269" anchor-label="getInertia" id="-610170763%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-inertia.html"><span>get</span><wbr></wbr><span><span>Inertia</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-610170763%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-inertia.html"><span class="token function">getInertia</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-574907704%2FFunctions%2F2044470269" anchor-label="getInitialSpeed" id="-574907704%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-initial-speed.html"><span>get</span><wbr></wbr><span>Initial</span><wbr></wbr><span><span>Speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-574907704%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-initial-speed.html"><span class="token function">getInitialSpeed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1390733758%2FFunctions%2F2044470269" anchor-label="getInitialWaterVolume" id="1390733758%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-initial-water-volume.html"><span>get</span><wbr></wbr><span>Initial</span><wbr></wbr><span>Water</span><wbr></wbr><span><span>Volume</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1390733758%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-initial-water-volume.html"><span class="token function">getInitialWaterVolume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="585162709%2FFunctions%2F2044470269" anchor-label="getIterations" id="585162709%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-iterations.html"><span>get</span><wbr></wbr><span><span>Iterations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="585162709%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-iterations.html"><span class="token function">getIterations</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1513179044%2FFunctions%2F2044470269" anchor-label="getMaxParticleLifetime" id="-1513179044%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-max-particle-lifetime.html"><span>get</span><wbr></wbr><span>Max</span><wbr></wbr><span>Particle</span><wbr></wbr><span><span>Lifetime</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1513179044%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-max-particle-lifetime.html"><span class="token function">getMaxParticleLifetime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-6053857%2FFunctions%2F2044470269" anchor-label="getMinimalSedimentCapacity" id="-6053857%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-minimal-sediment-capacity.html"><span>get</span><wbr></wbr><span>Minimal</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Capacity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-6053857%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-minimal-sediment-capacity.html"><span class="token function">getMinimalSedimentCapacity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="564434681%2FFunctions%2F2044470269" anchor-label="getRadius" id="564434681%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-radius.html"><span>get</span><wbr></wbr><span><span>Radius</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="564434681%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-radius.html"><span class="token function">getRadius</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1129531121%2FFunctions%2F2044470269" anchor-label="getSedimentAbrasion" id="1129531121%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-abrasion.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Abrasion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1129531121%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-abrasion.html"><span class="token function">getSedimentAbrasion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1785927451%2FFunctions%2F2044470269" anchor-label="getSedimentCapacityMultiplier" id="1785927451%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-capacity-multiplier.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span>Capacity</span><wbr></wbr><span><span>Multiplier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1785927451%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-capacity-multiplier.html"><span class="token function">getSedimentCapacityMultiplier</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1472120848%2FFunctions%2F2044470269" anchor-label="getSedimentCascade" id="1472120848%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-cascade.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Cascade</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1472120848%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> <a href="get-sediment-cascade.html"><span class="token function">getSedimentCascade</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1964000083%2FFunctions%2F2044470269" anchor-label="getSedimentCascadeIteration" id="-1964000083%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-cascade-iteration.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span>Cascade</span><wbr></wbr><span><span>Iteration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1964000083%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-sediment-cascade-iteration.html"><span class="token function">getSedimentCascadeIteration</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="882244030%2FFunctions%2F2044470269" anchor-label="getSedimentCascadeRemoval" id="882244030%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-cascade-removal.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span>Cascade</span><wbr></wbr><span><span>Removal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="882244030%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-cascade-removal.html"><span class="token function">getSedimentCascadeRemoval</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1654298381%2FFunctions%2F2044470269" anchor-label="getSedimentCellSize" id="-1654298381%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-cell-size.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span>Cell</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1654298381%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-cell-size.html"><span class="token function">getSedimentCellSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1961500172%2FFunctions%2F2044470269" anchor-label="getSedimentRoughness" id="-1961500172%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-roughness.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Roughness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1961500172%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-roughness.html"><span class="token function">getSedimentRoughness</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-2076183090%2FFunctions%2F2044470269" anchor-label="getSedimentSettling" id="-2076183090%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-settling.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Settling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2076183090%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-settling.html"><span class="token function">getSedimentSettling</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-49183193%2FFunctions%2F2044470269" anchor-label="getSedimentTalus" id="-49183193%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-sediment-talus.html"><span>get</span><wbr></wbr><span>Sediment</span><wbr></wbr><span><span>Talus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-49183193%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="get-sediment-talus.html"><span class="token function">getSedimentTalus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-413120134%2FFunctions%2F2044470269" anchor-label="getSeed" id="-413120134%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-seed.html"><span>get</span><wbr></wbr><span><span>Seed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-413120134%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-seed.html"><span class="token function">getSeed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1612978666%2FFunctions%2F2044470269" anchor-label="getSize" id="1612978666%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-size.html"><span>get</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1612978666%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="get-size.html"><span class="token function">getSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1548114435%2FFunctions%2F2044470269" anchor-label="simulator" id="-1548114435%2FFunctions%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="simulator.html"><span><span>simulator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1548114435%2FFunctions%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><div class="symbol monospace block"><span class="token keyword"></span><a href="../../com.github.polyrocketmatt.peak.buffer.simulation/-simulation/index.html">Simulation</a> <a href="simulator.html"><span class="token function">simulator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Get a new instance of a hydraulic erosion simulator for this data.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="-1326290096%2FProperties%2F2044470269" anchor-label="depositSpeed" id="-1326290096%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1326290096%2FProperties%2F2044470269">depositSpeed</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1326290096%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1326290096%2FProperties%2F2044470269" anchor-label="depositSpeed" id="-1326290096%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1326290096%2FProperties%2F2044470269">depositSpeed</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-839709965%2FProperties%2F2044470269" anchor-label="downcutting" id="-839709965%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-839709965%2FProperties%2F2044470269">downcutting</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-839709965%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-839709965%2FProperties%2F2044470269" anchor-label="downcutting" id="-839709965%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-839709965%2FProperties%2F2044470269">downcutting</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1110103218%2FProperties%2F2044470269" anchor-label="downcuttingMultiplier" id="1110103218%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1110103218%2FProperties%2F2044470269">downcuttingMultiplier</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1110103218%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="1110103218%2FProperties%2F2044470269" anchor-label="downcuttingMultiplier" id="1110103218%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#1110103218%2FProperties%2F2044470269">downcuttingMultiplier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="45474313%2FProperties%2F2044470269" anchor-label="erosionSpeed" id="45474313%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#45474313%2FProperties%2F2044470269">erosionSpeed</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="45474313%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="45474313%2FProperties%2F2044470269" anchor-label="erosionSpeed" id="45474313%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#45474313%2FProperties%2F2044470269">erosionSpeed</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1752074190%2FProperties%2F2044470269" anchor-label="evaluator" id="-1752074190%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1752074190%2FProperties%2F2044470269">evaluator</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1752074190%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1752074190%2FProperties%2F2044470269" anchor-label="evaluator" id="-1752074190%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../../com.github.polyrocketmatt.peak.types/-noise-evaluator/index.html">NoiseEvaluator</a> <a href="index.html#-1752074190%2FProperties%2F2044470269">evaluator</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-2083823100%2FProperties%2F2044470269" anchor-label="evaporationSpeed" id="-2083823100%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-2083823100%2FProperties%2F2044470269">evaporationSpeed</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2083823100%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-2083823100%2FProperties%2F2044470269" anchor-label="evaporationSpeed" id="-2083823100%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-2083823100%2FProperties%2F2044470269">evaporationSpeed</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-702160909%2FProperties%2F2044470269" anchor-label="gravity" id="-702160909%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-702160909%2FProperties%2F2044470269">gravity</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-702160909%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-702160909%2FProperties%2F2044470269" anchor-label="gravity" id="-702160909%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-702160909%2FProperties%2F2044470269">gravity</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1502205689%2FProperties%2F2044470269" anchor-label="inertia" id="-1502205689%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1502205689%2FProperties%2F2044470269">inertia</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1502205689%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1502205689%2FProperties%2F2044470269" anchor-label="inertia" id="-1502205689%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1502205689%2FProperties%2F2044470269">inertia</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1209105034%2FProperties%2F2044470269" anchor-label="initialSpeed" id="-1209105034%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1209105034%2FProperties%2F2044470269">initialSpeed</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1209105034%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1209105034%2FProperties%2F2044470269" anchor-label="initialSpeed" id="-1209105034%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1209105034%2FProperties%2F2044470269">initialSpeed</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1505977876%2FProperties%2F2044470269" anchor-label="initialWaterVolume" id="-1505977876%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1505977876%2FProperties%2F2044470269">initialWaterVolume</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1505977876%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1505977876%2FProperties%2F2044470269" anchor-label="initialWaterVolume" id="-1505977876%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1505977876%2FProperties%2F2044470269">initialWaterVolume</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1064657405%2FProperties%2F2044470269" anchor-label="iterations" id="-1064657405%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1064657405%2FProperties%2F2044470269">iterations</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1064657405%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1064657405%2FProperties%2F2044470269" anchor-label="iterations" id="-1064657405%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#-1064657405%2FProperties%2F2044470269">iterations</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1116926482%2FProperties%2F2044470269" anchor-label="maxParticleLifetime" id="-1116926482%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1116926482%2FProperties%2F2044470269">maxParticleLifetime</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116926482%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1116926482%2FProperties%2F2044470269" anchor-label="maxParticleLifetime" id="-1116926482%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#-1116926482%2FProperties%2F2044470269">maxParticleLifetime</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-837231439%2FProperties%2F2044470269" anchor-label="minimalSedimentCapacity" id="-837231439%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-837231439%2FProperties%2F2044470269">minimalSedimentCapacity</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-837231439%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-837231439%2FProperties%2F2044470269" anchor-label="minimalSedimentCapacity" id="-837231439%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-837231439%2FProperties%2F2044470269">minimalSedimentCapacity</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1404003289%2FProperties%2F2044470269" anchor-label="radius" id="-1404003289%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1404003289%2FProperties%2F2044470269">radius</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1404003289%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1404003289%2FProperties%2F2044470269" anchor-label="radius" id="-1404003289%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#-1404003289%2FProperties%2F2044470269">radius</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1617614177%2FProperties%2F2044470269" anchor-label="sedimentAbrasion" id="-1617614177%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1617614177%2FProperties%2F2044470269">sedimentAbrasion</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1617614177%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1617614177%2FProperties%2F2044470269" anchor-label="sedimentAbrasion" id="-1617614177%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1617614177%2FProperties%2F2044470269">sedimentAbrasion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="661043529%2FProperties%2F2044470269" anchor-label="sedimentCapacityMultiplier" id="661043529%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#661043529%2FProperties%2F2044470269">sedimentCapacityMultiplier</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="661043529%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="661043529%2FProperties%2F2044470269" anchor-label="sedimentCapacityMultiplier" id="661043529%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#661043529%2FProperties%2F2044470269">sedimentCapacityMultiplier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1660597922%2FProperties%2F2044470269" anchor-label="sedimentCascade" id="1660597922%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1660597922%2FProperties%2F2044470269">sedimentCascade</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1660597922%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="1660597922%2FProperties%2F2044470269" anchor-label="sedimentCascade" id="1660597922%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> <a href="index.html#1660597922%2FProperties%2F2044470269">sedimentCascade</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1960701349%2FProperties%2F2044470269" anchor-label="sedimentCascadeIteration" id="-1960701349%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1960701349%2FProperties%2F2044470269">sedimentCascadeIteration</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1960701349%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1960701349%2FProperties%2F2044470269" anchor-label="sedimentCascadeIteration" id="-1960701349%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#-1960701349%2FProperties%2F2044470269">sedimentCascadeIteration</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1222778132%2FProperties%2F2044470269" anchor-label="sedimentCascadeRemoval" id="-1222778132%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1222778132%2FProperties%2F2044470269">sedimentCascadeRemoval</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1222778132%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1222778132%2FProperties%2F2044470269" anchor-label="sedimentCascadeRemoval" id="-1222778132%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1222778132%2FProperties%2F2044470269">sedimentCascadeRemoval</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-106476383%2FProperties%2F2044470269" anchor-label="sedimentCellSize" id="-106476383%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-106476383%2FProperties%2F2044470269">sedimentCellSize</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106476383%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-106476383%2FProperties%2F2044470269" anchor-label="sedimentCellSize" id="-106476383%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-106476383%2FProperties%2F2044470269">sedimentCellSize</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1223658490%2FProperties%2F2044470269" anchor-label="sedimentRoughness" id="-1223658490%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1223658490%2FProperties%2F2044470269">sedimentRoughness</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1223658490%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-1223658490%2FProperties%2F2044470269" anchor-label="sedimentRoughness" id="-1223658490%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-1223658490%2FProperties%2F2044470269">sedimentRoughness</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-528361092%2FProperties%2F2044470269" anchor-label="sedimentSettling" id="-528361092%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-528361092%2FProperties%2F2044470269">sedimentSettling</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-528361092%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-528361092%2FProperties%2F2044470269" anchor-label="sedimentSettling" id="-528361092%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#-528361092%2FProperties%2F2044470269">sedimentSettling</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1765536057%2FProperties%2F2044470269" anchor-label="sedimentTalus" id="1765536057%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1765536057%2FProperties%2F2044470269">sedimentTalus</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1765536057%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="1765536057%2FProperties%2F2044470269" anchor-label="sedimentTalus" id="1765536057%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Float.html">Float</a> <a href="index.html#1765536057%2FProperties%2F2044470269">sedimentTalus</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2114437672%2FProperties%2F2044470269" anchor-label="seed" id="2114437672%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#2114437672%2FProperties%2F2044470269">seed</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2114437672%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="2114437672%2FProperties%2F2044470269" anchor-label="seed" id="2114437672%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#2114437672%2FProperties%2F2044470269">seed</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-154430824%2FProperties%2F2044470269" anchor-label="size" id="-154430824%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a>
+        <div class="table-row" data-filterable-current="Peak/JVM" data-filterable-set="Peak/JVM">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-154430824%2FProperties%2F2044470269">size</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-154430824%2FProperties%2F2044470269"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable="Peak/JVM"><a data-name="-154430824%2FProperties%2F2044470269" anchor-label="size" id="-154430824%2FProperties%2F2044470269" data-filterable-set="Peak/JVM"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> <a href="index.html#-154430824%2FProperties%2F2044470269">size</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
