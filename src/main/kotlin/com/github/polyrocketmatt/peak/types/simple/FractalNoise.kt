@@ -2,7 +2,6 @@ package com.github.polyrocketmatt.peak.types.simple
 
 import com.github.polyrocketmatt.game.math.fastAbs
 import com.github.polyrocketmatt.peak.types.NoiseUtils
-import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
 
 /**
  * Fractal noise implementation.
@@ -17,6 +16,22 @@ class FractalNoise(
     private val fractalType: FractalType = FractalType.FBM,
     private val type: SimpleNoiseType = SimpleNoiseType.SIMPLEX
 ) : SimpleNoise() {
+
+    companion object {
+
+        fun maxSimplex2(octaves: Int, gain: Float): Float {
+            var max = 0.0f
+            var amp = 1.0f
+
+            for (i in 0 until octaves) {
+                max += 1.46f * gain
+                amp *= gain
+            }
+
+            return max
+        }
+
+    }
 
     private val maxSimplex2: Float = 0.707106f
     private val maxSimplex3: Float = 0.866025f

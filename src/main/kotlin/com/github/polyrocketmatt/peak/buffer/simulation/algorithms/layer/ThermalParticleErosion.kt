@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
 
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.fastAbs
@@ -15,15 +15,20 @@ class ThermalParticleErosion(data: ThermalSimulationData) : AsyncSimulator {
 
     private val iterations: Int = data.iterations
     private val talusAngle: Float = data.talusAngle
+    private val sedimentTalusAngle: Float = data.sedimentTalus
     private val cascade: Boolean = data.cascade
     private val cellSize: Float = data.cellSize
     private val talusAngleThreshold: Float = tan(talusAngle.toRadians())
-    private val sedimentRemoval: Float = 0.05f
-    private val sedimentRemovalMultiplier: Float = 5.0f
-    private val thermalFalloff: Float = 0.98f
-    private val roughness: Float = 0.0025f
-    private val abrasion: Float = 0.05f
-    private val settling: Float = 0.15f
+    private val sedimentTalusAngleThreshold: Float = tan(sedimentTalusAngle.toRadians())
+    private val sedimentRemoval: Float = data.sedimentRemoval
+    private val sedimentCarry: Float = data.sedimentCarry
+    private val sedimentRemovalMultiplier: Float = data.sedimentRemovalMultiplier
+    private val thermalFalloff: Float = data.thermalFalloff
+    private val roughness: Float = data.roughness
+    private val abrasion: Float = data.abrasion
+    private val settling: Float = data.settling
+    private val depositBelow: Float = data.depositBelow
+    private val sedimentParticleLifetime: Int = data.sedimentParticleLifetime
 
     override fun simulate(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 = simulateThermalErosionSteepest(buffer)
 
@@ -67,11 +72,49 @@ class ThermalParticleErosion(data: ThermalSimulationData) : AsyncSimulator {
 
                 if (steepestSlope / cellSize > talusAngleThreshold) {
                     //  Compute sediment removal based on slope
-                    val removedSediment = sedimentRemoval * steepestSlope * sedimentRemovalMultiplier
+                    val removedSediment = sedimentRemoval * steepestSlope * sedimentRemovalMultiplier * falloffMultiplier
+                    val depositSediment = sedimentCarry * steepestSlope * sedimentRemovalMultiplier * falloffMultiplier
 
                     //  Erode away
-                    map[x][y] -= removedSediment  * falloffMultiplier
-                    sediment[xSteepest][ySteepest] += removedSediment
+                    map[x][y] -= removedSediment
+
+                    if (sediment[xSteepest][ySteepest] < depositBelow) {
+                        //  DO NOT INCREASE WITH MORE THAN REMOVED HEIGHT
+                        sediment[xSteepest][ySteepest] += depositSediment
+
+                        var sX = xSteepest
+                        var sY = ySteepest
+                        var xSedimentSteepest = -1
+                        var ySedimentSteepest = -1
+                        var sedimentSteepest = -1.0f
+
+                        for (j in 1 until sedimentParticleLifetime) {
+                            for (oX in -1 .. 1) for (oY in -1 .. 1) {
+                                val iX = sX + oX
+                                val iY = sY + oY
+
+                                //  Boundary
+                                if (iX in 0 until width && iY in 0 until height && iX != x && iY != y) {
+                                    val valueDiff = value - sediment[iX][iY]
+
+
+                                    //  If current is higher than neighbour
+                                    if (valueDiff > 0.0f && valueDiff > steepestSlope) {
+                                        sedimentSteepest = valueDiff
+                                        xSedimentSteepest = iX
+                                        ySedimentSteepest = iY
+                                    }
+                                }
+                            }
+
+                            if (sedimentSteepest / cellSize > sedimentTalusAngleThreshold) {
+                                cascade(xSedimentSteepest, ySedimentSteepest, map, sediment, width, height)
+                            }
+
+                            sX = xSedimentSteepest
+                            sY = ySedimentSteepest
+                        }
+                    }
                 }
 
                 if (cascade) {

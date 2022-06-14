@@ -1,7 +1,7 @@
 package com.github.polyrocketmatt.peak.buffer.simulation.data
 
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
-import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.HydraulicParticleErosion
+import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer.HydraulicParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import com.github.polyrocketmatt.peak.types.bounded.PerlinNoise
@@ -15,6 +15,7 @@ data class HydraulicSimulationData(
     val sedimentCapacityMultiplier: Float = 4.0f,
     val minimalSedimentCapacity: Float = 0.01f,
     val erosionSpeed: Float = 0.3f,
+    val downcutting: Float = 1.2f,
     val depositSpeed: Float = 0.3f,
     val evaporateSpeed: Float = 0.01f,
     val gravity: Float = 4.0f,

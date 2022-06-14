@@ -45,10 +45,9 @@ Here is the table of content which describes all features of PEAK:
 - [**Primitives**](#primitives)
 - [**Simulation**](#simulation)
 - [**Operators**](#operators)
-- [**Filters**](#filters)
-- [**Masks**](#masks)
-- [**Data Extractors**](#data-extractors)
-- [**3D Engine**](#3d-engine)
+- [**Filters**](#filters-planned)
+- [**Data Extractors**](#data-extractors-planned)
+- [**3D Engine**](#3d-engine-planned)
 
 More detailed information on how to use PEAK can be found on the [WIKI](https://github.com/PolyRocketMatt/Peak/wiki).
 
@@ -167,6 +166,14 @@ Example of Aeolian erosion:
 |                         Before                         |                         After                         |
 |:------------------------------------------------------:|:-----------------------------------------------------:|
 | <img src="img/aeolian_erosion_before.png" width="256"> | <img src="img/aeolian_erosion_after.png" width="256"> |
+
+Example of thermal erosion:
+
+|                         Before                         |                         After                         |
+|:------------------------------------------------------:|:-----------------------------------------------------:|
+| <img src="img/thermal_erosion_before.png" width="256"> | <img src="img/thermal_erosion_after.png" width="256"> |
+
+These images are obtained using the default parameters.
 
 ### Operators
 

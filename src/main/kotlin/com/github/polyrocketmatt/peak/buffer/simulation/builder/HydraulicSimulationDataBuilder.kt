@@ -158,6 +158,7 @@ class HydraulicSimulationDataBuilder : SimulationDataBuilder {
         this.sedimentCapacityMultiplier,
         this.minimalSedimentCapacity,
         this.erosionSpeed,
+        1.2f,
         this.depositSpeed,
         this.evaporateSpeed,
         this.gravity,

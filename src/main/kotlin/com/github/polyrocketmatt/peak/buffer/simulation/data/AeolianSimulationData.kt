@@ -2,7 +2,7 @@ package com.github.polyrocketmatt.peak.buffer.simulation.data
 
 import com.github.polyrocketmatt.game.Vec3f
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
-import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.AeolianParticleErosion
+import com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer.AeolianParticleErosion
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
 data class AeolianSimulationData (

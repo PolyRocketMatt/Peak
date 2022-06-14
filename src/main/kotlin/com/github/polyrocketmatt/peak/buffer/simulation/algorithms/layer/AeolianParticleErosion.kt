@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
 
 import com.github.polyrocketmatt.game.Vec2f
 import com.github.polyrocketmatt.game.Vec2i
@@ -12,15 +12,11 @@ import com.github.polyrocketmatt.peak.annotation.Ref
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.add
-import com.github.polyrocketmatt.peak.buffer.operator.normalize
-import com.github.polyrocketmatt.peak.buffer.operator.scale
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.AeolianSimulationData
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import java.io.File
 import java.lang.Exception
-import javax.imageio.ImageIO
 import kotlin.math.min
 import kotlin.random.Random
 

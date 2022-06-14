@@ -1,5 +1,10 @@
 package com.github.polyrocketmatt.peak.annotation
 
+/**
+ * Reference tag to refer to a certain paper, author or other source.
+ *
+ * @param reference: the reference referred to
+ */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(
     AnnotationTarget.VALUE_PARAMETER,

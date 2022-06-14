@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.buffer.simulation.algorithms
+package com.github.polyrocketmatt.peak.buffer.simulation.algorithms.layer
 
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.fastAbs
@@ -7,17 +7,13 @@ import com.github.polyrocketmatt.game.math.sqrt
 import com.github.polyrocketmatt.peak.ArrayUtils
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer3
-import com.github.polyrocketmatt.peak.buffer.operator.normalize
-import com.github.polyrocketmatt.peak.buffer.operator.scale
 import com.github.polyrocketmatt.peak.buffer.simulation.AsyncSimulator
 import com.github.polyrocketmatt.peak.buffer.simulation.ErosionData
 import com.github.polyrocketmatt.peak.buffer.simulation.data.HydraulicSimulationData
 import com.github.polyrocketmatt.peak.exception.SimulationException
 import com.github.polyrocketmatt.peak.math.toRadians
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import java.io.File
 import java.lang.Exception
-import javax.imageio.ImageIO
 import kotlin.math.*
 import kotlin.random.Random
 
@@ -34,6 +30,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private val sedimentCapacityMultiplier: Float = data.sedimentCapacityMultiplier
     private val minSedimentCapacity: Float = data.minimalSedimentCapacity
     private val erosionSpeed: Float = data.erosionSpeed
+    private val downcutting: Float = data.downcutting
     private val depositSpeed: Float = data.depositSpeed
     private val evaporateSpeed: Float = data.evaporateSpeed
     private val gravity: Float = data.gravity
@@ -51,6 +48,8 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
     private val sedimentCascadeRemoval: Float = data.sedimentCascadeRemoval
     private var erosionBrushIndices = Array(size * size) { IntArray(radius * radius * 4) { 0 } }
     private var erosionBrushWeights = Array(size * size) { FloatArray(radius * radius * 4) { 0f } }
+
+    private var downcutMultiplier = 0.98f
 
     override fun simulate(buffer: AsyncNoiseBuffer2): AsyncNoiseBuffer2 = simulateHydraulicErosion(buffer)
 
@@ -71,6 +70,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
             var speed = initialSpeed
             var water = initialWaterVolume
             var sediment = 0f
+            var sedimentDownCut = downcutting
 
             for (lifetime in 0 until maxParticleLifetime) {
                 val nodeX = posX.i()
@@ -188,7 +188,7 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
                 } else {
                     // Erode a fraction of the droplet's current carry capacity.
                     // Clamp the erosion to the change in height so that it doesn't dig a hole in the terrain behind the droplet
-                    val amountToErode = min ((sedimentCapacity - sediment) * erosionSpeed, -deltaHeight)
+                    val amountToErode = min ((sedimentCapacity - sediment) * erosionSpeed, -deltaHeight) * sedimentDownCut
 
                     // Use erosion brush to erode from all nodes inside the droplet's erosion radius
                     for (brushPointIndex in 0 until erosionBrushIndices[dropletIndex].size) {
@@ -204,6 +204,9 @@ class HydraulicParticleErosion(val data: HydraulicSimulationData) : AsyncSimulat
                 // Update droplet's speed and water content
                 speed = (speed * speed + deltaHeight * gravity).sqrt()
                 water *= (1f - evaporateSpeed)
+
+                //  Update cut
+                sedimentDownCut *= downcutMultiplier
             }
 
             if (i % percentile == 0)
