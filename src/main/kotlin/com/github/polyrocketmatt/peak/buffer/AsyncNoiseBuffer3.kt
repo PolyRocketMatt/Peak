@@ -26,7 +26,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
     private var chunks: List<AsyncNoiseBuffer.NoiseChunk3> = arrayListOf()
     private var update: Boolean = false
     private var threadCount: Int = 1
-    private var maxThreads: Int = 1
+    private var maxThreads: Int = 64
 
     init { update() }
 
@@ -321,7 +321,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
                 }
         this.chunks = chunks
         this.update = false
-        this.threadCount = kotlin.math.min(threadCount, this.chunks.size)
+        this.threadCount = this.chunks.size
 
         if (this.maxThreads < this.threadCount)
             throw BufferInitException("Too many threads allocated to buffer!")

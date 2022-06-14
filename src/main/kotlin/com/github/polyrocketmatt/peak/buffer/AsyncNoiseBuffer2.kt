@@ -11,6 +11,7 @@ import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.awt.image.BufferedImage
 import java.util.concurrent.*
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 /**
@@ -24,14 +25,19 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
 
     enum class Rotation2 { DEG_90, DEG_180 }
 
-    private val chunksX: Int = buffer.size / chunkSize
-    private val chunksY: Int = buffer[0].size / chunkSize
+    private val chunksX: Int = buffer.size / max(1, chunkSize)
+    private val chunksY: Int = buffer[0].size / max(1, chunkSize)
     private var chunks: List<AsyncNoiseBuffer.NoiseChunk2> = arrayListOf()
     private var update: Boolean = false
     private var threadCount: Int = 1
-    private var maxThreads: Int = 1
+    private var maxThreads: Int = 64
 
-    init { update() }
+    init {
+        if (chunkSize < 1)
+            throw BufferInitException("Buffer chunk size cannot be less than 1!")
+        else
+            update()
+    }
 
     /**
      * Constructor for an empty buffer of the given width and height.
@@ -40,6 +46,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param width: the width of the buffer
      * @param height: the height of the buffer
      * @param chunkSize: the size of the chunks in all directions
+     * @throws NegativeArraySizeException if the width or height is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(width: Int, height: Int, chunkSize: Int) : this(Array(width) { FloatArray(height) { 0.0f } }, chunkSize)
 
@@ -52,6 +60,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param height: the height of the buffer
      * @param chunkSize: the size of the chunks in all directions
      * @param rng: the Random used to populate the buffer
+     * @throws BufferInitException if the width or height is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(width: Int, height: Int, chunkSize: Int, rng: Random) : this(Array(width) { FloatArray(height) { rng.nextFloat() } }, chunkSize)
 
@@ -64,6 +74,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param height: the height of the buffer
      * @param chunkSize: the size of the chunks in all directions
      * @param value: the value used to populate the buffer
+     * @throws BufferInitException if the width or height is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(width: Int, height: Int, chunkSize: Int, value: Float) : this(Array(width) { FloatArray(height) { value } }, chunkSize)
 
@@ -72,6 +84,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * to 0.
      * @param size: the size for the width and height of the buffer
      * @param chunkSize: the size of the chunks in all directions
+     * @throws BufferInitException if the size is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(size: Int, chunkSize: Int) : this(Array(size) { FloatArray(size) { 0.0f } }, chunkSize)
 
@@ -81,6 +95,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param size: the size for the width and height of the buffer
      * @param chunkSize: the size of the chunks in all directions
      * @param rng: the Random used to populate the buffer
+     * @throws BufferInitException if the size is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(size: Int, chunkSize: Int, rng: Random) : this(Array(size) { FloatArray(size) { rng.nextFloat() } }, chunkSize)
 
@@ -90,6 +106,8 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      * @param size: the size for the width and height of the buffer
      * @param chunkSize: the size of the chunks in all directions
      * @param value: the value used to populate the buffer
+     * @throws BufferInitException if the size is less than 0
+     * @throws BufferInitException if the chunk size is less than 1
      */
     constructor(size: Int, chunkSize: Int, value: Float) : this(Array(size) { FloatArray(size) { value } }, chunkSize)
 
@@ -352,7 +370,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
             }
         this.chunks = chunks
         this.update = false
-        this.threadCount = kotlin.math.min(threadCount, this.chunks.size)
+        this.threadCount = this.chunks.size
 
         if (this.maxThreads < this.threadCount)
             throw BufferInitException("Too many threads allocated to buffer!")
