@@ -1,22 +1,5 @@
 package com.github.polyrocketmatt.peak.buffer.layer
 
-import com.github.polyrocketmatt.game.math.f
-import com.github.polyrocketmatt.game.math.statistics.max
-import com.github.polyrocketmatt.game.math.statistics.min
-import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer
-import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.exception.NoiseException
-import com.github.polyrocketmatt.peak.image.ImageUtils
-import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
-import com.github.polyrocketmatt.peak.types.NoiseEvaluator
-import java.awt.image.BufferedImage
-import java.util.concurrent.ForkJoinPool
-import java.util.concurrent.Semaphore
-import java.util.concurrent.TimeUnit
-import kotlin.random.Random
-
 class AsyncLayerBuffer(private val buffer: Array<Array<Layer>>, private val chunkSize: Int) {
 
     data class Layer(

@@ -2,7 +2,6 @@ package com.github.polyrocketmatt.peak.image
 
 import com.github.polyrocketmatt.game.math.i
 import com.github.polyrocketmatt.peak.buffer.AsyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
 import org.imgscalr.Scalr
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -28,21 +27,6 @@ class ImageUtils {
          * @param buffer: the noise buffer to create a grayscale image of
          * @return the grayscale image corresponding to the buffer
          */
-        fun bufferToImage(buffer: SyncNoiseBuffer2): BufferedImage {
-            val width = buffer.width()
-            val height = buffer.height()
-            val image = BufferedImage(width, height, TYPE_INT_RGB)
-            for (x in 0 until width) for (z in 0 until height)
-                image.setRGB(x, z, toColor(buffer[x][z]))
-            return image
-        }
-
-        /**
-         * Creates a grayscale image from a buffer.
-         *
-         * @param buffer: the noise buffer to create a grayscale image of
-         * @return the grayscale image corresponding to the buffer
-         */
         fun bufferToImage(buffer: AsyncNoiseBuffer2): BufferedImage {
             val width = buffer.width()
             val height = buffer.height()
@@ -50,22 +34,6 @@ class ImageUtils {
             for (x in 0 until width) for (z in 0 until height)
                 image.setRGB(x, z, toColor(buffer[x][z]))
             return image
-        }
-
-        /**
-         * Create a noise buffer from a grayscale image.
-         *
-         * @param image: the grayscale image to create a noise buffer of
-         * @return the noise buffer corresponding to the buffer
-         */
-        fun imageToBuffer(image: BufferedImage): SyncNoiseBuffer2 {
-            val width = image.width
-            val height = image.height
-            val buffer = SyncNoiseBuffer2(width, height)
-
-            for (x in 0 until width) for (z in 0 until height)
-                buffer[x][z] = fromGrayscaleColor(image.getRGB(x, z))
-            return buffer
         }
 
         /**

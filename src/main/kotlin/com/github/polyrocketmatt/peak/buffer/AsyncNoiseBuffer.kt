@@ -70,19 +70,8 @@ interface AsyncNoiseBuffer {
     fun setMaxThreadCount(maxThreads: Int)
 
     /**
-     * Update the buffer.
+     * Update the noise buffer given the buffer data.
      */
     fun update()
-
-    /**
-     * Transform the buffer to a synchronous buffer.
-     *
-     * @return this buffer in a synchronous format
-     */
-    fun toSync(): SyncNoiseBuffer
-
-    fun acquire()
-
-    fun release()
 
 }

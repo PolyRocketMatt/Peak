@@ -5,8 +5,6 @@ import com.github.polyrocketmatt.game.math.intPow
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 import com.github.polyrocketmatt.peak.exception.BufferOperationException
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer3
 import com.github.polyrocketmatt.peak.buffer.operator.UnaryBufferOperator
 
 /**

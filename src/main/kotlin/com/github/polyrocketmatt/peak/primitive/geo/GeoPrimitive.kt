@@ -1,6 +1,5 @@
 package com.github.polyrocketmatt.peak.primitive.geo
 
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer
 import com.github.polyrocketmatt.peak.primitive.Primitive
 
 /**

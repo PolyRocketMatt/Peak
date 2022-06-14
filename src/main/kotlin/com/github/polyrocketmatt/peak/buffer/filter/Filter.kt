@@ -3,6 +3,9 @@ package com.github.polyrocketmatt.peak.buffer.filter
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
 
+/**
+ * Represents a filter that can be applied to a NoiseBuffer.
+ */
 abstract class Filter {
 
     /**

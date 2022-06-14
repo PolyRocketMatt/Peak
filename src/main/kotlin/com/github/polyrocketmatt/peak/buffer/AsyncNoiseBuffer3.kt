@@ -3,11 +3,13 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.exception.BufferInitException
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 import kotlin.random.Random
 
 /**
@@ -16,8 +18,7 @@ import kotlin.random.Random
  *
  * @param buffer: the 3D array of floats, which represent the buffer
  */
-class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : NoiseBuffer3,
-    AsyncNoiseBuffer {
+class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private val chunkSize: Int) : NoiseBuffer3, AsyncNoiseBuffer {
 
     private val chunksX: Int = buffer.size / chunkSize
     private val chunksY: Int = buffer[0].size / chunkSize
@@ -134,8 +135,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      *
      * @param action: the action to perform on each element in the buffer
      */
-    override fun forEach(action: (Float) -> Unit) { buffer.forEach { floats2 ->
-        floats2.forEach { floats -> floats.forEach { value -> action(value) } } } }
+    override fun forEach(action: (Float) -> Unit) { buffer.forEach { floats2 -> floats2.forEach { floats -> floats.forEach { value -> action(value) } } } }
 
     /**
      * Transform each element in the buffer to another element.
@@ -292,7 +292,7 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
      *
      * @param maxThreads: the maximum number of threads this buffer can use
      */
-    override fun setMaxThreadCount(maxThreads: Int) { this.maxThreads = maxThreads }
+    override fun setMaxThreadCount(maxThreads: Int) { this.maxThreads = max(64, maxThreads) }
 
     /**
      * Update the buffer.
@@ -313,21 +313,10 @@ class AsyncNoiseBuffer3(private val buffer: Array<Array<FloatArray>>, private va
                     chunks.add(AsyncNoiseBuffer.NoiseChunk3(x, y, z, data))
                 }
         this.chunks = chunks
+        this.update = false
+        this.threadCount = kotlin.math.min(threadCount, this.chunks.size)
+
+        if (this.maxThreads < this.threadCount)
+            throw BufferInitException("Too many threads allocated to buffer!")
     }
-
-    /**
-     * Transform the buffer to a synchronous buffer.
-     *
-     * @return this buffer in a synchronous format
-     */
-    override fun toSync(): SyncNoiseBuffer = SyncNoiseBuffer3(this.buffer)
-
-    override fun acquire() {
-        TODO("Not yet implemented")
-    }
-
-    override fun release() {
-        TODO("Not yet implemented")
-    }
-
 }

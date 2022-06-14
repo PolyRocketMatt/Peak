@@ -5,7 +5,6 @@ import com.github.polyrocketmatt.game.math.smoothStep
 import com.github.polyrocketmatt.game.math.smootherStep
 import com.github.polyrocketmatt.peak.annotation.Ref
 import com.github.polyrocketmatt.peak.exception.NoiseException
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
 import com.github.polyrocketmatt.peak.types.NoiseUtils
 import kotlin.random.Random
 

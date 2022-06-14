@@ -1,7 +1,6 @@
 package com.github.polyrocketmatt.peak.primitive
 
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer
 import java.awt.image.BufferedImage
 
 /**

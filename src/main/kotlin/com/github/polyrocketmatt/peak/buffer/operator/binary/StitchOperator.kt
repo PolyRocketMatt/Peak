@@ -9,10 +9,27 @@ import com.github.polyrocketmatt.peak.exception.BufferOperationException
 import kotlin.math.abs
 import kotlin.math.pow
 
+/**
+ * Operator that stitches two buffers together along a specified direction.
+ */
 class StitchOperator : BinaryBufferOperator {
 
     enum class StitchDirection { LEFT, RIGHT, TOP, BOTTOM, }
 
+    /**
+     * Stitch the first buffer together with the second buffer.
+     * @param first: the first buffer to perform the operation on
+     * @param second: the second buffer to perform the operation on
+     * @param data:
+     * direction - the stitching direction
+     * max distance - the maximum distance to perform interpolation over when stitching
+     * power - the interpolation power
+     * @throws BufferOperationException if stitch direction, max distance or power arguments are not provided
+     * @throws BufferOperationException if the stitch direction argument is not a StitchDirection
+     * @throws BufferOperationException if the max distance argument is not an Int
+     * @throws BufferOperationException if the power argument is not a Float
+     * @throws BufferOperationException if the buffer dimensions are not able to be stitched
+     */
     override fun operate(first: NoiseBuffer2, second: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size != 3)
             throw BufferOperationException("Incorrect number of arguments provided! Expected stitch direction max distance and power arguments!")
@@ -202,12 +219,34 @@ class StitchOperator : BinaryBufferOperator {
         }
     }
 
+    /**
+     * Stitch the first buffer together with the second buffer.
+     * @param first: the first buffer to perform the operation on
+     * @param second: the second buffer to perform the operation on
+     * @param data:
+     * direction - the stitching direction
+     * max distance - the maximum distance to perform interpolation over when stitching
+     * power - the interpolation power
+     * @throws BufferOperationException if stitch direction, max distance or power arguments are not provided
+     * @throws BufferOperationException if the stitch direction argument is not a StitchDirection
+     * @throws BufferOperationException if the max distance argument is not an Int
+     * @throws BufferOperationException if the power argument is not a Float
+     * @throws BufferOperationException if the buffer dimensions are not able to be stitched
+     */
     override fun operate(first: NoiseBuffer3, second: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         TODO("Not yet implemented")
     }
 
     companion object {
 
+        /**
+         * Compute a healing mask for a given stitch direction.
+         *
+         * @param direction: the direction that was stitched in
+         * @param width: the width of the stitched buffer
+         * @param height: the height of the stitched buffer
+         * @param distance: the distance where to
+         */
         fun computeHealMask(direction: StitchDirection, width: Int, height: Int, distance: Int): AsyncNoiseBuffer2 {
             val stitchedBuffer = AsyncNoiseBuffer2(width, height, 16)
             when (direction) {

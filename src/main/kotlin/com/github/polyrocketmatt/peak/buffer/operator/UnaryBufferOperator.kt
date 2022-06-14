@@ -2,8 +2,6 @@ package com.github.polyrocketmatt.peak.buffer.operator
 
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer2
 import com.github.polyrocketmatt.peak.buffer.NoiseBuffer3
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer2
-import com.github.polyrocketmatt.peak.buffer.SyncNoiseBuffer3
 
 interface UnaryBufferOperator : BufferOperator {
 

@@ -3,12 +3,14 @@ package com.github.polyrocketmatt.peak.buffer
 import com.github.polyrocketmatt.game.math.f
 import com.github.polyrocketmatt.game.math.statistics.max
 import com.github.polyrocketmatt.game.math.statistics.min
+import com.github.polyrocketmatt.peak.exception.BufferInitException
 import com.github.polyrocketmatt.peak.exception.NoiseException
 import com.github.polyrocketmatt.peak.image.ImageUtils
 import com.github.polyrocketmatt.peak.provider.base.SimpleNoiseProvider
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 import java.awt.image.BufferedImage
 import java.util.concurrent.*
+import kotlin.math.max
 import kotlin.random.Random
 
 /**
@@ -28,7 +30,6 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
     private var update: Boolean = false
     private var threadCount: Int = 1
     private var maxThreads: Int = 1
-    private var semaphore: Semaphore = Semaphore(1)
 
     init { update() }
 
@@ -323,7 +324,7 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
      *
      * @param maxThreads: the maximum number of threads this buffer can use
      */
-    override fun setMaxThreadCount(maxThreads: Int) { this.maxThreads = maxThreads }
+    override fun setMaxThreadCount(maxThreads: Int) { this.maxThreads = max(63, maxThreads) }
 
     /**
      * Update the buffer.
@@ -345,17 +346,10 @@ class AsyncNoiseBuffer2(private val buffer: Array<FloatArray>, private val chunk
         this.chunks = chunks
         this.update = false
         this.threadCount = kotlin.math.min(threadCount, this.chunks.size)
+
+        if (this.maxThreads < this.threadCount)
+            throw BufferInitException("Too many threads allocated to buffer!")
     }
 
-    /**
-     * Transform the buffer to a synchronous buffer.
-     *
-     * @return this buffer in a synchronous format
-     */
-    override fun toSync(): SyncNoiseBuffer = SyncNoiseBuffer2(this.buffer)
-
-    override fun acquire() = this.semaphore.acquire()
-
-    override fun release() = this.semaphore.release()
 
 }
