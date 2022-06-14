@@ -177,7 +177,7 @@ These images are obtained using the default parameters.
 
 ### Operators
 
-PEAK offers a way to store heightmaps efficiently and operate on them in an (a)sync way: buffers. 
+PEAK offers a way to store heightmaps efficiently and operate on them in an async way: buffers. 
 On these buffers, various operations can be performed.
 
 **Scalar Operations**
@@ -197,11 +197,13 @@ On these buffers, various operations can be performed.
 - Inverting
 - Lerp (linear interpolation)
 - Normalisation
+- Normalisation within custom bounds
 - Polynomial evaluation
 - Push/Pull
 - Scaling
 - Smooth(er)step and other [0,1]-interval based functions
 - Square-root
+- Warping
 
 **Binary Operations**
 
@@ -212,7 +214,7 @@ On these buffers, various operations can be performed.
 - Blending
 - Combined Power (uses the elements from the second buffer as exponents)
 - Min/Max
-- Stitching (stitch heightmaps into one)
+- Stitching (stitch different heightmaps into one)
 
 ### Filters (Planned)
 

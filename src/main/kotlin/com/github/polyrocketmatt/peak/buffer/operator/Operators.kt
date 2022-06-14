@@ -21,6 +21,7 @@ import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.MIN
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.MULTIPLICATION
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.MULTIPLY
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.NORMALIZE
+import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.NORMALIZE_WITHIN
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.POLYNOMIAL
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.POWER
 import com.github.polyrocketmatt.peak.buffer.operator.Operators.Companion.PULL
@@ -55,6 +56,7 @@ class Operators {
         val INVERT: InvertOperator = InvertOperator()
         val LERP: LerpOperator = LerpOperator()
         val NORMALIZE: NormalisationOperator = NormalisationOperator()
+        val NORMALIZE_WITHIN: NormalizeWithinOperator = NormalizeWithinOperator()
         val POLYNOMIAL: PolynomialOperator = PolynomialOperator()
         val POWER: PowerOperator = PowerOperator()
         val PULL: PullOperator = PullOperator()
@@ -97,6 +99,7 @@ fun NoiseBuffer2.intPow(pow: Int) = INT_POW.operate(this, pow.f())
 fun NoiseBuffer2.invert() = INVERT.operate(this)
 fun NoiseBuffer2.lerp(min: Float, max: Float) = LERP.operate(this, min, max)
 fun NoiseBuffer2.normalize() = NORMALIZE.operate(this)
+fun NoiseBuffer2.within(min: Float, max: Float) = NORMALIZE_WITHIN.operate(this, min, max)
 fun NoiseBuffer2.polynomial(vararg coefficients: Any) = POLYNOMIAL.operate(this, *coefficients)
 fun NoiseBuffer2.power(pow: Float) = POWER.operate(this, pow)
 fun NoiseBuffer2.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)
@@ -128,6 +131,7 @@ fun NoiseBuffer3.intPow(pow: Int) = INT_POW.operate(this, pow.f())
 fun NoiseBuffer3.invert() = INVERT.operate(this)
 fun NoiseBuffer3.lerp(min: Float, max: Float) = LERP.operate(this, min, max)
 fun NoiseBuffer3.normalize() = NORMALIZE.operate(this)
+fun NoiseBuffer3.within(min: Float, max: Float) = NORMALIZE_WITHIN.operate(this, min, max)
 fun NoiseBuffer3.polynomial(vararg coefficients: Any) = POLYNOMIAL.operate(this, *coefficients)
 fun NoiseBuffer3.power(pow: Float) = POWER.operate(this, pow)
 fun NoiseBuffer3.pull(min: Float, max: Float, inc: Float) = PULL.operate(this, min, max, inc)

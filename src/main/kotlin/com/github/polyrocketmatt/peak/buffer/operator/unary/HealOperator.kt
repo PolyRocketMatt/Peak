@@ -9,8 +9,28 @@ import com.github.polyrocketmatt.peak.buffer.operator.normalize
 import com.github.polyrocketmatt.peak.exception.BufferOperationException
 import com.github.polyrocketmatt.peak.types.NoiseEvaluator
 
+/**
+ * Operator that applies noise patches given a mask and mask strength.
+ */
 class HealOperator : UnaryBufferOperator {
 
+    /**
+     * Heals a buffer with the provided noise and mask.
+     * If no mask is provided, the whole buffer will be
+     * processed.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * heal evaluator - the noise evaluator used for healing.
+     * power - the power the healing effect has.
+     * (optional) mask - the overlay mask that determines which elements to heal and for how much.
+     * @throws BufferOperationException if there is no heal evaluator, power or mask values provided
+     * @throws BufferOperationException if the heal evaluator argument is not a NoiseEvaluator
+     * @throws BufferOperationException if the power argument is not a Float
+     * @throws BufferOperationException if the heal mask is not a NoiseBuffer
+     * @throws BufferOperationException if the buffer dimension and heal mask dimension are equal
+     * @return a new NoiseBuffer that contains the healed elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
         if (data.size < 2)
             throw BufferOperationException("Incorrect number of arguments provided! Expected heal evaluator, power (and optional heal mask) argument!")
@@ -32,6 +52,23 @@ class HealOperator : UnaryBufferOperator {
         return buffer.mapIndexed { x, y, fl -> evaluator.noise(x.f(), y.f()) * mask[x][y] * power + fl }.normalize()
     }
 
+    /**
+     * Heals a buffer with the provided noise and mask.
+     * If no mask is provided, the whole buffer will be
+     * processed.
+     *
+     * @param buffer: the buffer to perform the operation on
+     * @param data:
+     * heal evaluator - the noise evaluator used for healing
+     * power - the power the healing effect has
+     * (optional) mask - the overlay mask that determines which elements to heal and for how much
+     * @throws BufferOperationException if there is no heal evaluator, power or mask values provided
+     * @throws BufferOperationException if the heal evaluator argument is not a NoiseEvaluator
+     * @throws BufferOperationException if the power argument is not a Float
+     * @throws BufferOperationException if the heal mask is not a NoiseBuffer
+     * @throws BufferOperationException if the buffer dimension and heal mask dimension are equal
+     * @return a new NoiseBuffer that contains the healed elements of the buffer
+     */
     override fun operate(buffer: NoiseBuffer3, vararg data: Any): NoiseBuffer3 {
         TODO("Not yet implemented")
     }

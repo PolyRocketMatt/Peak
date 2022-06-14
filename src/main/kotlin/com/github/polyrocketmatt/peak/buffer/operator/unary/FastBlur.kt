@@ -32,7 +32,7 @@ class FastBlur : UnaryBufferOperator {
         val evaluator = data[1]
 
         if (rad !is Float)
-            throw BufferOperationException("Expected radius argument to be of type float!")
+            throw BufferOperationException("Expected radius argument to be of type Float!")
         if (evaluator !is NoiseEvaluator)
             throw BufferOperationException("Expected evaluator argument to be of type NoiseEvaluator!")
         val radius = rad.i()

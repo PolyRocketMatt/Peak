@@ -19,6 +19,7 @@ class CrossBlur : UnaryBufferOperator {
      * @param data:
      * radius - the radius to use for blurring.
      * @throws BufferOperationException if there is no radius value provided
+     * @throws BufferOperationException if the radius argument is not an Int
      * @return a new NoiseBuffer that contains the cross-blurred elements of the buffer
      */
     override fun operate(buffer: NoiseBuffer2, vararg data: Any): NoiseBuffer2 {
