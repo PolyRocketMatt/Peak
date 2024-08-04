@@ -75,9 +75,13 @@ public class DataBufferFloat2D extends AbstractDataBufferFloat implements DataBu
     @Override
     public DataBuffer2D<Float> transpose() {
         Float[] newData = new Float[data.length];
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < width; j++)
-                newData[j * height + i] = data[i * width + j];
+
+        forEachIndexed((index, value) -> {
+            int i = index / width;
+            int j = index % width;
+            newData[j * height + i] = value;
+        });
+        
         return new DataBufferFloat2D(height, width, chunkSize, newData, executeParallel);
     }
 }
