@@ -1,7 +1,7 @@
 package com.github.polyrocketmatt.peak.impl.buffer;
 
 import com.github.polyrocketmatt.peak.api.buffer.DataBuffer;
-import com.github.polyrocketmatt.peak.api.data.DataChunkContext;
+import com.github.polyrocketmatt.peak.api.buffer.DataContext;
 import org.jetbrains.annotations.NotNull;
 
 public class DataBufferFactory {
@@ -10,7 +10,7 @@ public class DataBufferFactory {
         return new DataBufferFloat1D(size);
     }
 
-    public static @NotNull DataBuffer<Float> getFloatBuffer(int size, DataChunkContext context) {
+    public static @NotNull DataBuffer<Float> getFloatBuffer(int size, DataContext context) {
         return new DataBufferFloat1D(size, context);
     }
 
@@ -18,7 +18,7 @@ public class DataBufferFactory {
         return new DataBufferFloat2D(width, height);
     }
 
-    public static @NotNull DataBuffer<Float> getFloatBuffer(int width, int height, DataChunkContext context) {
+    public static @NotNull DataBuffer<Float> getFloatBuffer(int width, int height, DataContext context) {
         return new DataBufferFloat2D(width, height);
     }
 

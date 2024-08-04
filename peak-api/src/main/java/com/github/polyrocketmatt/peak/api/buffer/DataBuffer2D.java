@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 0.0.1
  * @see DataBuffer
  */
-public interface DataBuffer2D<T> {
+public interface DataBuffer2D<T> extends DataBuffer<T> {
 
     /**
      * Gets the value at the specified index.

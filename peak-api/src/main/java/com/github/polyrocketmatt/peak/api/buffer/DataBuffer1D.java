@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 0.0.1
  * @see DataBuffer
  */
-public interface DataBuffer1D<T> {
+public interface DataBuffer1D<T> extends DataBuffer<T> {
 
     /**
      * Gets the value at the specified index.
@@ -20,7 +20,8 @@ public interface DataBuffer1D<T> {
      * @param i the index
      * @return the value at the index
      */
-    @NotNull T get(int i);
+    @NotNull
+    T get(int i);
 
     /**
      * Sets the value at the specified index.

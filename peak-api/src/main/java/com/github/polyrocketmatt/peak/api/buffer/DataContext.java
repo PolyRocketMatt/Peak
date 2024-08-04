@@ -1,4 +1,4 @@
-package com.github.polyrocketmatt.peak.api.data;
+package com.github.polyrocketmatt.peak.api.buffer;
 
 /**
  * Object that contains context on how to construct data chunks.
@@ -12,8 +12,8 @@ package com.github.polyrocketmatt.peak.api.data;
  * @since 0.0.1
  * @version 0.0.1
  */
-public record DataChunkContext(int chunkSize, boolean autoParallel, boolean parallel) {
+public record DataContext(int chunkSize, boolean autoParallel, boolean parallel) {
 
-    public static final DataChunkContext DEFAULT = new DataChunkContext(1024, true, true);
+    public static final DataContext DEFAULT = new DataContext(1024, true, true);
 
 }
