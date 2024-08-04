@@ -10,4 +10,3 @@
 rootProject.name = 'Peak'
 include 'peak-impl'
 include 'peak-api'
-

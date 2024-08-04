@@ -6,6 +6,7 @@ import com.github.polyrocketmatt.peak.api.buffer.DataContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -110,19 +111,21 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     }
 
     @Override
-    public void rand() {
+    public @NotNull DataBuffer<Float> rand() {
         if (executeParallel)
             Arrays.parallelSetAll(data, i -> (float) Math.random());
         else
             Arrays.setAll(data, i -> (float) Math.random());
+        return this;
     }
 
     @Override
-    public void fill(@NotNull Float value) {
+    public @NotNull DataBuffer<Float> fill(@NotNull Float value) {
         if (executeParallel)
             Arrays.parallelSetAll(data, i -> value);
         else
             Arrays.fill(data, value);
+        return this;
     }
 
     @Override
@@ -150,6 +153,18 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
         if (!(buffer instanceof DataBufferFloat1D buffer1d))
             return false;
         return size == buffer1d.size && chunkSize == buffer1d.chunkSize;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof AbstractDataBufferFloat that)) return false;
+        return size == that.size && chunkSize == that.chunkSize && executeParallel == that.executeParallel && Objects.deepEquals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, chunkSize, Arrays.hashCode(data), executeParallel);
     }
 
     @Override

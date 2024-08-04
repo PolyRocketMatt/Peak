@@ -81,7 +81,7 @@ public class DataBufferFloat2D extends AbstractDataBufferFloat implements DataBu
             int j = index % width;
             newData[j * height + i] = value;
         });
-        
+
         return new DataBufferFloat2D(height, width, chunkSize, newData, executeParallel);
     }
 }

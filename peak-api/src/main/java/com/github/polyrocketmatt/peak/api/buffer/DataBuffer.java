@@ -75,14 +75,14 @@ public interface DataBuffer<T> extends DataBufferArithmetic<T> {
     /**
      * Fill the buffer with random values between 0 and 1.
      */
-    void rand();
+    @NotNull DataBuffer<T> rand();
 
     /**
      * Fill the buffer with the given value.
      *
      * @param value the value to fill the buffer with
      */
-    void fill(@NotNull T value);
+    @NotNull DataBuffer<T> fill(@NotNull T value);
 
     /**
      * Get a stream of the buffer values.

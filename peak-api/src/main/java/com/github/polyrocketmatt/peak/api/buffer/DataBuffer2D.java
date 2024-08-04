@@ -39,4 +39,6 @@ public interface DataBuffer2D<T> extends DataBuffer<T> {
      */
     DataBuffer2D<T> transpose();
 
+
+
 }
