@@ -32,4 +32,6 @@ public interface DataBuffer2D<T> extends DataBuffer<T> {
      */
     void set(int i, int j, @NotNull T value);
 
+    DataBuffer2D<T> transpose();
+
 }

@@ -80,16 +80,4 @@ public interface DataBufferArithmetic<T> {
      */
     @NotNull DataBuffer<T> scale(@NotNull T value);
 
-    /**
-     * Shift the values of this buffer by the given offset along the given axis.
-     *
-     * @param offset the offset to shift by
-     * @param axis the axis to shift along
-     * @param direction the direction to shift in
-     * @param circular whether the shift should be circular
-     * @return the buffer with the shifted values
-     * @throws DataComputationException if the shift is not possible
-     */
-    @NotNull DataBuffer<T> shift(int offset, int axis, int direction, boolean circular);
-
 }

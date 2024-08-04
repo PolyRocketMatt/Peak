@@ -17,4 +17,17 @@ public class DataBufferFloat1D extends AbstractDataBufferFloat implements DataBu
         super(size, chunkSize, data, executeParallel);
     }
 
+    @Override
+    public String prettyPrint() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("| ");
+        for (int i = 0; i < size; i++) {
+            builder.append(data[i]);
+            builder.append(" ");
+        }
+
+        builder.append("|");
+        return builder.toString();
+    }
 }

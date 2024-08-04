@@ -3,6 +3,7 @@ package com.github.polyrocketmatt.peak.api.buffer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -77,6 +78,13 @@ public interface DataBuffer<T> extends DataBufferArithmetic<T> {
     void rand();
 
     /**
+     * Fill the buffer with the given value.
+     *
+     * @param value the value to fill the buffer with
+     */
+    void fill(@NotNull T value);
+
+    /**
      * Get a stream of the buffer values.
      *
      * @return the stream
@@ -89,6 +97,13 @@ public interface DataBuffer<T> extends DataBufferArithmetic<T> {
      * @param action the action to execute
      */
     void forEachIndexed(@NotNull BiConsumer<Integer, T> action);
+
+    /**
+     * For each index in the buffer, map the value to a new value using the given function.
+     *
+     * @param function the function to map the values
+     */
+    void mapIndexed(@NotNull BiFunction<Integer, T, T> function);
 
     /**
      * Map the buffer values to a new value using the given function.
@@ -119,5 +134,7 @@ public interface DataBuffer<T> extends DataBufferArithmetic<T> {
      * @return the copy
      */
     DataBuffer<T> copy();
+
+    String prettyPrint();
 
 }

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -26,6 +27,8 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
 
         int chunks = size / chunkSize + 1;
         this.executeParallel = context.autoParallel() ? (chunks >= 8192) : context.parallel();
+
+        fill(0.0f);
     }
 
     protected AbstractDataBufferFloat(int size, int chunkSize, Float[] data, boolean executeParallel) {
@@ -33,6 +36,16 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
         this.chunkSize = chunkSize;
         this.data = data;
         this.executeParallel = executeParallel;
+    }
+
+    @Override
+    public String toString() {
+        return "DataBufferFloat1D{" +
+                "size=" + size +
+                ", chunkSize=" + chunkSize +
+                ", data=" + Arrays.toString(data) +
+                ", executeParallel=" + executeParallel +
+                '}';
     }
 
     @Override
@@ -55,6 +68,14 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
             IntStream.range(0, size).parallel().forEach(i -> action.accept(i, data[i]));
         else
             IntStream.range(0, size).forEach(i -> action.accept(i, data[i]));
+    }
+
+    @Override
+    public void mapIndexed(@NotNull BiFunction<Integer, Float, Float> function) {
+        if (executeParallel)
+            IntStream.range(0, size).parallel().forEach(i -> data[i] = function.apply(i, data[i]));
+        else
+            IntStream.range(0, size).forEach(i -> data[i] = function.apply(i, data[i]));
     }
 
     @Override
@@ -90,7 +111,18 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
 
     @Override
     public void rand() {
-        map(value -> (float) Math.random());
+        if (executeParallel)
+            Arrays.parallelSetAll(data, i -> (float) Math.random());
+        else
+            Arrays.setAll(data, i -> (float) Math.random());
+    }
+
+    @Override
+    public void fill(@NotNull Float value) {
+        if (executeParallel)
+            Arrays.parallelSetAll(data, i -> value);
+        else
+            Arrays.fill(data, value);
     }
 
     @Override
@@ -186,11 +218,6 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     @Override
     public @NotNull DataBuffer<Float> scale(@NotNull Float value) {
         return mul(value);
-    }
-
-    @Override
-    public @NotNull DataBuffer<Float> shift(int offset, int axis, int direction, boolean circular) {
-        throw new UnsupportedOperationException("Shifting is not yet supported for 1D buffers");
     }
 
 }
