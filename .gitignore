@@ -1,0 +1,32 @@
+# Ignore Gradle build outputs
+/build/
+**/build/
+
+# Ignore IntelliJ IDEA project files
+/.idea/
+/*.iml
+*.iml
+*.ipr
+*.iws
+
+# Ignore Eclipse project files
+/.project
+/.classpath
+/.settings/
+/.settings/
+
+# Ignore NetBeans project files
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore generated files from Gradle and tools
+.gradle/
+out/
+bin/

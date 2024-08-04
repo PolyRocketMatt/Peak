@@ -1,0 +1,45 @@
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'com.github.polyrocketmatt'
+version = '0.0.1'
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    //testImplementation platform('org.junit:junit-bom:5.10.0')
+
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
+    // Usage of the core Peak library.
+    implementation project(':peak-impl')
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes(
+                'API-Title': project.name,
+                'API-Version': project.version
+        )
+    }
+}
+
+tasks.named('shadowJar') {
+    manifest {
+        attributes(
+                'API-Title': project.name,
+                'API-Version': project.version
+        )
+    }
+}
