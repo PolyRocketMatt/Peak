@@ -20,6 +20,11 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
         this.data = new Float[size];
     }
 
+    private SimpleDataChunkFloat(int size, Float[] data) {
+        this.size = size;
+        this.data = data;
+    }
+
     @Override
     public @NotNull Float get(int index) {
         if (index < 0 || index >= data.length)
@@ -62,5 +67,10 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
     @Override
     public @NotNull Float average() {
         return sum() / size;
+    }
+
+    @Override
+    public @NotNull DataChunk<Float> copy() {
+        return new SimpleDataChunkFloat(size, data);
     }
 }

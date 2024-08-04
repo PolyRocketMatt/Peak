@@ -73,4 +73,11 @@ public interface DataBuffer<T> {
      */
     <R> @NotNull Stream<R> mapTo(@NotNull Function<DataChunk<T>, R> function);
 
+    /**
+     * Create a copy of this buffer.
+     *
+     * @return the copy
+     */
+    DataBuffer<T> copy();
+
 }

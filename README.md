@@ -12,5 +12,4 @@
 
 # Peak
 
-Peak is a library that is aimed at performing computations related to noise and signal processing.
-It has 
+Peak is a **signal processing library** that aims to allow processing and/or construction of signals.

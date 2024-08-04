@@ -71,4 +71,11 @@ public interface DataChunk<T> {
      */
     @NotNull T average();
 
+    /**
+     * Create a copy of this chunk.
+     *
+     * @return the copy
+     */
+    @NotNull DataChunk<T> copy();
+
 }

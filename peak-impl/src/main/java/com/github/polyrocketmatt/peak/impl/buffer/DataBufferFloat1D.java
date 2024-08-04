@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.peak.impl.buffer;
 
+import com.github.polyrocketmatt.peak.api.buffer.DataBuffer;
 import com.github.polyrocketmatt.peak.api.buffer.DataBuffer1D;
 import com.github.polyrocketmatt.peak.api.buffer.DataBufferType;
 import com.github.polyrocketmatt.peak.api.data.DataChunk;
@@ -18,7 +19,7 @@ public class DataBufferFloat1D implements DataBuffer1D<Float> {
 
     private final int size;
     private final int chunkSize;
-    private final List<SimpleDataChunkFloat> data;
+    private final List<DataChunk<Float>> data;
 
     private final boolean executeParallel;
 
@@ -39,6 +40,13 @@ public class DataBufferFloat1D implements DataBuffer1D<Float> {
                 break;
             data.add(new SimpleDataChunkFloat(chunkSizeActual));
         }
+    }
+
+    private DataBufferFloat1D(int size, int chunkSize, List<DataChunk<Float>> data, boolean executeParallel) {
+        this.size = size;
+        this.chunkSize = chunkSize;
+        this.data = data;
+        this.executeParallel = executeParallel;
     }
 
     @Override
@@ -94,4 +102,10 @@ public class DataBufferFloat1D implements DataBuffer1D<Float> {
         return (executeParallel) ? data.parallelStream().map(function) : data.stream().map(function);
     }
 
+    @Override
+    public DataBuffer<Float> copy() {
+        List<DataChunk<Float>> dataCopy = new ArrayList<>(data.size());
+        data.forEach(chunk -> dataCopy.add(chunk.copy()));
+        return new DataBufferFloat1D(size, chunkSize, dataCopy, executeParallel);
+    }
 }
