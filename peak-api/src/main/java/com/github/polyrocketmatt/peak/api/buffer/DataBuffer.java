@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface DataBuffer<T> {
+public interface DataBuffer<T> extends DataBufferOperations<T>{
 
     /**
      * Get the {@link DataBufferType} of this buffer.
@@ -24,6 +24,14 @@ public interface DataBuffer<T> {
      * @see DataBufferType
      */
     @NotNull DataBufferType getBufferType();
+
+    /**
+     * Get the chunk at the given index.
+     *
+     * @param index the index of the chunk
+     * @return the chunk
+     */
+    @NotNull DataChunk<T> getChunk(int index);
 
     /**
      * Get the minimum value in the buffer.
@@ -72,6 +80,14 @@ public interface DataBuffer<T> {
      * @return a stream of the mapped values
      */
     <R> @NotNull Stream<R> mapTo(@NotNull Function<DataChunk<T>, R> function);
+
+    /**
+     * Check if this buffer is similar in both type and dimensions to the given buffer.
+     *
+     * @param buffer the buffer to compare
+     * @return true if the buffers are similar, false otherwise
+     */
+    boolean isSimilar(@NotNull DataBuffer<T> buffer);
 
     /**
      * Create a copy of this buffer.

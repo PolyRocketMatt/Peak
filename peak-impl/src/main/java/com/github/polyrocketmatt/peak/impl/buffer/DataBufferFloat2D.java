@@ -10,47 +10,31 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class DataBufferFloat2D implements DataBuffer2D<Float> {
+public class DataBufferFloat2D extends AbstractDataBufferFloat implements DataBuffer2D<Float> {
 
     private final int width;
     private final int height;
-    private final int size;
-    private final int chunkSize;
-    private final List<DataChunk<Float>> data;
-
-    private final boolean executeParallel;
 
     protected DataBufferFloat2D(int width, int height) {
         this(width, height, DataChunkContext.DEFAULT);
     }
 
     protected DataBufferFloat2D(int width, int height, DataChunkContext context) {
-        this.chunkSize = context.chunkSize();
-        int chunks = (width * height) / chunkSize + 1;
+        super(width * height, context);
+
         this.width = width;
         this.height = height;
-        this.size = width * height;
-        this.data = new ArrayList<>();
-        this.executeParallel = context.autoParallel() ? (chunks >= 8192) : context.parallel();
-
-        for (int i = 0; i < chunks; i++) {
-            int chunkSizeActual = Math.min(chunkSize, size - i * chunkSize);
-            if (chunkSizeActual <= 0)
-                break;
-            data.add(new SimpleDataChunkFloat(chunkSizeActual));
-        }
     }
 
-    private DataBufferFloat2D(int width, int height, int chunkSize, List<DataChunk<Float>> data, boolean executeParallel) {
+    protected DataBufferFloat2D(int width, int height, int chunkSize, List<DataChunk<Float>> data, boolean executeParallel) {
+        super(width * height, chunkSize, data, executeParallel);
+
         this.width = width;
         this.height = height;
-        this.size = width * height;
-        this.chunkSize = chunkSize;
-        this.data = data;
-        this.executeParallel = executeParallel;
     }
 
     @Override
@@ -67,6 +51,14 @@ public class DataBufferFloat2D implements DataBuffer2D<Float> {
     public @NotNull DataBufferType getBufferType() {
         return DataBufferType.FLOAT_2D;
     }
+
+    @Override
+    public @NotNull DataChunk<Float> getChunk(int index) {
+        if (index < 0 || index >= data.size())
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        return data.get(index);
+    }
+
 
     @Override
     public @NotNull Float min() {
@@ -107,9 +99,75 @@ public class DataBufferFloat2D implements DataBuffer2D<Float> {
     }
 
     @Override
-    public DataBuffer<Float> copy() {
+    public boolean isSimilar(@NotNull DataBuffer<Float> buffer) {
+        if (!(buffer instanceof DataBufferFloat2D buffer2d))
+            return false;
+        return width == buffer2d.width && height == buffer2d.height && size == buffer2d.size && chunkSize == buffer2d.chunkSize;
+    }
+
+    @Override
+    public DataBufferFloat2D copy() {
         List<DataChunk<Float>> dataCopy = new ArrayList<>(data.size());
         data.forEach(chunk -> dataCopy.add(chunk.copy()));
         return new DataBufferFloat2D(width, height, chunkSize, dataCopy, executeParallel);
     }
+
+    @Override
+    public @NotNull DataBufferFloat2D add(@NotNull DataBuffer<Float> buffer) {
+        if (!isSimilar(buffer))
+            throw new IllegalArgumentException("Buffer is not similar to this buffer");
+        forEachChunk(buffer, DataChunk::add);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D add(@NotNull Float value) {
+        forEachChunk(value, DataChunk::add);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D sub(@NotNull DataBuffer<Float> buffer) {
+        if (!isSimilar(buffer))
+            throw new IllegalArgumentException("Buffer is not similar to this buffer");
+        forEachChunk(buffer, DataChunk::sub);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D sub(@NotNull Float value) {
+        forEachChunk(value, DataChunk::sub);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D mul(@NotNull DataBuffer<Float> buffer) {
+        if (!isSimilar(buffer))
+            throw new IllegalArgumentException("Buffer is not similar to this buffer");
+        forEachChunk(buffer, DataChunk::mul);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D mul(@NotNull Float value) {
+        forEachChunk(value, DataChunk::mul);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D div(@NotNull DataBuffer<Float> buffer) {
+        if (!isSimilar(buffer))
+            throw new IllegalArgumentException("Buffer is not similar to this buffer");
+        forEachChunk(buffer, DataChunk::div);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBufferFloat2D div(@NotNull Float value) {
+        if (value == 0.0f)
+            throw new IllegalArgumentException("Division by zero");
+        forEachChunk(value, DataChunk::div);
+        return this;
+    }
+
 }
