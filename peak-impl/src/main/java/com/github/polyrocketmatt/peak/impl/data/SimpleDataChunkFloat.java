@@ -163,21 +163,41 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
 
     @Override
     public void shiftLeft(int offset, boolean circular) throws DataComputationException {
-        if (circular)
-            for (int i = 0; i < size; i++)
-                data[i] = data[(i + offset) % size];
-        else
-            for (int i = 0; i < size; i++)
-                data[i] = i + offset < size ? data[i + offset] : 0;
+        if (offset < 0)
+            shiftRight(-offset, circular);
+        else {
+
+            Float[] tmp = Arrays.copyOf(data, size);
+            if (circular)
+                for (int i = 0; i < size; i++)
+                    data[i] = tmp[(i + offset) % size];
+            else
+                for (int i = 0; i < size; i++)
+                    data[i] = i + offset < size ? tmp[i + offset] : 0;
+        }
     }
 
     @Override
     public void shiftRight(int offset, boolean circular) throws DataComputationException {
-        if (circular)
-            for (int i = 0; i < size; i++)
-                data[i] = data[(i - offset + size) % size];
-        else
-            for (int i = 0; i < size; i++)
-                data[i] = i - offset >= 0 ? data[i - offset] : 0;
+        if (offset < 0)
+            shiftLeft(-offset, circular);
+        else {
+            Float[] tmp = Arrays.copyOf(data, size);
+            if (circular)
+                for (int i = 0; i < size; i++)
+                    data[i] = tmp[(i - offset + size) % size];
+            else
+                for (int i = 0; i < size; i++)
+                    data[i] = i - offset >= 0 ? tmp[i - offset] : 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleDataChunkFloat{" +
+                "index=" + index +
+                ", size=" + size +
+                ", data=" + Arrays.toString(data) +
+                '}';
     }
 }

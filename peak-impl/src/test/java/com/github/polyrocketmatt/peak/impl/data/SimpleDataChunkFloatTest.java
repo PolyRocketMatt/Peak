@@ -199,4 +199,77 @@ public class SimpleDataChunkFloatTest {
         assertThrows(ArithmeticException.class, () -> chunk.div(0.0f));
     }
 
+    @Test void testScale() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        chunk.fill(1.0f);
+        chunk.scale(2.0f);
+
+        assertEquals(8.0f, chunk.sum());
+    }
+
+    @Test void testShiftLeftCircular() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        chunk.shiftLeft(2, true);
+
+        assertEquals(10.0f, chunk.sum());
+    }
+
+    @Test void testShiftLeft() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        chunk.shiftLeft(2, false);
+
+        assertEquals(7.0f, chunk.sum());
+    }
+
+    @Test void testShiftLeftSwitchedIndex() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        System.out.println(chunk);
+        chunk.shiftLeft(-2, false);
+        System.out.println(chunk);
+
+        assertEquals(3.0f, chunk.sum());
+    }
+
+    @Test void testShiftRightCircular() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        chunk.shiftRight(2, true);
+
+        assertEquals(10.0f, chunk.sum());
+    }
+
+    @Test void testShiftRight() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        chunk.shiftRight(2, false);
+
+        assertEquals(3.0f, chunk.sum());
+    }
+
+    @Test void testShiftRightSwitchedIndex() {
+        SimpleDataChunkFloat chunk = new SimpleDataChunkFloat(1, 4);
+
+        for (int i = 0; i < 4; i++)
+            chunk.set(i, (float) (i + 1));
+        System.out.println(chunk);
+        chunk.shiftRight(-2, false);
+        System.out.println(chunk);
+
+        assertEquals(7.0f, chunk.sum());
+    }
+
 }
