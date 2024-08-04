@@ -133,6 +133,6 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
 
     @Override
     public @NotNull DataChunk<Float> copy() {
-        return new SimpleDataChunkFloat(size, data);
+        return new SimpleDataChunkFloat(index, size, data);
     }
 }
