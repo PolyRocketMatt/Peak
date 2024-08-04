@@ -71,4 +71,10 @@ public interface DataChunkOperations<T> {
      */
     void div(@NotNull T value) throws DataComputationException, ArithmeticException;
 
+    void scale(@NotNull T value) throws DataComputationException;
+
+    void shiftRight(int offset, boolean circular) throws DataComputationException;
+
+    void shiftLeft(int offset, boolean circular) throws DataComputationException;
+
 }

@@ -155,4 +155,29 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
         for (int i = 0; i < size; i++)
             data[i] /= value;
     }
+
+    @Override
+    public void scale(@NotNull Float value) throws DataComputationException {
+        mul(value);
+    }
+
+    @Override
+    public void shiftLeft(int offset, boolean circular) throws DataComputationException {
+        if (circular)
+            for (int i = 0; i < size; i++)
+                data[i] = data[(i + offset) % size];
+        else
+            for (int i = 0; i < size; i++)
+                data[i] = i + offset < size ? data[i + offset] : 0;
+    }
+
+    @Override
+    public void shiftRight(int offset, boolean circular) throws DataComputationException {
+        if (circular)
+            for (int i = 0; i < size; i++)
+                data[i] = data[(i - offset + size) % size];
+        else
+            for (int i = 0; i < size; i++)
+                data[i] = i - offset >= 0 ? data[i - offset] : 0;
+    }
 }
