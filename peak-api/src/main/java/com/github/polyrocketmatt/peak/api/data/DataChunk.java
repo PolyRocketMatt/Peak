@@ -15,9 +15,21 @@ import java.util.function.Function;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface DataChunk<T> {
+public interface DataChunk<T> extends DataChunkOperations<T> {
 
+    /**
+     * Get the index of this chunk.
+     *
+     * @return the index
+     */
     int getIndex();
+
+    /**
+     * Get the size of this chunk.
+     *
+     * @return the size
+     */
+    int getSize();
 
     /**
      * Get the value at the given index.
@@ -74,70 +86,16 @@ public interface DataChunk<T> {
     @NotNull T average();
 
     /**
-     * Add the values of the given chunk to this chunk.
+     * Fill this chunk with the given value.
      *
-     * @param chunk the chunk to add
-     * @throws DataComputationException if an error occurs during computation
+     * @param value the value to fill with
      */
-    void add(@NotNull DataChunk<T> chunk) throws DataComputationException;
+    void fill(@NotNull T value);
 
     /**
-     * Add the given value to all values in this chunk.
-     *
-     * @param value the value to add
-     * @throws DataComputationException if an error occurs during computation
+     * Randomize the values in this chunk.
      */
-    void add(@NotNull T value) throws DataComputationException;
-
-    /**
-     * Subtract the values of the given chunk from this chunk.
-     *
-     * @param chunk the chunk to subtract
-     * @throws DataComputationException if an error occurs during computation
-     */
-    void sub(@NotNull DataChunk<T> chunk) throws DataComputationException;
-
-    /**
-     * Subtract the given value from all values in this chunk.
-     *
-     * @param value the value to subtract
-     * @throws DataComputationException if an error occurs during computation
-     */
-    void sub(@NotNull T value) throws DataComputationException;
-
-    /**
-     * Multiply the values of this chunk with the values of the given chunk.
-     *
-     * @param chunk the chunk to multiply
-     * @throws DataComputationException if an error occurs during computation
-     */
-    void mul(@NotNull DataChunk<T> chunk) throws DataComputationException;
-
-    /**
-     * Multiply all values in this chunk with the given value.
-     *
-     * @param value the value to multiply
-     * @throws DataComputationException if an error occurs during computation
-     */
-    void mul(@NotNull T value) throws DataComputationException;
-
-    /**
-     * Divide the values of this chunk by the values of the given chunk.
-     *
-     * @param chunk the chunk to divide
-     * @throws DataComputationException if an error occurs during computation
-     * @throws ArithmeticException if division by zero occurs
-     */
-    void div(@NotNull DataChunk<T> chunk) throws DataComputationException, ArithmeticException;
-
-    /**
-     * Divide all values in this chunk by the given value.
-     *
-     * @param value the value to divide
-     * @throws DataComputationException if an error occurs during computation
-     * @throws ArithmeticException if division by zero occurs
-     */
-    void div(@NotNull T value) throws DataComputationException, ArithmeticException;
+    void rand();
 
     /**
      * Create a copy of this chunk.

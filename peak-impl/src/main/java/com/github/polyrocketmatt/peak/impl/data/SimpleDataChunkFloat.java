@@ -22,6 +22,8 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
         this.index = index;
         this.size = size;
         this.data = new Float[size];
+
+        Arrays.fill(data, 0f);
     }
 
     private SimpleDataChunkFloat(int index, int size, Float[] data) {
@@ -33,6 +35,11 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 
     @Override
@@ -60,7 +67,7 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
     }
 
     @Override
-    public @NotNull Float min() throws NoSuchElementException{
+    public @NotNull Float min() throws NoSuchElementException {
         return Arrays.stream(data).min(Float::compareTo).orElseThrow();
     }
 
@@ -77,6 +84,22 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
     @Override
     public @NotNull Float average() {
         return sum() / size;
+    }
+
+    @Override
+    public void fill(@NotNull Float value) {
+        Arrays.fill(data, value);
+    }
+
+    @Override
+    public void rand() {
+        for (int i = 0; i < size; i++)
+            data[i] = (float) Math.random();
+    }
+
+    @Override
+    public @NotNull SimpleDataChunkFloat copy() {
+        return new SimpleDataChunkFloat(index, size, data);
     }
 
     @Override
@@ -127,12 +150,9 @@ public class SimpleDataChunkFloat implements DataChunk<Float> {
 
     @Override
     public void div(@NotNull Float value) throws DataComputationException {
+        if (value == 0)
+            throw new ArithmeticException("Division by zero");
         for (int i = 0; i < size; i++)
             data[i] /= value;
-    }
-
-    @Override
-    public @NotNull DataChunk<Float> copy() {
-        return new SimpleDataChunkFloat(index, size, data);
     }
 }
