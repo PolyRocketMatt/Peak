@@ -1,6 +1,7 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'com.github.polyrocketmatt'
@@ -34,3 +35,13 @@ tasks.named('jar') {
         )
     }
 }
+
+tasks.named('shadowJar') {
+    manifest {
+        attributes(
+                'API-Title': project.name,
+                'API-Version': project.version
+        )
+    }
+}
+

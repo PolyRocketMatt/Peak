@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'com.github.polyrocketmatt'
@@ -26,15 +25,6 @@ tasks.named('test') {
 }
 
 tasks.named('jar') {
-    manifest {
-        attributes(
-                'API-Title': project.name,
-                'API-Version': project.version
-        )
-    }
-}
-
-tasks.named('shadowJar') {
     manifest {
         attributes(
                 'API-Title': project.name,
