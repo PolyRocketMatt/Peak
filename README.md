@@ -4,9 +4,9 @@
 
 <p align="center">
     <picture>
-        <source srcset="img/peak-white-128.png" media="(prefers-color-scheme: dark)">
-        <source srcset="img/peak-128.png" media="(prefers-color-scheme: light)">
-        <img width="128" height="128" src="img/peak-white-128.png" />
+        <source srcset="img/peak-white-512.png" media="(prefers-color-scheme: dark)">
+        <source srcset="img/peak-512.png" media="(prefers-color-scheme: light)">
+        <img width="128" height="128" src="img/peak-white-512.png" />
     </picture>
 </p>
 
