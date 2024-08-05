@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.peak.api.buffer;
 
+import com.github.polyrocketmatt.peak.api.window.DataBufferWindowing;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -16,7 +17,14 @@ import java.util.stream.Stream;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface DataBuffer<T> extends DataBufferArithmetic<T> {
+public interface DataBuffer<T> extends DataBufferOperations<T>, DataBufferWindowing<T> {
+
+    /**
+     * Get the size of the buffer.
+     *
+     * @return the size
+     */
+    int size();
 
     /**
      * Get the {@link DataBufferType} of this buffer.
@@ -25,6 +33,14 @@ public interface DataBuffer<T> extends DataBufferArithmetic<T> {
      * @see DataBufferType
      */
     @NotNull DataBufferType getBufferType();
+
+    /**
+     * Get the {@link DataBufferDimension} of this buffer.
+     *
+     * @return the buffer dimension
+     * @see DataBufferDimension
+     */
+    @NotNull DataBufferDimension getBufferDimension();
 
     /**
      * Get the element at the given index.

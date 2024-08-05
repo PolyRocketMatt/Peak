@@ -1,8 +1,12 @@
 package com.github.polyrocketmatt.peak.impl.buffer;
 
 import com.github.polyrocketmatt.peak.api.buffer.DataBuffer;
+import com.github.polyrocketmatt.peak.api.buffer.DataBufferDimension;
 import com.github.polyrocketmatt.peak.api.buffer.DataBufferType;
 import com.github.polyrocketmatt.peak.api.buffer.DataContext;
+import com.github.polyrocketmatt.peak.api.window.WindowContext;
+import com.github.polyrocketmatt.peak.api.window.WindowFunction;
+import com.github.polyrocketmatt.peak.impl.window.ctx.EmptyContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -80,8 +84,18 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     }
 
     @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
     public @NotNull DataBufferType getBufferType() {
-        return DataBufferType.FLOAT_1D;
+        return DataBufferType.FLOAT;
+    }
+
+    @Override
+    public @NotNull DataBufferDimension getBufferDimension() {
+        return DataBufferDimension.ONE_DIMENSIONAL;
     }
 
     @Override
@@ -215,6 +229,12 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     }
 
     @Override
+    public @NotNull DataBuffer<Float> multIndexedBy(@NotNull BiFunction<Integer, Float, Float> function) {
+        mapIndexed((idx, val) -> val * function.apply(idx, val));
+        return this;
+    }
+
+    @Override
     public @NotNull DataBuffer<Float> div(@NotNull DataBuffer<Float> buffer) {
         if (!isSimilar(buffer))
             throw new IllegalArgumentException("Buffer is not similar to this buffer");
@@ -235,4 +255,32 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
         return mul(value);
     }
 
+    @Override
+    public @NotNull DataBuffer<Float> abs() {
+        map(Math::abs);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> normalize() {
+        float min = min();
+        float max = max();
+        float range = max - min;
+        if (range == 0.0f)
+            return this;
+        map(val -> (val - min) / range);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> window(WindowFunction window, WindowContext<Float> ctx) {
+        window.applyFloat(this, ctx);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> window(WindowFunction window) {
+        window.applyFloat(this, new EmptyContext<>());
+        return this;
+    }
 }

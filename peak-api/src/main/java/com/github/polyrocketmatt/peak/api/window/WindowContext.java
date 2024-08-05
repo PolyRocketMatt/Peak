@@ -1,4 +1,4 @@
 package com.github.polyrocketmatt.peak.api.window;
 
-public interface DataBufferWindow {
+public interface WindowContext<T> {
 }

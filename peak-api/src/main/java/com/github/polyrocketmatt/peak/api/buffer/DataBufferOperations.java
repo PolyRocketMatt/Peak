@@ -1,9 +1,10 @@
 package com.github.polyrocketmatt.peak.api.buffer;
 
-import com.github.polyrocketmatt.peak.api.exception.DataComputationException;
 import org.jetbrains.annotations.NotNull;
 
-public interface DataBufferArithmetic<T> {
+import java.util.function.BiFunction;
+
+public interface DataBufferOperations<T> {
 
     /**
      * Add the values of the given buffer to this buffer.
@@ -11,8 +12,7 @@ public interface DataBufferArithmetic<T> {
      * @param buffer the buffer to add
      * @return the buffer with the added values
      */
-    @NotNull
-    DataBuffer<T> add(@NotNull DataBuffer<T> buffer);
+    @NotNull DataBuffer<T> add(@NotNull DataBuffer<T> buffer);
 
     /**
      * Add the given value to all values in this buffer.
@@ -54,6 +54,8 @@ public interface DataBufferArithmetic<T> {
      */
     @NotNull DataBuffer<T> mul(@NotNull T value);
 
+    @NotNull DataBuffer<T> multIndexedBy(@NotNull BiFunction<Integer, T, T> function);
+
     /**
      * Divide the values of the given buffer by this buffer.
      *
@@ -79,5 +81,21 @@ public interface DataBufferArithmetic<T> {
      * @return the buffer with the scaled values
      */
     @NotNull DataBuffer<T> scale(@NotNull T value);
+
+    /**
+     * Get the absolute values of all elements in this buffer.
+     *
+     * @return the buffer with the absolute values
+     */
+    @NotNull DataBuffer<T> abs();
+
+    /**
+     * Normalize the values in this buffer.
+     *
+     * @return the buffer with the normalized values
+     */
+    @NotNull DataBuffer<T> normalize();
+
+    //  TODO: square, sqrt, ...
 
 }

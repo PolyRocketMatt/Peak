@@ -9,10 +9,6 @@ package com.github.polyrocketmatt.peak.api.buffer;
  */
 public enum DataBufferType {
 
-    FLOAT_1D,
-    FLOAT_2D,
-
-    DOUBLE_1D,
-    DOUBLE_2D,
+    FLOAT, DOUBLE, INT
 
 }
