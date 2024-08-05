@@ -20,11 +20,11 @@ public class HanningWindow implements WindowFunction {
 
     @Override
     public void applyDouble(@NotNull DataBuffer<Double> buffer, @NotNull WindowContext<Double> ctx) {
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void applyInt(@NotNull DataBuffer<Integer> buffer, @NotNull WindowContext<Integer> ctx) {
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
