@@ -4,6 +4,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiFunction;
 
+/**
+ * Provides operations for manipulating the values of a {@link DataBuffer}.
+ *
+ * @param <T> the type of value in the buffer
+ *
+ * @author Matthias Kovacic
+ * @since 0.0.1
+ * @version 0.0.1
+ * @see DataBuffer
+ */
 public interface DataBufferOperations<T> {
 
     /**
