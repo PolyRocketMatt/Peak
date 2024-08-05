@@ -17,4 +17,8 @@ public class PeakConstants {
     public static final int FORWARD = 0;
     public static final int BACKWARD = 1;
 
+    /* NUMERICAL CONSTANTS */
+    public static final float PI = (float) Math.PI;
+    public static final float TWO_PI = 2 * PI;
+
 }

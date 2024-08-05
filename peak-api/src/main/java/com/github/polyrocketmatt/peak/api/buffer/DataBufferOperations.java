@@ -64,6 +64,12 @@ public interface DataBufferOperations<T> {
      */
     @NotNull DataBuffer<T> mul(@NotNull T value);
 
+    /**
+     * Multiply all values in this buffer with the evaluation of the function given the index and the value.
+     *
+     * @param function the function to evaluate
+     * @return the buffer with the multiplied values
+     */
     @NotNull DataBuffer<T> multIndexedBy(@NotNull BiFunction<Integer, T, T> function);
 
     /**
