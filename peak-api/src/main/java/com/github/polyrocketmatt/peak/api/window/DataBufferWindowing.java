@@ -24,7 +24,7 @@ public interface DataBufferWindowing<T> {
      * @return the buffer with the window function applied
      * @throws DataComputationException if an error occurs during computation
      */
-    @NotNull DataBuffer<T> window(WindowFunction window, WindowContext<T> ctx) throws DataComputationException;
+    @NotNull DataBuffer<T> window(WindowFunctionType window, WindowContext<T> ctx) throws DataComputationException;
 
     /**
      * Apply the given window function to the buffer.
@@ -33,6 +33,6 @@ public interface DataBufferWindowing<T> {
      * @return the buffer with the window function applied
      * @throws DataComputationException if an error occurs during computation
      */
-    @NotNull DataBuffer<T> window(WindowFunction window) throws DataComputationException;
+    @NotNull DataBuffer<T> window(WindowFunctionType window) throws DataComputationException;
 
 }

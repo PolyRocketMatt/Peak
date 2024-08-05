@@ -3,6 +3,7 @@ package com.github.polyrocketmatt.peak.api.buffer;
 import com.github.polyrocketmatt.peak.api.window.DataBufferWindowing;
 import org.jetbrains.annotations.NotNull;
 
+import javax.xml.crypto.Data;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -101,6 +102,14 @@ public interface DataBuffer<T> extends DataBufferOperations<T>, DataBufferWindow
     @NotNull DataBuffer<T> fill(@NotNull T value);
 
     /**
+     * Fill the buffer with the given function that takes the index as an argument.
+     *
+     * @param function the function to fill the buffer with
+     * @return the buffer
+     */
+    @NotNull DataBuffer<T> fillIndexed(@NotNull Function<Integer, T> function);
+
+    /**
      * Get a stream of the buffer values.
      *
      * @return the stream
@@ -111,22 +120,32 @@ public interface DataBuffer<T> extends DataBufferOperations<T>, DataBufferWindow
      * For each index in the buffer, execute the given action.
      *
      * @param action the action to execute
+     * @return the buffer
      */
-    void forEachIndexed(@NotNull BiConsumer<Integer, T> action);
+    @NotNull DataBuffer<T> forEachIndexed(@NotNull BiConsumer<Integer, T> action);
 
     /**
      * For each index in the buffer, map the value to a new value using the given function.
      *
      * @param function the function to map the values
+     * @return the buffer
      */
-    void mapIndexed(@NotNull BiFunction<Integer, T, T> function);
+    @NotNull DataBuffer<T> mapIndexed(@NotNull BiFunction<Integer, T, T> function);
+
+    /**
+     * Map the buffer values to their index.
+     *
+     * @return the buffer
+     */
+    @NotNull DataBuffer<T> mapToIndex();
 
     /**
      * Map the buffer values to a new value using the given function.
      *
      * @param function the function to map the values
+     * @return the buffer
      */
-    void map(@NotNull Function<T, T> function);
+    @NotNull DataBuffer<T> map(@NotNull Function<T, T> function);
 
     /**
      * Map the buffer values to a new value using the given function.

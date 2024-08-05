@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.abs;
 
-public class BarlettWindow implements WindowFunction {
+public class BartlettWindow implements WindowFunction {
 
-    protected BarlettWindow() {}
+    protected BartlettWindow() {}
 
     @Override
     public void applyFloat(@NotNull DataBuffer<Float> buffer, @NotNull WindowContext<Float> ctx) {

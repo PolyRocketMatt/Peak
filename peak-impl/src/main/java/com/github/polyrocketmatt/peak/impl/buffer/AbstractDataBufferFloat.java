@@ -6,9 +6,12 @@ import com.github.polyrocketmatt.peak.api.buffer.DataBufferType;
 import com.github.polyrocketmatt.peak.api.buffer.DataContext;
 import com.github.polyrocketmatt.peak.api.window.WindowContext;
 import com.github.polyrocketmatt.peak.api.window.WindowFunction;
+import com.github.polyrocketmatt.peak.api.window.WindowFunctionType;
+import com.github.polyrocketmatt.peak.impl.window.WindowFunctions;
 import com.github.polyrocketmatt.peak.impl.window.ctx.EmptyContext;
 import org.jetbrains.annotations.NotNull;
 
+import javax.xml.crypto.Data;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -65,22 +68,6 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         data[index] = value;
-    }
-
-    @Override
-    public void forEachIndexed(@NotNull BiConsumer<Integer, Float> action) {
-        if (executeParallel)
-            IntStream.range(0, size).parallel().forEach(i -> action.accept(i, data[i]));
-        else
-            IntStream.range(0, size).forEach(i -> action.accept(i, data[i]));
-    }
-
-    @Override
-    public void mapIndexed(@NotNull BiFunction<Integer, Float, Float> function) {
-        if (executeParallel)
-            IntStream.range(0, size).parallel().forEach(i -> data[i] = function.apply(i, data[i]));
-        else
-            IntStream.range(0, size).forEach(i -> data[i] = function.apply(i, data[i]));
     }
 
     @Override
@@ -143,16 +130,53 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     }
 
     @Override
+    public @NotNull DataBuffer<Float> fillIndexed(@NotNull Function<Integer, Float> function) {
+        if (executeParallel)
+            Arrays.parallelSetAll(data, function::apply);
+        else
+            Arrays.setAll(data, function::apply);
+        return this;
+    }
+
+    @Override
     public Stream<Float> stream() {
         return Arrays.stream(data);
     }
 
     @Override
-    public void map(@NotNull Function<Float, Float> function) {
+    public @NotNull DataBuffer<Float> forEachIndexed(@NotNull BiConsumer<Integer, Float> action) {
+        if (executeParallel)
+            IntStream.range(0, size).parallel().forEach(i -> action.accept(i, data[i]));
+        else
+            IntStream.range(0, size).forEach(i -> action.accept(i, data[i]));
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> mapIndexed(@NotNull BiFunction<Integer, Float, Float> function) {
+        if (executeParallel)
+            IntStream.range(0, size).parallel().forEach(i -> data[i] = function.apply(i, data[i]));
+        else
+            IntStream.range(0, size).forEach(i -> data[i] = function.apply(i, data[i]));
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> mapToIndex() {
+        if (executeParallel)
+            Arrays.parallelSetAll(data, i -> (float) i);
+        else
+            Arrays.setAll(data, i -> (float) i);
+        return this;
+    }
+
+    @Override
+    public @NotNull DataBuffer<Float> map(@NotNull Function<Float, Float> function) {
         if (executeParallel)
             Arrays.parallelSetAll(data, i -> function.apply(data[i]));
         else
             Arrays.setAll(data, i -> function.apply(data[i]));
+        return this;
     }
 
     @Override
@@ -273,14 +297,14 @@ public abstract class AbstractDataBufferFloat implements DataBuffer<Float> {
     }
 
     @Override
-    public @NotNull DataBuffer<Float> window(WindowFunction window, WindowContext<Float> ctx) {
-        window.applyFloat(this, ctx);
+    public @NotNull DataBuffer<Float> window(WindowFunctionType windowType, WindowContext<Float> ctx) {
+        WindowFunctions.get(windowType).applyFloat(this, ctx);
         return this;
     }
 
     @Override
-    public @NotNull DataBuffer<Float> window(WindowFunction window) {
-        window.applyFloat(this, new EmptyContext<>());
+    public @NotNull DataBuffer<Float> window(WindowFunctionType windowType) {
+        WindowFunctions.get(windowType).applyFloat(this, new EmptyContext<>());
         return this;
     }
 }
